@@ -17,11 +17,12 @@ Saint Charles Formularios
                 
             </div>
             <div class="card-body">
-                <form class="was-validated" action="/auth_proxy" method="GET">
+                <form class="was-validated" action="/auth_proxy" @method('POST')>
+                    @csrf
                     <div class="form-row">
                         <div class="form-group col-md-12">
-                            <label for="passwd">Ingrese su rut<br><span class="text-secondary"></span></label>
-                            <input type="email" class="form-control is-invalid" id="email" name="email" autofocus="" placeholder="12345678" required="">
+                            <label for="dni">Ingrese su rut<br><span class="text-secondary"></span></label>
+                            <input type="text" class="form-control is-invalid" id="dni" name="dni" autofocus="" placeholder="12345678" required="">
                         </div>
                         <div class="form-group col-md-12">
                             <label for="passwd">Contraseña<br></label>

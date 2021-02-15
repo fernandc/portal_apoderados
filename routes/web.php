@@ -10,3 +10,6 @@ Route::get('/', function () {
     // }
 });
 Route::get('/auth_proxy', [GlobalController::class, 'auth_proxy']);
+Route::get('/home',function(){
+    return view("home_proxy");
+});
