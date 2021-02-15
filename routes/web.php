@@ -13,3 +13,7 @@ Route::get('/auth_proxy', [GlobalController::class, 'auth_proxy']);
 Route::get('/home',function(){
     return view("home_proxy");
 });
+Route::get('/change_password', [GlobalController::class, 'change_password']);
+Route::get('/new_password', function(){
+    return view('new_password');
+});

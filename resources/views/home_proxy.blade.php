@@ -29,7 +29,7 @@ Saint Charles Formularios
     <hr>
     <div class="container">
         <h2 style="text-align: center">Matrículas</h2>
-        <h6 class="text-primary" style="text-align: center">{{$var["email"]}}</h6>
+        <h6 class="text-primary" style="text-align: center">{{$var["dni"]}}</h6>
         <div style="text-align: center;">
             <a href="/logout" class="btn btn-outline-danger text-danger">Salir</a>
         </div>

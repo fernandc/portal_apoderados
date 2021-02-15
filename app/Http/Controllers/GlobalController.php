@@ -20,23 +20,65 @@ class GlobalController extends Controller
         $status = $response->status();
         
         if($status == 200){
-            $data= $response->body();
-            session::put(['apoderado'=> $data]);
-            return redirect("/home");
+            $data= json_decode($response->body(),true);
+            if($data==NULL){
+                return back()->with('message','Usuario o contraseña incorrecto(s).');
+            }
+            else{
+                if($data[0]["date_login"] ==NULL){
+                    session::put(['apoderado'=> $data[0]]);
+                    return redirect('/new_password');
+                }
+                else{
+                    session::put(['apoderado'=> $data[0]]);
+                    return redirect("/new_password");     
+                }
+            }
         }else{
-            
         }
     }
 
-    public function getDataProxy(){
+    public function change_password(Request $request){
+        $oldPassword=Session::get('apoderado')["passwd"];
+        $dni= Session::get('apoderado')["dni"];
+        if($request->passwd == $oldPassword){
+            return back()->with('message', 'Ingrese una contraseña distinta a la actual.');
+        }
+        else{
+            if($request->passwd == $request->passwdconf)
+            {
+                if($request->email==NULL && $request->cellphone==NULL){
+                    return back()->with('message','Ingrese al menos un dato de contacto');
+                }
+                $arr = array(
+                    'institution' => getenv("APP_NAME"),
+                    'public_key' => getenv("APP_PUBLIC_KEY"),
+                    'method' => 'change_pass',
+                    'data' => ["dni" => $dni, "passwd" => $request->passwd]
+                );
+                $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+                
+                $arrContact = array(
+                    'institution' => getenv("APP_NAME"),
+                    'public_key' => getenv("APP_PUBLIC_KEY"),
+                    'method' => 'up_first_data',
+                    'data' => ["dni" => $dni, "email" => $request->email, "cell_phone" => $request->cell_phone]
+                );
 
-        $arr = array(
-            'institution' => getenv("APP_NAME"),
-            'public_key' => getenv("APP_PUBLIC_KEY"),
-            'method' => '',
-            'data' => ['']
-        );
-        $response = Http::withBody(json_encode)->get("https://scc.clouping.com/api-apoderado");
+                $responseContact = Http::withBody(json_encode($arrContact), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+                if($response == "DONE" && $responseContact=="DONE"){
+                    dd("funciono la wea");
+                }
+                else{
+                    if($response== "FAILED" || $responseContact== "FAILED"){
+                        return back()->with('message','Error inesperado.');
+                    }
+                }
+            }
+            else{
+                return back()->with('message','Las contraseñas deben coincidir');
+            }
+        }
     }
 
     
