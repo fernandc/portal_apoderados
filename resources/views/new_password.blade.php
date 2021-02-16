@@ -1,7 +1,7 @@
 <!DOCTYPE html> 
 @extends("layouts.mcdn")
 @section("title")
-Test Section
+Cambio de contraseña
 @endsection
 
 @section("headex")

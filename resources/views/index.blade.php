@@ -24,7 +24,7 @@ Saint Charles Formularios
                             <div class="alert alert-danger">{{ session('message') }}</div>
                         @endif
                         <div class="form-group col-md-12">
-                            <label for="dni">Ingrese su rut<br><span class="text-secondary"></span></label>
+                            <label for="dni">Ingrese su rut<br></label>
                             <input type="text" class="form-control is-invalid" id="dni" name="dni" autofocus="" placeholder="12345678" required="">
                         </div>
                         <div class="form-group col-md-12">

@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Session;
 class GlobalController extends Controller
 {
     public function auth_proxy(Request $request){
-        //dd(getenv("APP_NAME"));
         $gets = $request->input();
         $arr = array(
             'institution' => getenv("APP_NAME"),
@@ -31,10 +30,31 @@ class GlobalController extends Controller
                 }
                 else{
                     session::put(['apoderado'=> $data[0]]);
-                    return redirect("/new_password");     
+                    return redirect("/home");     
                 }
             }
         }else{
+            return back()->with('message','Error interno.');
+        }
+    }
+
+    public function auth_admin(Request $request){
+        $gets= $request->input();
+        $arr = array(
+            'institution' => getenv("APP_NAME"),
+            'public_key' => getenv("APP_PUBLIC_KEY"),
+            'method' => 'passAdmin',
+            'data' => ["passAdmin" => $gets["passAdmin"]]
+        );
+        $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+        $status = $response->status();
+        $data = json_decode($response->body(),true);
+        if($response== "DONE"){ 
+            session::put(['admin' => "admin"]);
+            return redirect('/admin_home');
+        }
+        else{
+            return back()->with('message','Contraseña incorrecta');
         }
     }
 
@@ -48,7 +68,7 @@ class GlobalController extends Controller
             if($request->passwd == $request->passwdconf)
             {
                 if($request->email==NULL && $request->cellphone==NULL){
-                    return back()->with('message','Ingrese al menos un dato de contacto');
+                    return back()->with('message','Ingrese al menos un dato de contacto.');
                 }
                 $arr = array(
                     'institution' => getenv("APP_NAME"),
@@ -67,7 +87,7 @@ class GlobalController extends Controller
 
                 $responseContact = Http::withBody(json_encode($arrContact), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
                 if($response == "DONE" && $responseContact=="DONE"){
-                    dd("funciono la wea");
+                    return $this->logout();
                 }
                 else{
                     if($response== "FAILED" || $responseContact== "FAILED"){
@@ -81,7 +101,20 @@ class GlobalController extends Controller
         }
     }
 
-    
+    public function admin_home(){
+        
+    }
 
-    
+    public function logout(){
+        if(session::has('apoderado')){
+            session::forget('apoderado');
+            return redirect('/');
+        }
+        else{
+            session::forget('admin');
+            return redirect('/admin');
+        }
+    }
+
+       
 }

@@ -17,3 +17,13 @@ Route::get('/change_password', [GlobalController::class, 'change_password']);
 Route::get('/new_password', function(){
     return view('new_password');
 });
+
+Route::get('/admin', function(){
+    return view('admin');
+});
+
+Route::get('/auth_admin', [GlobalController::class, 'auth_admin']);
+
+Route::get('/admin_home', function(){
+    return view('admin_home');
+});
