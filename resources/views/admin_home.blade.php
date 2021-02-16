@@ -14,7 +14,7 @@ Saint Charles Formularios
             <h4 class="mt-3">Bienvenido al panel de administración.</h4>
             <hr>
             <button class="btn btn-success " type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                Agregar nuevo correo
+                Agregar nuevo apoderado
             </button>
             <a class="btn btn-outline-danger text-danger" href="/logout">Salir</a>
             <?php
@@ -29,31 +29,14 @@ Saint Charles Formularios
                     <form class="row" action="/add_new_user" method="POST">
                         @csrf
                         <div class="form-group col-4">
-                            <label for="emailAdd">Correo</label>
-                            <input type="email" class="form-control" name="email" placeholder="Correo" required="">
+                            <label for="emailAdd">Rut (sin puntos ni guión)</label>
+                            <input type="text" class="form-control" name="dni" placeholder="Rut" required="">
                         </div>
                         <div class="form-group col-4">
-                            <label for="rand">Contraseña:</label>
-                            <button class="btn btn-primary form-control" id="rand" type="button" value="null" onclick="makeid(6)">Generar contraseña</button>
-                            <input id="passwd" type="text" class="form-control" name="passwd" hidden="">
-                            <script>
-                            function makeid(length) {
-                                var result           = '';
-                                var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-                                var charactersLength = characters.length;
-                                for ( var i = 0; i < length; i++ ) {
-                                    result += characters.charAt(Math.floor(Math.random() * charactersLength));
-                                }
-                                $("#rand").html(result);
-                                $("#passwd").val(result);
-                                $("#rand").attr("disabled",true);
-                                $("#sendform").attr("disabled",false);
-                                }
-                            </script>
                         </div>
                         <div class="form-group col-4">
                             <label for="emailAdd" style="color: white;">.</label>
-                            <button id="sendform" type="submit" class="form-control btn btn-success" disabled="">Agregar</button>
+                            <button id="sendform" type="submit" class="form-control btn btn-success">Agregar</button>
                         </div>
                         @if(isset($exc))
                             <script>
@@ -68,13 +51,20 @@ Saint Charles Formularios
                 </div>
             </div>
             <hr>
-            
+            @if ( session('message') )
+                <div class="alert alert-success">{{ session('message') }}</div>
+            @endif
+            @if ( session('error') )
+                <div class="alert alert-danger">{{ session('error') }}</div>
+            @endif
             <!-- aplicar data table en español -->
             <div class="table-responsive">
                 <table class="table table-sm" style="text-align: center;" id="miFormulario">
                     <thead class="thead-light">
                         <tr>
+                            <th scope="col">Rut</th>
                             <th scope="col">Correo</th>
+                            <th scope="col">Celular</th>
                             <th scope="col">Contraseña</th>
                             <th scope="col">Último ingreso</th>
                             <th scope="col">Matriculados</th>
@@ -86,6 +76,8 @@ Saint Charles Formularios
                     <tbody>
                         @foreach($emails as $row)
                             <tr>
+                                <td>{{$row["dni"]}}</td>
+                                <td>{{$row["cell_phone"]}}</td>
                                 <td>{{$row["email"]}}</td>
                                 <td>{{$row["passwd"]}}</td>
                                 <td>
@@ -115,7 +107,7 @@ Saint Charles Formularios
                                         $("#btnmodal{{$row["id"]}}").click(function(){
                                             $.ajax({
                                                 type: "GET",
-                                                url: "get_students",
+                                                url: "datos_students",
                                                 data: "id={{$row["id"]}}", // serializes the form's elements.
                                                 success: function(data)
                                                 {

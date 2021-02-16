@@ -47,11 +47,10 @@ class GlobalController extends Controller
             'data' => ["passAdmin" => $gets["passAdmin"]]
         );
         $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
-        $status = $response->status();
-        $data = json_decode($response->body(),true);
-        if($response== "DONE"){ 
+        $emails = json_decode($response->body(),true);
+        if($response!= "FAILED"){ 
             session::put(['admin' => "admin"]);
-            return redirect('/admin_home');
+            return view('admin_home', compact('emails'));
         }
         else{
             return back()->with('message','Contraseña incorrecta');
@@ -101,8 +100,65 @@ class GlobalController extends Controller
         }
     }
 
-    public function admin_home(){
+    public function add_new_user(Request $request){
+        $gets = $request->input();
+        if(session::has('admin')){
+            $arr = array(
+                'institution' => getenv("APP_NAME"),
+                'public_key' => getenv("APP_PUBLIC_KEY"),
+                'method' => 'first_pass',
+                'data' => ["dni" => $gets["dni"]]
+            );
+            $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+            if($response == "DONE"){
+                return back()->with('message','Apoderado agregado');
+            }
+            else{
+                return back()->with('error','El apoderado ya está registrado');
+            }
+        }
+        else{
+            return redirect('/');
+        }
         
+    }
+
+    public function disable_user(Request $request){
+        $gets = $request->input();
+        $arr= array(
+            'institution' => getenv("APP_NAME"),
+            'public_key' => getenv("APP_PUBLIC_KEY"),
+            'method' => 'disable_user',
+            'data' => ["id_user" => $gets["id_user"], "method" => $gets["method"]]
+        );
+        $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+        return back()->with('message', 'Estado modificado');
+    }
+
+    public function download_pdf(Request $request){
+        $gets = $request->input();
+        $arr = array(
+            'institution' => getenv("APP_NAME"),
+            'public_key' => getenv("APP_PUBLIC_KEY"),
+            'method' => 'downloadPdf',
+            'data' => ["id" => $gets["id"]]
+        );
+        $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.clouppping.com/api-apoderado");
+        dd($response);
+        
+    }
+
+    public function datos_students(Request $request){
+        $gets= $request->input();
+        $arr = array(
+            'institution' => getenv("APP_NAME"),
+            'public_key' => getenv("APP_PUBLIC_KEY"),
+            'method' => 'datos_students',
+            'data' => ["id" => $gets["id"]]
+        );
+
+        $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+        return $response;
     }
 
     public function logout(){
