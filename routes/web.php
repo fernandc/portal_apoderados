@@ -32,5 +32,5 @@ Route::post('/add_new_user', [GlobalController::class, 'add_new_user']);
 
 Route::get('/datos_students', [GlobalController::class, 'datos_students']);
 
-Route::get('/downloadpdf', [GlobalController::class, 'download_pdf']);
+Route::get('/download_pdf', [GlobalController::class, 'download_pdf']);
 
