@@ -201,43 +201,44 @@ class GlobalController extends Controller
             $response= Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
     
             $data= json_decode($response->body(),true);
-            return $data;
+            //dd($data);
+            return view("/froms")->with("form",$data[0])->with("student",$data[1])->with("inscription",$data[2]);
         }else if($gets["data"] == "stuback"){
             $arr= array(
                 'institution' => getenv("APP_NAME"),
                 'public_key' => getenv("APP_PUBLIC_KEY"),
                 'method' => 'modal_data',
-                'data' => ["stu" => $gets["stu"]]
+                'data' => ["stu" => $gets["stu"], "data" => $gets["data"], "id_apo" => $gets["id_apo"], "matricula" => getenv("MATRICULAS_PARA")]
             );
             
             $response= Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
     
             $data= json_decode($response->body(),true);
-            return $data;
+            return view("/froms")->with("form",$data[0])->with("id_stu",$data[1])->with("background",$data[2]);
         }else if($gets["data"] == "proxys"){
             $arr= array(
                 'institution' => getenv("APP_NAME"),
                 'public_key' => getenv("APP_PUBLIC_KEY"),
                 'method' => 'modal_data',
-                'data' => ["stu" => $gets["stu"], "parent" => $gets["parent"]]
+                'data' => ["stu" => $gets["stu"], "data" => $gets["data"], "id_apo" => $gets["id_apo"], "matricula" => getenv("MATRICULAS_PARA"), "parent" => $gets["parent"]]
             );
             
             $response= Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
     
             $data= json_decode($response->body(),true);
-            return $data;
+            return view("/froms")->with("form",$data[0])->with("parent",$data[1])->with("id_stu",$data[2])->with("parent_data",$data[3])->with("c_apo",$data[4]);
         }else{
             $arr= array(
                 'institution' => getenv("APP_NAME"),
                 'public_key' => getenv("APP_PUBLIC_KEY"),
                 'method' => 'modal_data',
-                'data' => ["stu" => $gets["stu"]]
+                'data' => ["stu" => $gets["stu"], "data" => $gets["data"], "id_apo" => $gets["id_apo"], "matricula" => getenv("MATRICULAS_PARA")]
             );
             
             $response= Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
     
             $data= json_decode($response->body(),true);
-            return $data;
+            return view("/froms")->with("form",$data[0])->with("id_stu",$data[1])->with("misc",$data[2])->with("cantidad",$data[3])->with("circle",$data[4]);
         }
         
     }
