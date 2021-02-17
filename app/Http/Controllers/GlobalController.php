@@ -243,6 +243,78 @@ class GlobalController extends Controller
         
     }
 
+    public function add_student(Request $request){
+        $gets = $request->input();
+        $arr = array(
+            'institution' => getenv("APP_NAME"),
+            'public_key' => getenv("APP_PUBLIC_KEY"),
+            'method' => 'add_student',
+            'data' => ["rut" => $gets["rut"],
+                       "nombres" =>$gets["nombres"],
+                       "apellido_p" =>$gets["apellido_p"],
+                       "apellido_m" => $gets["apellido_m"],
+                       "ddlgenero" => $gets["ddlgenero"],
+                       "nacionalidad" =>$gets["nacionalidad"],
+                       "ddletina" => $gets["ddletina"],
+                       "fecha_nac" =>$gets["fecha_nac"],
+                       "ddlcurso" => $gets["ddlcurso"],
+                       "matricula" => getenv("MATRICULAS_PARA"),
+                       "id_apo" => Session::get('apoderado')["id"]
+                       ]
+        );
+        $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+
+        $data = json_decode($response->body(), true);
+        return $response;
+    }
+
+    public function get_data_info(request $request){
+        $rut = $request->input()["rut"];
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+          CURLOPT_URL => 'https://www.nombrerutyfirma.com/rut',
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_ENCODING => '',
+          CURLOPT_MAXREDIRS => 10,
+          CURLOPT_TIMEOUT => 0,
+          CURLOPT_FOLLOWLOCATION => true,
+          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+          CURLOPT_CUSTOMREQUEST => 'POST',
+          CURLOPT_POSTFIELDS => array('term' => $rut),
+          CURLOPT_HTTPHEADER => array(
+            'Cookie: __cfduid=d82fe5f81bf4359611fd43cef8babe72a1607882909'
+          ),
+        ));
+        $response = curl_exec($curl);
+        $string = substr($response, strpos($response, '<table class="table table-hover">'), strpos($response, '</table>'));
+        $tbody = substr($string, strpos($string, '<tbody>'), strpos($string, '</tbody>'));
+        $tr = substr($tbody, strpos($tbody, '<tr tabindex="1">'), strpos($tbody, '</tr>'));
+        $order   = array("\t", "\n", "\"");
+        $replace = '';
+        // Procesa primero \r\n así no es convertido dos veces.
+        $newstr = str_replace($order, $replace, $tr);
+        $alpha = $porciones = explode("<td", $newstr);
+        $array = array();
+        $count = 0;
+        foreach($alpha as $row){
+            if ($count == 1){
+                $array["full_name"] = substr($row,1,-5);
+            }elseif($count == 2){
+                $array["dni"] = substr($row,28,-5);
+            }elseif($count == 3){
+                $array["gender"] = substr($row,1,-5);
+            }elseif($count == 4){
+                $array["address"] = substr($row,1,-5);
+            }elseif($count == 5){
+                $array["commune"] = substr($row,1,-14);
+            }
+            $count++;
+        }
+        curl_close($curl);
+        header('Content-Type: application/json');;
+        print_r(json_encode($array, JSON_PRETTY_PRINT)); 
+    }
+
     public function upd_student(Request $request){
         $gets = $request->input();
         $arr = array(
@@ -256,65 +328,132 @@ class GlobalController extends Controller
                         "apellido_m"=> $gets["apellido_m"],
                         "ddlgenero" => $gets["ddlgenero"],
                         "nacionalidad" => $gets["nacionalidad"],
-                        "ddletnia" => $gets["ddletina"],
+                        "ddletina" => $gets["ddletina"],
                         "fecha_nac" => $gets["fecha_nac"],
-                        "ddlcurso" => $gets["ddlcurso"]]
+                        "ddlcurso" => $gets["ddlcurso"],
+                        "id_apo" => Session::get('apoderado')["id"],
+                        "matricula" => getenv("MATRICULAS_PARA")
+                    ]
+                        
         );
-
+       
         $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
 
-        if($response == "DONE"){
-            return back();
-        }
+        return back()->with('message',$response);
     }
 
     public function add_student_background(Request $request){
         $gets = $request->input();
         $arr= array(
             'institution' => getenv("APP_NAME"),
-            'public_key' => getemv("APP_PUBLIC_KEY"),
+            'public_key' => getenv("APP_PUBLIC_KEY"),
             'method' => 'add_student_background',
             'data' => [ "student" => $gets["student"],
                         "cellphone" => $gets["cellphone"],
                         "district" => $gets["district"],
                         "address" => $gets["address"],
                         "school_origin" => $gets["school_origin"],
-                        "school_origin_year" => $gets["school_origin_year"],
                         "school_origin_year_in" => $gets["school_origin_year_in"],
                         "has_pie" => $gets["has_pie"],
-                        "apply_pie_mext_year" => $gets["apply_pie_next_year"],
+                        "apply_pie_next_year" => $gets["apply_pie_next_year"],
                         "emergency_data" => $gets["emergency_data"],
                         "emergency_data_name" => $gets["emergency_data_name"],
                         "risk_disease" => $gets["risk_disease"],
                         "medical_treatment" => $gets["medical_treatment"],
                         "medical_treatment_from" => $gets["medical_treatment_from"],
-                        "sensory_dificulties" => $gets["sensory_dificulties"],
+                        "sensory_difficulties" => $gets["sensory_difficulties"],
                         "has_special_treatment" => $gets["has_special_treatment"],
                         "does_keep_st" => $gets["does_keep_st"],
-                        "why_does_keep_sy" => $gets["why_does_keep_st"]
+                        "why_does_keep_st" => $gets["why_does_keep_st"],
+                        "id_apo" => Session::get('apoderado')["id"],
+                        "matricula" => getenv("MATRICULAS_PARA")
                     ]
         );
         $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+
+        return $response;
+    }
+
+    public function add_proxy_background(Request $request){
+        $gets = $request->input();
+        $arr = array(
+            'institution' => getenv("APP_NAME"),
+            'public_key' => getenv("APP_PUBLIC_KEY"),
+            'method' => 'add_proxy_background',
+            'data' => [ "student" => $gets["student"],
+                        "parent_type" => $gets["parent_type"],
+                        "ddlproxy" => $gets["ddlproxy"],
+                        "kinship" => $gets["kinship"],
+                        "rut" => $gets["rut"],
+                        "nombresparent" => $gets["nombresparent"],
+                        "apellido_pparent" => $gets["apellido_pparent"],
+                        "apellido_mparent" => $gets["apellido_mparent"],
+                        "fecha_nacparent" => $gets["fecha_nacparent"],
+                        "ddlive_with" => $gets["ddlive_with"],
+                        "visits_per_months" => $gets["visits_per_months"],
+                        "live_with" => $gets["live_with"],
+                        "legal_civil_status" => $gets["legal_civil_status"],
+                        "current_civil_status" => $gets["current_civil_status"],
+                        "districtparent" => $gets["districtparent"],
+                        "addressparent" => $gets["addressparent"],
+                        "phoneparent" => $gets["phoneparent"],
+                        "cellphoneparent" => $gets["cellphoneparent"],
+                        "emailparent" => $gets["emailparent"],
+                        "educational_level" => $gets["educational_level"],
+                        "work" => $gets["work"],
+                        "work_address" => $gets["work_address"],
+                        "work_phone" => $gets["work_phone"],
+                        "id_apo" => Session::get('apoderado')["id"],
+                        "matricula" => getenv("MATRICULAS_PARA") 
+            ]
+        );
+        dd($arr);
+        $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+
+        return back();
     }
 
     public function add_student_circle(Request $request){
         $gets = $request->input();
+        
         $arr= array(
             'institution' => getenv("APP_NAME"),
             'public_key' => getenv("APP_PUBLIC_KEY"),
             'method' => 'add_student_circle',
             'data' => [ "student" => $gets["student"],
-                        "time_from_go" => $gets["time_from_go"],
+                        "time_from_to" => $gets["time_from_to"],
                         "meth_go" => $gets["meth_go"],
                         "meth_back" => $gets["meth_back"],
                         "auth_quit" => $gets["auth_quit"],
-                        "numcircle" => $gets["numcircle"]
+                        "id_apo" => Session::get('apoderado')["id"],
+                        "matricula" => getenv("MATRICULAS_PARA"),
+                        "numcircle" => $gets["numcircle"],
+                        "full_name" => $gets["full_name"],
+                        "kinship" => $gets["kinship"]
                     ]
         );
+        dd($arr);
         $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+        $data = json_decode($response->body());
+        
     }
 
-    
+    public function del_inscription(Request $request){
+        $gets = $request->input();
+        $arr = array(
+            'institution' => getenv("APP_NAME"),
+            'public_key' => getenv("APP_PUBLIC_KEY"),
+            'method' => 'del_inscription',
+            'data' => [ "stu" => $gets["stu"]]
+        );
+
+        $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+
+        return back();
+    }
+
+
+
 
     public function logout(){
         if(session::has('apoderado')){

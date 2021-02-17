@@ -658,7 +658,7 @@ if ($misc != null){
     $auth_quit = $misc["auth_quit"];
 }
 ?>
-<div class="modal-header">
+<div class="modal-header" id="test">
     <h5 class="modal-title" id="staticBackdropLabel">Información de personas que viven con el estudiante e Información adicional</h5>
     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
       <span aria-hidden="true">&times;</span>
@@ -686,7 +686,7 @@ if ($misc != null){
             </div>
             <div class="form-group col-md-12">
                 <label>Número de personas que viven con el estudiante</label>
-                <input id="numcircle" class="form-control" value="{{$cantidad}}" min="0" max="20" type="number" required="" name="numcircle">
+                <input id="numcircle" class="form-control" name="numcircle" value="{{$cantidad}}" min="0" max="20" type="number" required="">
             </div>
             <script>
                 $("#numcircle").keyup(function(){
@@ -812,15 +812,16 @@ if ($misc != null){
                    data: {student:idstu,time_from_to:time_from_to,meth_go:meth_go,meth_back:meth_back,auth_quit:auth_quit,full_names:full_names,kinships:kinships,years_olds:years_olds,same_inss:same_inss,occupations:occupations}, // serializes the form's elements.
                    success: function(data)
                    {
+                       $("#test").html(data);
                        $("#lastone{{$id_stu}}").removeClass("badge-warning");
                        $("#lastone{{$id_stu}}").addClass("badge-success");
                        $("#lastone{{$id_stu}}").html("Completada");
-                       $('#globmod{{$id_stu}}').modal('toggle');
+                      /* $('#globmod{{$id_stu}}').modal('toggle');
                        Swal.fire({
                             icon: 'success',
                             title: 'Datos Guardados',
                             text: 'Los datos fueron guardados correctamente'
-                        });
+                        }); */
                    }
                  });
             });
