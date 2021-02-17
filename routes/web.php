@@ -8,7 +8,7 @@ Route::get('/', function () {
 Route::get('/auth_proxy', [GlobalController::class, 'auth_proxy']);
 Route::get('/home',function(){
     return view("home_proxy");
-});
+})->name('home');
 Route::get('/change_password', [GlobalController::class, 'change_password']);
 Route::get('/new_password', function(){
     return view('new_password');
@@ -33,4 +33,6 @@ Route::post('/add_new_user', [GlobalController::class, 'add_new_user']);
 Route::get('/datos_students', [GlobalController::class, 'datos_students']);
 
 Route::get('/download_pdf', [GlobalController::class, 'download_pdf']);
+
+Route::get('/modal_data', [GlobalController::class, 'modal_data']);
 

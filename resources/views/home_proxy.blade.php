@@ -25,12 +25,15 @@ Saint Charles Formularios
 
 @section("context")
     @if(Session::has('apoderado'))
-    <?php $var = session::get('apoderado');?>
+    <?php $var = session::get('apoderado');
+          $id_apo= session::get('apoderado')['id'];   
+    ?>
     <hr>
     <div class="container">
-        <h2 style="text-align: center">Matrículas</h2>
+        <h2 style="text-align: center">Bienvenido</h2>
         <h6 class="text-primary" style="text-align: center">{{$var["email"]}}</h6>
         <div style="text-align: center;">
+            <a href="" class="btn btn-success">Datos de contacto</a>
             <a href="/logout" class="btn btn-outline-danger text-danger">Salir</a>
         </div>
         <hr>
@@ -221,7 +224,7 @@ Saint Charles Formularios
                     </div>
                 </div>
             </div>
-            <!-- REGISTROS -->
+      <!-- REGISTROS -->
             @foreach($matriculas as $row)
             <div id="card{{$row["id_stu"]}}" class="col-md-6">
                 <div class="card mb-1" >
@@ -327,7 +330,7 @@ Saint Charles Formularios
                                                 $.ajax({
                                                     type: "GET",
                                                     url: "/modal_data",
-                                                    data: "stu={{$row["id_stu"]}}&data="+meth,
+                                                    data:"stu={{$row["id_stu"]}}&data="+meth+"&id_apo={{$id_apo}}",
                                                     success: function(data)
                                                     {
                                                         $("#datamodal{{$row["id_stu"]}}").html(data);
@@ -344,6 +347,7 @@ Saint Charles Formularios
             </div>
             
             @endforeach
+            
         </div>
     </div>
     @else

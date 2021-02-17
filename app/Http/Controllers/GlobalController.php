@@ -17,6 +17,8 @@ class GlobalController extends Controller
             'data' => ['dni' => $gets['dni'], 'passwd' => $gets['passwd']]);
         $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
         $status = $response->status();
+
+       
         
         if($status == 200){
             $data= json_decode($response->body(),true);
@@ -25,12 +27,21 @@ class GlobalController extends Controller
             }
             else{
                 if($data[0]["date_login"] ==NULL){
+                    
                     session::put(['apoderado'=> $data[0]]);
                     return redirect('/new_password');
                 }
                 else{
                     session::put(['apoderado'=> $data[0]]);
-                    return redirect("/home");     
+                    $arrMatricula = array(
+                        'institution' => getenv("APP_NAME"),
+                        'public_key' => getenv("APP_PUBLIC_KEY"),
+                        'method' => 'home_proxy',
+                        'data' => ['dni' => $data[0]["dni"], 'matricula' => getenv("MATRICULAS_PARA")]
+                    );
+                    $responseMatricula = Http::withBody(json_encode($arrMatricula), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+                    $matriculas = json_decode($responseMatricula->body(),true);
+                    return view('home_proxy',compact('matriculas'));     
                 }
             }
         }else{
@@ -53,7 +64,7 @@ class GlobalController extends Controller
             return view('admin_home', compact('emails'));
         }
         else{
-            return back()->with('message','Contraseña incorrecta');
+            return back()->with('message','Contraseña incorrecta. Vuelva a intentar.');
         }
     }
 
@@ -104,6 +115,8 @@ class GlobalController extends Controller
             return redirect('/');
         }
     }
+
+   
 
     public function add_new_user(Request $request){
         $gets = $request->input();
@@ -156,7 +169,7 @@ class GlobalController extends Controller
         $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
         $data = json_decode($response->body(), true);
         
-        $pdfName = getenv("MATRICULAS_PARA") . "Matrícula ". $data["student"]["last_f"]." ".$data["student"]["last_m"]." ".$data["student"]["names"].".pdf";
+        $pdfName = getenv("MATRICULAS_PARA") . " Matrícula ". $data["student"]["last_f"]." ".$data["student"]["last_m"]." ".$data["student"]["names"].".pdf";
         $report = \PDF::loadView('print_pdf', compact('data'));
         return $report->download($pdfName);
     }
@@ -172,6 +185,61 @@ class GlobalController extends Controller
 
         $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
         return $response;
+    }
+
+    public function modal_data(Request $request){
+        $gets = $request->input();
+
+        if($gets["data"] == "stuinfo"){
+            $arr= array(
+                'institution' => getenv("APP_NAME"),
+                'public_key' => getenv("APP_PUBLIC_KEY"),
+                'method' => 'modal_data',
+                'data' => ["stu" => $gets["stu"], "data" => $gets["data"], "id_apo" => $gets["id_apo"], "matricula" => getenv("MATRICULAS_PARA")]
+            );
+            
+            $response= Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+    
+            $data= json_decode($response->body(),true);
+            return $data;
+        }else if($gets["data"] == "stuback"){
+            $arr= array(
+                'institution' => getenv("APP_NAME"),
+                'public_key' => getenv("APP_PUBLIC_KEY"),
+                'method' => 'modal_data',
+                'data' => ["stu" => $gets["stu"]]
+            );
+            
+            $response= Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+    
+            $data= json_decode($response->body(),true);
+            return $data;
+        }else if($gets["data"] == "proxys"){
+            $arr= array(
+                'institution' => getenv("APP_NAME"),
+                'public_key' => getenv("APP_PUBLIC_KEY"),
+                'method' => 'modal_data',
+                'data' => ["stu" => $gets["stu"], "parent" => $gets["parent"]]
+            );
+            
+            $response= Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+    
+            $data= json_decode($response->body(),true);
+            return $data;
+        }else{
+            $arr= array(
+                'institution' => getenv("APP_NAME"),
+                'public_key' => getenv("APP_PUBLIC_KEY"),
+                'method' => 'modal_data',
+                'data' => ["stu" => $gets["stu"]]
+            );
+            
+            $response= Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+    
+            $data= json_decode($response->body(),true);
+            return $data;
+        }
+        
     }
 
     public function logout(){

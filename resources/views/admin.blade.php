@@ -34,6 +34,9 @@ Saint Charles Formularios
                 <div class="card-header">
                     <h4 style="text-align: center;">Panel de Administración</h4>
                 </div>
+                @if ( session('message') )
+                    <div class="alert alert-danger">{{ session('message') }}</div>
+                @endif
                 <div class="form-group">
                     <label for="passAdmin">Contraseña</label>
                     <input type="password" class="form-control is-invalid" id="passAdmin" name="passAdmin" placeholder="ABCDE" required="" minlength="7" maxlength="7" autofocus="">

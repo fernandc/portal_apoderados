@@ -11,10 +11,9 @@ Saint Charles Formularios
 @section("context")
     <div class="container mx-auto" style="display: flex;min-height: 100vh;align-items: center;justify-content: center;">
         <div class="card">
-            <img src="scc_logo.png" class="card-img-top rounded mx-auto d-block" alt="logo" style="width: 150px;">
+            <img src="scc_logo.png" class="card-img-top rounded mx-auto d-block my-3" alt="logo" style="width: 150px;">
             <div class="card-header">
                 <h4 style="text-align: center;">Portal de Apoderados</h4>
-                
             </div>
             <div class="card-body">
                 <form class="was-validated" action="/auth_proxy" @method('POST')>
@@ -24,7 +23,7 @@ Saint Charles Formularios
                             <div class="alert alert-danger">{{ session('message') }}</div>
                         @endif
                         <div class="form-group col-md-12">
-                            <label for="dni">Ingrese su rut<br></label>
+                            <label for="dni">Ingrese su rut</label>
                             <input type="text" class="form-control is-invalid" id="dni" name="dni" autofocus="" placeholder="12345678" required="">
                         </div>
                         <div class="form-group col-md-12">

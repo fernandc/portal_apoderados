@@ -10,7 +10,8 @@ Saint Charles Formularios
 
 @section("context")
     @if(Session::has('admin'))
-        <div class="container" >            
+    <div class="container-fluid">
+        <div class="container-fluid">            
             <h4 class="mt-3">Bienvenido al panel de administración.</h4>
             <hr>
             <button class="btn btn-success " type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
@@ -77,8 +78,8 @@ Saint Charles Formularios
                         @foreach($emails as $row)
                             <tr>
                                 <td>{{$row["dni"]}}</td>
-                                <td>{{$row["cell_phone"]}}</td>
                                 <td>{{$row["email"]}}</td>
+                                <td>{{$row["cell_phone"]}}</td>
                                 <td>{{$row["passwd"]}}</td>
                                 <td>
                                     @if($row["date_login"]==null)
@@ -175,6 +176,7 @@ Saint Charles Formularios
                 </script>      
             </div>
         </div>
+    </div>
     @else
         <script>
         $( document ).ready(function() {
