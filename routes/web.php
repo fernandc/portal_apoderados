@@ -36,3 +36,10 @@ Route::get('/download_pdf', [GlobalController::class, 'download_pdf']);
 
 Route::get('/modal_data', [GlobalController::class, 'modal_data']);
 
+Route::get('/upd_student', [GlobalController::class, 'upd_student']);
+
+Route::get('/add_student_background', [GlobalController::class, 'add_student_background']);
+
+Route::get('/add_student_circle', [GlobalController::class, 'add_student_circle']);
+
+

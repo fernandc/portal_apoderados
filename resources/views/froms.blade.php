@@ -686,7 +686,7 @@ if ($misc != null){
             </div>
             <div class="form-group col-md-12">
                 <label>Número de personas que viven con el estudiante</label>
-                <input id="numcircle" class="form-control" value="{{$cantidad}}" min="0" max="20" type="number" required="">
+                <input id="numcircle" class="form-control" value="{{$cantidad}}" min="0" max="20" type="number" required="" name="numcircle">
             </div>
             <script>
                 $("#numcircle").keyup(function(){

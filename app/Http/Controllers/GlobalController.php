@@ -243,6 +243,79 @@ class GlobalController extends Controller
         
     }
 
+    public function upd_student(Request $request){
+        $gets = $request->input();
+        $arr = array(
+            'institution' => getenv("APP_NAME"),
+            'public_key' => getenv("APP_PUBLIC_KEY"),
+            'method' => 'upd_student',
+            'data' => ["idstu" => $gets["idstu"],
+                        "rut" => $gets["rut"],
+                        "nombres" => $gets["nombres"],
+                        "apellido_p" => $gets["apellido_p"],
+                        "apellido_m"=> $gets["apellido_m"],
+                        "ddlgenero" => $gets["ddlgenero"],
+                        "nacionalidad" => $gets["nacionalidad"],
+                        "ddletnia" => $gets["ddletina"],
+                        "fecha_nac" => $gets["fecha_nac"],
+                        "ddlcurso" => $gets["ddlcurso"]]
+        );
+
+        $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+
+        if($response == "DONE"){
+            return back();
+        }
+    }
+
+    public function add_student_background(Request $request){
+        $gets = $request->input();
+        $arr= array(
+            'institution' => getenv("APP_NAME"),
+            'public_key' => getemv("APP_PUBLIC_KEY"),
+            'method' => 'add_student_background',
+            'data' => [ "student" => $gets["student"],
+                        "cellphone" => $gets["cellphone"],
+                        "district" => $gets["district"],
+                        "address" => $gets["address"],
+                        "school_origin" => $gets["school_origin"],
+                        "school_origin_year" => $gets["school_origin_year"],
+                        "school_origin_year_in" => $gets["school_origin_year_in"],
+                        "has_pie" => $gets["has_pie"],
+                        "apply_pie_mext_year" => $gets["apply_pie_next_year"],
+                        "emergency_data" => $gets["emergency_data"],
+                        "emergency_data_name" => $gets["emergency_data_name"],
+                        "risk_disease" => $gets["risk_disease"],
+                        "medical_treatment" => $gets["medical_treatment"],
+                        "medical_treatment_from" => $gets["medical_treatment_from"],
+                        "sensory_dificulties" => $gets["sensory_dificulties"],
+                        "has_special_treatment" => $gets["has_special_treatment"],
+                        "does_keep_st" => $gets["does_keep_st"],
+                        "why_does_keep_sy" => $gets["why_does_keep_st"]
+                    ]
+        );
+        $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+    }
+
+    public function add_student_circle(Request $request){
+        $gets = $request->input();
+        $arr= array(
+            'institution' => getenv("APP_NAME"),
+            'public_key' => getenv("APP_PUBLIC_KEY"),
+            'method' => 'add_student_circle',
+            'data' => [ "student" => $gets["student"],
+                        "time_from_go" => $gets["time_from_go"],
+                        "meth_go" => $gets["meth_go"],
+                        "meth_back" => $gets["meth_back"],
+                        "auth_quit" => $gets["auth_quit"],
+                        "numcircle" => $gets["numcircle"]
+                    ]
+        );
+        $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+    }
+
+    
+
     public function logout(){
         if(session::has('apoderado')){
             session::forget('apoderado');
