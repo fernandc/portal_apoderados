@@ -1,7 +1,7 @@
 <!DOCTYPE html> 
 @extends("layouts.mcdn")
 @section("title")
-Saint Charles Formularios
+Saint Charles Portal Apoderados
 @endsection
 
 @section("headex")
@@ -16,7 +16,7 @@ Saint Charles Formularios
                 <h4 style="text-align: center;">Portal de Apoderados</h4>
             </div>
             <div class="card-body">
-                <form class="was-validated" action="/auth_proxy" @method('POST')>
+                <form class="was-validated" action="/auth_proxy" method="GET">
                     @csrf
                     <div class="form-row">
                         @if ( session('message') )

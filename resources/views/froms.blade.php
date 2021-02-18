@@ -659,7 +659,7 @@ if ($misc != null){
 }
 ?>
 <div class="modal-header" id="test">
-    <h5 class="modal-title" id="staticBackdropLabel">Información adicional</h5>
+    <h5 class="modal-title" id="staticBackdropLabel">Información adicional importante</h5>
     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>

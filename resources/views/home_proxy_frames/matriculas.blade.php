@@ -231,7 +231,7 @@
                     <span class="badge badge-warning">Pendiente</span>
                     @endif
                     <hr class="mrnull">
-                    <a class="triggmodal{{$row["id_stu"]}}" data="circle" href="#">Información de personas que viven con el estudiante e información adicional</a>
+                    <a class="triggmodal{{$row["id_stu"]}}" data="circle" href="#">Información adicional importante</a>
                     @if($row["misc"] == 0)
                     <span id="lastone{{$row["id_stu"]}}" class="badge badge-warning">Pendiente</span> 
                     @else

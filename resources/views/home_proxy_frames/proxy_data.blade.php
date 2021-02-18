@@ -1,4 +1,4 @@
-<form action="/add_proxy_background" method="get">
+<form action="/add_proxy_background" method="GET">
     <div id="formproxy" class="row" style="font-size: 0.9rem">
         <div class="form-group col-md-6">
             <label for="rutparent">Rut <span class="text-danger">(Importante)</span></label>
