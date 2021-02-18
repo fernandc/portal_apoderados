@@ -659,12 +659,12 @@ if ($misc != null){
 }
 ?>
 <div class="modal-header" id="test">
-    <h5 class="modal-title" id="staticBackdropLabel">Información de personas que viven con el estudiante e Información adicional</h5>
+    <h5 class="modal-title" id="staticBackdropLabel">Información adicional</h5>
     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
 </div>
-<form id="current_form" class="was-validated" action="add_student_circle" method="GET">
+<form id="current_form" class="was-validated" action="aditional_info" method="GET">
     <input id="idstu" class="form-control is-invalid" value="{{$id_stu}}" name="student" hidden="">
     <div class="modal-body">
         <div class="form-row">
@@ -684,90 +684,6 @@ if ($misc != null){
                 <label>¿Quién está autorizado para retirar al alumno?</label>
                 <input id="auth_quit" class="form-control" name="auth_quit" value="{{$auth_quit}}" type="text" required="" >
             </div>
-            <div class="form-group col-md-12">
-                <label>Número de personas que viven con el estudiante</label>
-                <input id="numcircle" class="form-control" name="numcircle" value="{{$cantidad}}" min="0" max="20" type="number" required="">
-            </div>
-            <script>
-                $("#numcircle").keyup(function(){
-                    var cantidad = $(this).val();
-                    $("#rowsdata{{$id_stu}}").html("");
-                    if(cantidad <= 20){ 
-                        for (var i = 0; i < cantidad; i++) {
-                            var cn = i+1;
-                            var agregado = `
-                            <div class="form-group col-md-12"><h4>Persona `+cn+`</h4></div>
-                            <div class="form-group col-md-6">
-                                <label>Nombre Completo (`+cn+`)</label>
-                                <input name="full_name" class="form-control" value="" type="text">
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label>Parentesco (`+cn+`)</label>
-                                <input name="kinship" class="form-control" value="" type="text" required="">
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label>Edad (`+cn+`)</label>
-                                <input name="years_old" class="form-control" value="" type="text">
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label>¿Pertenece al mismo colegio? (`+cn+`)</label>
-                                <select class="custom-select mr-sm-2" autocomplete="off" name="same_ins">
-                                    <option value="No">No</option>
-                                    <option value="Si">Si</option>
-                                </select>
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label>Ocupación (`+cn+`)</label>
-                                <input name="occupation" class="form-control" value="" type="text">
-                            </div>
-                            `
-                            $("#rowsdata{{$id_stu}}").append(agregado);
-                        }
-                    }
-                });
-            </script>
-        </div>
-        <div id="rowsdata{{$id_stu}}" class="form-row">
-            <?php
-            $ccount = 0;
-            $cret = "";
-            foreach($circle as $rowB){
-                $is_no = null;
-                $is_si = null;
-                if ($rowB["same_ins"]=="Si"){
-                    $is_si = 'selected=""';
-                }else{
-                    $is_no = 'selected=""';
-                }
-                $cn = $ccount+1;
-                $cret .= '<div class="form-group col-md-12"><h4>Persona '.$cn.'</h4></div>';
-                $cret .= '<div class="form-group col-md-6">';
-                $cret .= '<label>Nombre Completo ('.$cn.')</label>';
-                $cret .= '<input name="full_name" maxlength="50" class="form-control" value="'.$rowB["full_name"].'" type="text">';
-                $cret .= '</div>';
-                $cret .= '<div class="form-group col-md-6">';
-                $cret .= '<label>Parentesco ('.$cn.')</label>';
-                $cret .= '<input name="kinship" maxlength="15" class="form-control" value="'.$rowB["kinship"].'" type="text" required="">';
-                $cret .= '</div>';
-                $cret .= '<div class="form-group col-md-4">';
-                $cret .= '<label>Edad ('.$cn.')</label>';
-                $cret .= '<input name="years_old" maxlength="10" class="form-control" value="'.$rowB["years_old"].'" type="text">';
-                $cret .= '</div>';
-                $cret .= '<div class="form-group col-md-4">';
-                $cret .= '<label>¿Pertenece al mismo colegio? ('.$cn.')</label>';
-                $cret .= '<select class="custom-select mr-sm-2" autocomplete="off" name="same_ins">';
-                $cret .= '<option value="No" '.$is_no.'>No</option>';
-                $cret .= '<option value="Si" '.$is_si.'>Si</option>';
-                $cret .= '</select>';
-                $cret .= '</div>';
-                $cret .= '<div class="form-group col-md-4">';
-                $cret .= '<label>Ocupación ('.$cn.')</label>';
-                $cret .= '<input name="occupation" maxlength="30" class="form-control" value="'.$rowB["occupation"].'" type="text">';
-                $cret .= '</div>';
-                $ccount++;
-            }
-            echo $cret;
-            ?>
         </div>
     </div>
     <div class="modal-footer">
@@ -805,7 +721,7 @@ if ($misc != null){
                 var occupations = $("input[name=occupation]").map(function(){
                     return $(this).val();
                 }).get().join(",");
-                var url = "add_student_circle";
+                var url = "aditional_info";
                 $.ajax({
                    type: "GET",
                    url: url,
@@ -816,12 +732,12 @@ if ($misc != null){
                        $("#lastone{{$id_stu}}").removeClass("badge-warning");
                        $("#lastone{{$id_stu}}").addClass("badge-success");
                        $("#lastone{{$id_stu}}").html("Completada");
-                      /* $('#globmod{{$id_stu}}').modal('toggle');
+                       $('#globmod{{$id_stu}}').modal('toggle');
                        Swal.fire({
                             icon: 'success',
                             title: 'Datos Guardados',
                             text: 'Los datos fueron guardados correctamente'
-                        }); */
+                        }); 
                    }
                  });
             });

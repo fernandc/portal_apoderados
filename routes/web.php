@@ -39,7 +39,7 @@ Route::get('/upd_student', [GlobalController::class, 'upd_student']);
 
 Route::get('/add_student_background', [GlobalController::class, 'add_student_background']);
 
-Route::get('/add_student_circle', [GlobalController::class, 'add_student_circle']);
+Route::get('/aditional_info', [GlobalController::class, 'aditional_info']);
 
 Route::get('/get_info', [GlobalController::class, 'get_data_info']);
 

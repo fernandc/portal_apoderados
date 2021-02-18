@@ -355,7 +355,6 @@ class GlobalController extends Controller
         );
        
         $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
-
         return back()->with('message',$response);
     }
 
@@ -446,29 +445,44 @@ class GlobalController extends Controller
         return back();
     }
 
-    public function add_student_circle(Request $request){
+    public function aditional_info(Request $request){
         $gets = $request->input();
         
         $arr= array(
             'institution' => getenv("APP_NAME"),
             'public_key' => getenv("APP_PUBLIC_KEY"),
-            'method' => 'add_student_circle',
+            'method' => 'aditional_info',
             'data' => [ "student" => $gets["student"],
                         "time_from_to" => $gets["time_from_to"],
                         "meth_go" => $gets["meth_go"],
                         "meth_back" => $gets["meth_back"],
                         "auth_quit" => $gets["auth_quit"],
-                        "id_apo" => Session::get('apoderado')["id"],
-                        "matricula" => getenv("MATRICULAS_PARA"),
-                        "numcircle" => $gets["numcircle"],
-                        "full_name" => $gets["full_name"],
-                        "kinship" => $gets["kinship"]
                     ]
         );
-        dd($arr);
         $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
-        $data = json_decode($response->body());
-        
+        if($response == "DONE"){
+            return back();
+        } 
+    }
+
+    public function home_circle(Request $request){
+        $gets = $request->input();
+        $arr = array(
+            'institution' => getenv("APP_NAME"),
+            'public_key' => getenv("APP_PUBLIC_KEY"),
+            'method' => 'home_circle',
+            'data' => [ "student" => $gets["student"],
+                        "kinships" => $gets["kinships"],
+                        "full_names" => $gets["full_names"],
+                        "same_inss" => $gets["same_inss"],
+                        "years_olds" => $gets["years_olds"],
+                        "occupations" => $gets["occupations"]
+                    ]
+        );   
+        $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+        $data = json_decode($response->body(),true);
+        dd($response);
+        return $data;
     }
 
     public function del_inscription(Request $request){
