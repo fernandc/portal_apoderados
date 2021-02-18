@@ -1,8 +1,47 @@
-<form action="/add_proxy_background" method="GET">
+<?php
+  $rut = Session::get('apoderado')['dni'];
+  $nombresparent = NULL;
+  $apellido_pparent = NULL;
+  $apellido_mparent = NULL;
+  $born_date = NULL;
+  $legal_civil_status = NULL;
+  $current_civil_status = NULL;
+  $districtparent = NULL;
+  $addressparent = NULL;
+  $phoneparent = NULL;
+  $cellphoneparent = NULL;
+  $emailparent = NULL;
+  $educational_level = NULL;
+  $work = NULL;
+  $work_address = NULL;
+  $work_phone = NULL;
+
+  if($dataProxy !=NULL){
+    $born_date = $dataProxy[0]["born_date"];
+    $nombresparent = $dataProxy[0]["names"];
+    $apellido_pparent = $dataProxy[0]["last_f"];
+    $apellido_mparent = $dataProxy[0]["last_m"];
+    $legal_civil_status = $dataProxy[0]["legal_civil_status"];
+    $current_civil_status = $dataProxy[0]["current_civil_status"];
+    $districtparent = $dataProxy[0]["district"];
+    $addressparent = $dataProxy[0]["address"];
+    $phoneparent = $dataProxy[0]["phone"];
+    $cellphoneparent = $dataProxy[0]["cellphone"];
+    $emailparent = $dataProxy[0]["email"];
+    $educational_level = $dataProxy[0]["educational_level"];
+    $work = $dataProxy[0]["work"];
+    $work_address = $dataProxy[0]["work_address"];
+    $work_phone = $dataProxy[0]["work_phone"];
+  }
+?>
+
+
+
+<form action="/add_proxy_data" method="GET">
     <div id="formproxy" class="row" style="font-size: 0.9rem">
         <div class="form-group col-md-6">
             <label for="rutparent">Rut <span class="text-danger">(Importante)</span></label>
-            <input id="rutparent" class="form-control is-invalid" autocomplete="off" name="rut" value="{{$dataProxy[0]["dni"]}}" type="text" oninput="checkRut(this)" minlength="1" maxlength="11">
+            <input id="rutparent" class="form-control is-invalid" autocomplete="off" name="rut" value="{{$rut}}" type="text" oninput="checkRut(this)" minlength="1" maxlength="11">
             <script>
                 function checkRut(rut) {
                     $("#btnapisearch2").removeClass("btn-secondary");
@@ -83,26 +122,26 @@
         </div>
         <div class="form-group col-md-4">
             <label for="">Nombres <span class="text-danger">(Importante)</span></label>
-            <input id="nombresparent" type="text" class="form-control" name="nombresparent" value="{{$dataProxy[0]["names"]}}" placeholder="Nombres" minlength="2" required="">
+            <input id="nombresparent" type="text" class="form-control" name="nombresparent" value="{{$nombresparent}}" placeholder="Nombres" minlength="2" required="">
         </div>
         <div class="form-group col-md-4">
             <label for="">Apellido Paterno <span class="text-danger">(Importante)</span></label>
-            <input id="apellido_pparent" type="text" class="form-control" name="apellido_pparent" value="{{$dataProxy[0]["last_f"]}}" placeholder="Apellido paterno" minlength="2" required="">
+            <input id="apellido_pparent" type="text" class="form-control" name="apellido_pparent" value="{{$apellido_pparent}}" placeholder="Apellido paterno" minlength="2" required="">
         </div>
         <div class="form-group col-md-4">
             <label for="">Apellido Materno <span class="text-danger">(Importante)</span></label>
-            <input id="apellido_mparent" type="text" class="form-control" name="apellido_mparent" value="{{$dataProxy[0]["last_m"]}}" placeholder="Apellido materno" minlength="2" required="">
+            <input id="apellido_mparent" type="text" class="form-control" name="apellido_mparent" value="{{$apellido_mparent}}" placeholder="Apellido materno" minlength="2" required="">
         </div>
         <div class="form-group col-md-4">
             <label for="">Fecha de Nacimiento <span class="text-danger">(Importante)</span></label>
-            <input class="form-control" type="date" name="fecha_nacparent" value="{{$dataProxy[0]["born_date"]}}">
+            <input class="form-control" type="date" name="fecha_nacparent" value="{{$born_date}}">
         </div>
         <input type="text" class="form-control" name="ddllive_with" value="Si" hidden="">
         <input type="text" class="form-control" name="visits_per_months" value="0" hidden="">
         <div class="form-group col-md-4">
             <label for="">Estado Civil Legal <span class="text-danger">(Importante)</span></label>
             <select id="ddllegal_civil_status" class="custom-select mr-sm-2" autocomplete="off" name="legal_civil_status">
-                <option disabled="" selected="{{$dataProxy[0]["legal_civil_status"]}}" value="Sin Información">Seleccionar</option>
+                <option disabled="" selected="{{$legal_civil_status}}" value="Sin Información">Seleccionar</option>
                 <option value="soltero">Soltero/a</option>
                 <option value="casado">Casado/a</option>
                 <option value="viudo">Viudo/a</option>
@@ -113,7 +152,7 @@
         <div class="form-group col-md-4">
             <label for="">Estado Civil Actual (No acorde a lo legal) <span class="text-danger">(Importante)</span></label>
             <select id="ddlcurrent_civil_status" class="custom-select mr-sm-2" autocomplete="off" name="current_civil_status">
-                <option disabled="" selected="{{$dataProxy[0]["current_civil_status"]}}" value="Sin información">Seleccionar</option>
+                <option disabled="" selected="{{$current_civil_status}}" value="Sin información">Seleccionar</option>
                 <option value="soltero">Soltero/a</option>
                 <option value="convive">Convive</option>
                 <option value="separado">Separado/a</option>
@@ -122,28 +161,28 @@
         </div>
         <div class="form-group col-md-6">
             <label>Comuna <span class="text-danger">(Importante)</span></label>
-            <input id="districtparent" type="text" class="form-control" name="districtparent" value="{{$dataProxy[0]["district"]}}" placeholder="Ej: La Florida" minlength="2" required="">
+            <input id="districtparent" type="text" class="form-control" name="districtparent" value="{{$districtparent}}" placeholder="Ej: La Florida" minlength="2" required="">
         </div>
         <div class="form-group col-md-6">
             <label>Dirección <span class="text-danger">(Importante)</span></label>
-            <input id="addressparent" type="text" class="form-control" name="addressparent" value="{{$dataProxy[0]["address"]}}" placeholder="Calle #" minlength="2" required="">
+            <input id="addressparent" type="text" class="form-control" name="addressparent" value="{{$addressparent}}" placeholder="Calle #" minlength="2" required="">
         </div>
         <div class="form-group col-md-4">
             <label>Teléfono Casa <span class="text-danger">(Importante)</span></label>
-            <input type="text" class="form-control" name="phoneparent" value="{{$dataProxy[0]["phone"]}}" minlength="2" required="">
+            <input type="text" class="form-control" name="phoneparent" value="{{$phoneparent}}" minlength="2" required="">
         </div>
         <div class="form-group col-md-4">
             <label>Celular <span class="text-danger">(Importante)</span></label>
-            <input type="text" class="form-control" name="cellphoneparent" value="{{$dataProxy[0]["cellphone"]}}" minlength="2" required="">
+            <input type="text" class="form-control" name="cellphoneparent" value="{{$cellphoneparent}}" minlength="2" required="">
         </div>
         <div class="form-group col-md-4">
             <label>Email <span class="text-danger">(Importante)</span></label>
-            <input type="text" class="form-control" name="emailparent" value="{{$dataProxy[0]["email"]}}" minlength="2" required="">
+            <input type="text" class="form-control" name="emailparent" value="{{$emailparent}}" minlength="2" required="">
         </div>
         <div class="form-group col-md-6">
             <label>Nivel de estudios <span class="text-danger">(Importante)</span></label>
             <select id="dlleducational_level" class="custom-select mr-sm-2" autocomplete="off" name="educational_level">
-                <option disabled="" selected="{{$dataProxy[0]["educational_level"]}}" value="Sin Información">Seleccionar</option>
+                <option disabled="" selected="{{$educational_level}}" value="Sin Información">Seleccionar</option>
                 <option value="Básica incompleta">Básica incompleta</option>
                 <option value="Básica completa">Básica completa</option>
                 <option value="Media incompleta">Media incompleta</option>
@@ -154,15 +193,15 @@
         </div>
         <div class="form-group col-md-6">
             <label>Trabajo u ocupación <span class="text-danger">(Importante)</span></label>
-            <input type="text" class="form-control" name="work" value="{{$dataProxy[0]["work"]}}" minlength="2" required="">
+            <input type="text" class="form-control" name="work" value="{{$work}}" minlength="2" required="">
         </div>
         <div class="form-group col-md-4">
             <label>Dirección Completa del trabajo </label>
-            <input type="text" class="form-control" name="work_address" value="{{$dataProxy[0]["work_address"]}}" minlength="2" required="">
+            <input type="text" class="form-control" name="work_address" value="{{$work_address}}" minlength="2" required="">
         </div>
         <div class="form-group col-md-4">
             <label>Teléfono del trabajo </label>
-            <input type="text" class="form-control" name="work_phone" value="{{$dataProxy[0]["work_phone"]}}" minlength="2" required="">
+            <input type="text" class="form-control" name="work_phone" value="{{$work_phone}}" minlength="2" required="">
         </div>
         <div class="form-group col-md-4">
             <label for="btnapisearch2">Guardar los cambios</label>

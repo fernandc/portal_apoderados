@@ -81,7 +81,15 @@ Saint Charles Formularios
                     <a class="nav-link {{$prof}}" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Mi Información</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{$matr}}" id="matriculas-tab" data-toggle="tab" href="#matriculas" role="tab" aria-controls="matriculas" aria-selected="false">Mis Alumnos matriculados</a>
+                   
+                    <a class="nav-link" id="matriculas-tab" data-toggle="tab" href="#matriculas" role="tab" aria-controls="matriculas" aria-selected="false">Mis Alumnos matriculados</a>
+                    
+                    <script>
+                        @if($dataProxy == NULL)
+                            $("#matriculas-tab").remove();
+                        @endif 
+
+                    </script>
                 </li>
             </ul>
             <hr>

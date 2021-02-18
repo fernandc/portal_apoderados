@@ -47,5 +47,7 @@ Route::get('/add_student', [GlobalController::class, 'add_student']);
 
 Route::get('/add_proxy_background', [GlobalController::class, 'add_proxy_background']);
 
+Route::get('/add_proxy_data',[GlobalController::class, 'add_proxy_data']);
+
 Route::get('/del_inscription', [GlobalController::class, 'del_inscription']);
 

@@ -353,55 +353,9 @@
             @elseif($parent == "f")
             <input id="parent_type" class="form-control is-invalid" value="f" name="parent_type" hidden="">
             @elseif($parent == "p")
-            <input id="parent_type" class="form-control is-invalid" value="p" name="parent_type" hidden="">
-            <div class="form-group col-md-3">
-                  <label>Apoderado</label>
-                  <select id="ddlproxy" class="custom-select mr-sm-2" autocomplete="off" name="ddlproxy" required="">
-                      <option disabled="" selected="" value="">Seleccionar</option>
-                      <option value="m">Madre</option>
-                      <option value="f">Padre</option>
-                      <option value="p">Otro Familiar</option>
-                  </select>
-                  @if(isset($c_apo))
-                    <script>
-                        $( document ).ready(function() {
-                            $('#ddlproxy option[value={{$c_apo}}').prop('selected', true);
-                        });
-                    </script>
-                  @endif
-                  <script>
-                    $("#ddlproxy").change(function(){
-                        if($(this).val()=="p"){
-                            $("#formproxy").show();
-                            $("#kinship").attr("readonly",false);
-                            $("#kinship").val("{{$kinship}}");
-                        }else{
-                            if($("#ddlproxy").val()=="m"){
-                                $("#kinship").val("Madre");
-                            }else if($("#ddlproxy").val()=="f"){
-                                $("#kinship").val("Padre");
-                            }
-                            $("#formproxy input").removeAttr("required");
-                            $("#kinship").attr("readonly",true);
-                            $("#formproxy").hide();
-                        }
-                    });
-                    $( document ).ready(function() {
-                        if("{{$c_apo}}"=="f"){
-                            $("#kinship").val("Padre");
-                        }else if("{{$c_apo}}"=="m"){
-                            $("#kinship").val("Madre");
-                        }else if("{{$c_apo}}"=="p"){
-                            $("#formproxy").show();
-                            $("#kinship").attr("readonly",false);
-                            $("#kinship").val("{{$kinship}}");
-                        }
-                    });
-                  </script>
-            </div>
             <div class="form-group col-md-3">
                 <label>Parentezco</label>
-                <input id="kinship" class="form-control" name="kinship" value="" readonly="" type="text" minlength="3" required="" >
+                <input id="kinship" class="form-control" name="kinship" value="" type="text" minlength="3" required="" >
             </div>
             <div class="form-group col-md-6">
                 <label class="text-primary">Declara que el apoderado vive con el estudiante</label>
