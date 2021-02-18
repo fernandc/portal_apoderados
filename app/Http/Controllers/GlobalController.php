@@ -58,7 +58,17 @@ class GlobalController extends Controller
         );
         $responseMatricula = Http::withBody(json_encode($arrMatricula), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
         $matriculas = json_decode($responseMatricula->body(),true);
-        return view('home_proxy',compact('matriculas'));     
+
+        $arrProxy = array(
+            'institution' => getenv("APP_NAME"),
+            'public_key' => getenv("APP_PUBLIC_KEY"),
+            'method' => 'get_data_proxy',
+            'data' => ['dni' => $dni]
+        );
+        $responseProxy = Http::withBody(json_encode($arrProxy), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+        $dataProxy = json_decode($responseProxy->body(),true);
+        //dd($dataProxy);
+        return view('home_proxy',compact('matriculas','dataProxy'));     
     }
     public function auth_admin(Request $request){
         $gets= $request->input();
@@ -392,12 +402,10 @@ class GlobalController extends Controller
 
     public function add_proxy_background(Request $request){
         $gets = $request->input();
+        $dni = str_replace("-","",$gets["rut"]);
         if(!isset($gets["ddlproxy"]) && !isset($gets["kinship"])){
             $gets["ddlproxy"] = NULL;
             $gets["kinship"] = NULL;
-        }
-        if(!isset($gets["live_with"])){
-            $gets["live_with"] = NULL;
         }
         if(!isset($gets["current_civil_status"])){
             $gets["current_civil_status"] = NULL;
@@ -411,18 +419,12 @@ class GlobalController extends Controller
         $arr = array(
             'institution' => getenv("APP_NAME"),
             'public_key' => getenv("APP_PUBLIC_KEY"),
-            'method' => 'add_proxy_background',
-            'data' => [ "student" => $gets["student"],
-                        "parent_type" => $gets["parent_type"],
-                        "kinship" => $gets["kinship"],
-                        "ddlproxy" => $gets["ddlproxy"],
-                        "rut" => $gets["rut"],
+            'method' => 'proxys_data',
+            'data' => [ "rut" => $dni,
                         "nombresparent" => $gets["nombresparent"],
                         "apellido_pparent" => $gets["apellido_pparent"],
                         "apellido_mparent" => $gets["apellido_mparent"],
                         "fecha_nacparent" => $gets["fecha_nacparent"],
-                        "visits_per_months" => $gets["visits_per_months"],
-                        "live_with" => $gets["live_with"],
                         "legal_civil_status" => $gets["legal_civil_status"],
                         "current_civil_status" => $gets["current_civil_status"],
                         "districtparent" => $gets["districtparent"],
@@ -441,8 +443,7 @@ class GlobalController extends Controller
         
         $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
         $data = json_decode($response->body(),true);
-        dd($data);
-        return back();
+        return redirect('/home');
     }
 
     public function aditional_info(Request $request){

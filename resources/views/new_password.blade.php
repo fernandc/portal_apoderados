@@ -58,12 +58,12 @@ Cambio de contraseña
               @endif
               <div class="form-group">
                 <label for="passwd">Nueva Contraseña</label>
-                <input type="password" min="8" class="form-control" id="passwd" placeholder="Ingrese contraseña..." name="passwd">
-                <small id="emailHelp" class="form-text text-muted">Ingrese mínimo 8 caracteres y como máximo 20 caracteres</small>
+                <input type="password" min="6" maxlength="20" class="form-control" id="passwd" placeholder="Ingrese contraseña..." name="passwd">
+                <small id="emailHelp" class="form-text text-muted">Ingrese mínimo 6 caracteres y como máximo 20 caracteres</small>
               </div>
               <div class="form-group">
                 <label for="passwdconf">Reingrese Contraseña</label>
-                <input type="password" min="8" class="form-control" id="passwd" placeholder="reingrese contraseña..." name="passwdconf">
+                <input type="password" min="6" maxlength="20" class="form-control" id="passwd" placeholder="reingrese contraseña..." name="passwdconf">
               </div>   
               <div class="text-center">
                   <button type="submit" class="btn btn-success">Enviar</button>

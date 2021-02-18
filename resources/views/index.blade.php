@@ -28,7 +28,7 @@ Saint Charles Portal Apoderados
                         </div>
                         <div class="form-group col-md-12">
                             <label for="passwd">Contraseña<br></label>
-                            <input type="text" class="form-control is-invalid" id="passwd" name="passwd" minlength="6" maxlength="20" placeholder="ABCDEF" required="" style="text-transform: uppercase">
+                            <input type="password" class="form-control is-invalid" id="passwd" name="passwd" minlength="6" maxlength="20" placeholder="ABCDEF" required="">
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary">Continuar</button>
