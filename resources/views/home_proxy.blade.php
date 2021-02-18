@@ -30,11 +30,29 @@ Saint Charles Formularios
     ?>
     <hr>
     <div class="container">
-        <h2 style="text-align: center">Bienvenido</h2>
-        <h6 class="text-primary" style="text-align: center">{{$var["email"]}}</h6>
-        <div style="text-align: center;">
-            <a href="" class="btn btn-success">Datos de contacto</a>
-            <a href="/logout" class="btn btn-outline-danger text-danger">Salir</a>
+        
+        <div class="row">
+            <div class="col-md-4">
+                <h6>Datos de Contacto</h3>
+                <hr>
+                <div class="card">
+                    <div class="card-body">
+                        <p><strong>Nombre:</strong> {{$var["names"]}} {{$var["last_p"]}} {{$var["last_m"]}}</p>
+                        <p><strong>Teléfono Celular:</strong> {{$var["cell_phone"]}}</p>
+                        <p><strong>Email:</strong> {{$var["email"]}}</p>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-4">
+                <h2 style="text-align: center">Bienvenido</h2>
+            </div>
+            <div class="col-md-4" style="text-align: right">
+                <a href="/logout" class="btn btn-outline-danger text-danger">Salir</a>
+            </div>
+            
+            
+
         </div>
         <hr>
         <h6><span class="badge badge-primary">[20/12/2020 16:00]</span> Se ha corregido un error que no permitía <span class="badge badge-success">Guardar</span> El apoderado en <span class="badge badge-info">Apoderado</span></h6>
@@ -301,6 +319,11 @@ Saint Charles Formularios
                                                     {
                                                         if(data == "OK"){
                                                             $("#card{{$row["id_stu"]}}").remove();
+                                                            Swal.fire({
+                                                                icon: 'success',
+                                                                title: 'Matricula Eliminada',
+                                                                text: 'La matricula ha sido eliminada pero los datos han sido guardados'
+                                                            });
                                                         }else{
                                                             Swal.fire('Error! A', data, 'error')
                                                         }

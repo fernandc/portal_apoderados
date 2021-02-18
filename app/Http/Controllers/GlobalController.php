@@ -93,7 +93,13 @@ class GlobalController extends Controller
                         'institution' => getenv("APP_NAME"),
                         'public_key' => getenv("APP_PUBLIC_KEY"),
                         'method' => 'up_first_data',
-                        'data' => ["dni" => $dni, "email" => $request->email, "cell_phone" => $request->cell_phone]
+                        'data' => ["dni" => $dni,
+                                   "email" => $request->email,
+                                   "cell_phone" => $request->cell_phone,
+                                   "names" =>$request->names,
+                                   "last_p" => $request->last_p,
+                                   "last_m" => $request-> last_m,
+                        ]
                     );
     
                     $responseContact = Http::withBody(json_encode($arrContact), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
@@ -264,8 +270,8 @@ class GlobalController extends Controller
         );
         $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
 
-        $data = json_decode($response->body(), true);
-        return $response;
+        $message = json_decode($response->body(), true);
+        return back()->with('message',$message);
     }
 
     public function get_data_info(request $request){
@@ -370,26 +376,41 @@ class GlobalController extends Controller
                     ]
         );
         $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
-
-        return $response;
+        $message = json_decode($response->body(),true);
+        return back()->with('message',$message);
     }
 
     public function add_proxy_background(Request $request){
         $gets = $request->input();
+        if(!isset($gets["ddlproxy"]) && !isset($gets["kinship"])){
+            $gets["ddlproxy"] = NULL;
+            $gets["kinship"] = NULL;
+        }
+        if(!isset($gets["live_with"])){
+            $gets["live_with"] = NULL;
+        }
+        if(!isset($gets["current_civil_status"])){
+            $gets["current_civil_status"] = NULL;
+        }
+        if(!isset($gets["legal_civil_status"])){
+            $gets["legal_civil_status"] = NULL;
+        }
+        if(!isset($gets["educational_level"])){
+            $gets["educational_level"] = NULL;
+        }
         $arr = array(
             'institution' => getenv("APP_NAME"),
             'public_key' => getenv("APP_PUBLIC_KEY"),
             'method' => 'add_proxy_background',
             'data' => [ "student" => $gets["student"],
                         "parent_type" => $gets["parent_type"],
-                        "ddlproxy" => $gets["ddlproxy"],
                         "kinship" => $gets["kinship"],
+                        "ddlproxy" => $gets["ddlproxy"],
                         "rut" => $gets["rut"],
                         "nombresparent" => $gets["nombresparent"],
                         "apellido_pparent" => $gets["apellido_pparent"],
                         "apellido_mparent" => $gets["apellido_mparent"],
                         "fecha_nacparent" => $gets["fecha_nacparent"],
-                        "ddlive_with" => $gets["ddlive_with"],
                         "visits_per_months" => $gets["visits_per_months"],
                         "live_with" => $gets["live_with"],
                         "legal_civil_status" => $gets["legal_civil_status"],
@@ -407,9 +428,10 @@ class GlobalController extends Controller
                         "matricula" => getenv("MATRICULAS_PARA") 
             ]
         );
-        dd($arr);
+        
         $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
-
+        $data = json_decode($response->body(),true);
+        dd($data);
         return back();
     }
 
@@ -444,12 +466,15 @@ class GlobalController extends Controller
             'institution' => getenv("APP_NAME"),
             'public_key' => getenv("APP_PUBLIC_KEY"),
             'method' => 'del_inscription',
-            'data' => [ "stu" => $gets["stu"]]
+            'data' => [ "stu" => $gets["stu"],
+                        "id_apo" => Session::get('apoderado')["id"],
+                        "matricula" => getenv("MATRICULAS_PARA")   
+                    ]
         );
 
         $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
-
-        return back();
+        $message = $response;
+        return $message;
     }
 
 

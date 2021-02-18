@@ -41,8 +41,22 @@ Cambio de contraseña
                   <input type="password" min="8" class="form-control" id="passwd" placeholder="reingrese contraseña..." name="passwdconf">
                 </div>
 
-                <h1 class="text-center my-5">Actualizar datos de contacto</h1>
-
+                <h1 class="text-center my-5">Actualizar datos personales</h1>
+                
+                <div class="form-group">
+                  <label for="names">Nombres</label>
+                  <input type="text" maxlength="40" class="form-control" name="names" id="names" placeholder="Ingrese nombre completo" required>
+                </div>
+                <div class="form-group">
+                  <label for="last_p">Apellido Paterno</label>
+                  <input type="text" maxlength="20" class="form-control" name="last_p" id="names" placeholder="Apellido Paterno..." required>
+                </div>
+                <div class="form-group">
+                  <input type="text" maxlength="20" class="form-control" name="last_m" id="last_m" placeholder="Apellido Materno..." required>
+                </div>
+                <div class="form-group">
+                  <label for="">Apellido Materno</label>
+                </div>
                 <div class="form-group">
                     <label for="email">Correo electrónico</label>
                     <input type="email" name="email" class="form-control" placeholder="Ingrese Correo..." id="email">
