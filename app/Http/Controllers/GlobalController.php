@@ -41,14 +41,25 @@ class GlobalController extends Controller
                     );
                     $responseMatricula = Http::withBody(json_encode($arrMatricula), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
                     $matriculas = json_decode($responseMatricula->body(),true);
-                    return view('home_proxy',compact('matriculas'));     
+                    return redirect('/home');
                 }
             }
         }else{
             return back()->with('message','Error interno.');
         }
     }
-
+    public function home_view(){
+        $dni = session::get('apoderado')['dni'];
+        $arrMatricula = array(
+            'institution' => getenv("APP_NAME"),
+            'public_key' => getenv("APP_PUBLIC_KEY"),
+            'method' => 'home_proxy',
+            'data' => ['dni' => $dni, 'matricula' => getenv("MATRICULAS_PARA")]
+        );
+        $responseMatricula = Http::withBody(json_encode($arrMatricula), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+        $matriculas = json_decode($responseMatricula->body(),true);
+        return view('home_proxy',compact('matriculas'));     
+    }
     public function auth_admin(Request $request){
         $gets= $request->input();
         $arr = array(

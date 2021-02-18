@@ -6,9 +6,8 @@ Route::get('/', function () {
     return view("index");
 });
 Route::get('/auth_proxy', [GlobalController::class, 'auth_proxy']);
-Route::get('/home',function(){
-    return view("home_proxy");
-})->name('home');
+Route::get('/home', [GlobalController::class, 'home_view']);
+
 Route::get('/change_password', [GlobalController::class, 'change_password']);
 Route::get('/new_password', function(){
     return view('new_password');
