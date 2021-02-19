@@ -440,7 +440,8 @@ class GlobalController extends Controller
                         "work_address" => $gets["work_address"],
                         "work_phone" => $gets["work_phone"],
                         "id_apo" => Session::get('apoderado')["id"],
-                        "matricula" => getenv("MATRICULAS_PARA") 
+                        "matricula" => getenv("MATRICULAS_PARA"),
+                        "kinship" => $gets["kinship"]
             ]
         );
         
