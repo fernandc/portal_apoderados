@@ -34,7 +34,7 @@ Cambio de contraseña
                 </div>
                 <div class="form-group col-md-4">
                   <label for="last_p">Apellido Paterno</label>
-                  <input type="text" maxlength="20" class="form-control" name="last_p" id="names" placeholder="Apellido Paterno..." required>
+                  <input type="text" maxlength="20" class="form-control" name="last_p" id="last_p" placeholder="Apellido Paterno..." required>
                 </div>
                 <div class="form-group col-md-4">
                   <label for="">Apellido Materno</label>

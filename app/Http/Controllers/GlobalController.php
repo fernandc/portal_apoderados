@@ -22,8 +22,6 @@ class GlobalController extends Controller
         $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
         $status = $response->status();
 
-       
-        
         if($status == 200){
             $data= json_decode($response->body(),true);
             if($data==NULL){
@@ -98,7 +96,6 @@ class GlobalController extends Controller
             return back()->with('message','Contraseña incorrecta. Vuelva a intentar.');
         }
     }
-
     public function change_password(Request $request){
         if(Session::has('apoderado')){
             $oldPassword=Session::get('apoderado')["passwd"];
@@ -132,7 +129,13 @@ class GlobalController extends Controller
                                    "last_m" => $request-> last_m,
                         ]
                     );
-    
+                    $sesData = session::get('apoderado');
+                    $sesData["email"] = $request->email;
+                    $sesData["cell_phone"] = $request->cell_phone;
+                    $sesData["names"] = $request->names;
+                    $sesData["last_p"] = $request->last_p;
+                    $sesData["last_m"] = $request->last_m;
+                    session::put(['apoderado'=>$sesData]);
                     $responseContact = Http::withBody(json_encode($arrContact), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
                     if($response == "DONE" && $responseContact=="DONE"){
                         
@@ -153,9 +156,6 @@ class GlobalController extends Controller
             return redirect('/');
         }
     }
-
-   
-
     public function add_new_user(Request $request){
         $gets = $request->input();
         if(session::has('admin')){
@@ -178,7 +178,6 @@ class GlobalController extends Controller
         }
         
     }
-
     public function disable_user(Request $request){
         if(Session::has('admin')){
             $gets = $request->input();
@@ -195,7 +194,6 @@ class GlobalController extends Controller
             return redirect('/');
         }
     }
-
     public function download_pdf(Request $request){
         $gets = $request->input();
         $arr = array(
@@ -211,7 +209,6 @@ class GlobalController extends Controller
         $report = \PDF::loadView('print_pdf', compact('data'));
         return $report->download($pdfName);
     }
-
     public function datos_students(Request $request){
         $gets= $request->input();
         $arr = array(
@@ -224,7 +221,6 @@ class GlobalController extends Controller
         $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
         return $response;
     }
-
     public function modal_data(Request $request){
         $gets = $request->input();
 
@@ -280,7 +276,6 @@ class GlobalController extends Controller
         }
         
     }
-
     public function add_student(Request $request){
         $gets = $request->input();
         $arr = array(
@@ -304,7 +299,6 @@ class GlobalController extends Controller
         $message = json_decode($response->body(), true);
         return redirect('/home');
     }
-
     public function get_data_info(request $request){
         $rut = $request->input()["rut"];
         $curl = curl_init();
@@ -351,7 +345,6 @@ class GlobalController extends Controller
         header('Content-Type: application/json');;
         print_r(json_encode($array, JSON_PRETTY_PRINT)); 
     }
-
     public function upd_student(Request $request){
         $gets = $request->input();
         $arr = array(
@@ -377,7 +370,6 @@ class GlobalController extends Controller
         $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
         return back()->with('message',$response);
     }
-
     public function add_student_background(Request $request){
         $gets = $request->input();
         $arr= array(
@@ -409,7 +401,6 @@ class GlobalController extends Controller
         $message = json_decode($response->body(),true);
         return back()->with('message',$message);
     }
-
     public function add_proxy_data(Request $request){
         $gets = $request->input();
         $dni = str_replace("-","",$gets["rut"]);
@@ -455,7 +446,6 @@ class GlobalController extends Controller
         $data = json_decode($response->body(),true);
         return redirect('/home');
     }
-
     public function add_proxy_background(Request $request){
         $gets = $request->input();
 
@@ -510,9 +500,6 @@ class GlobalController extends Controller
         $data = json_decode($response->body(),true);
         return redirect('/home');
     }
-
-
-
     public function aditional_info(Request $request){
         $gets = $request->input();
         
@@ -532,7 +519,6 @@ class GlobalController extends Controller
             return back();
         } 
     }
-
     public function home_circle(Request $request){
         $gets = $request->input();
         $arr = array(
@@ -551,7 +537,6 @@ class GlobalController extends Controller
         $data = json_decode($response->body(),true);
         return $data;
     }
-
     public function del_inscription(Request $request){
         $gets = $request->input();
         $arr = array(
@@ -568,19 +553,18 @@ class GlobalController extends Controller
         $message = $response;
         return $message;
     }
-
     public function confirmation_account(){
         $id = Session::get('apoderado')["id"];
         $rut = Session::get('apoderado')["dni"];
         $id_cryp = Crypt::encryptString($id);
         $rut_cryp = Crypt::encryptString($rut);
-        $message = "www.scc.cloupping.com/api-apoderados?method=confirmation_account&id=".$id_cryp."&code=".$rut_cryp;
-        
+        $message = "www.scc.cloupping.com/api-apoderado?method=confirmation_account&id=".$id_cryp."&code=".$rut_cryp;
+        //dd(Session::get('apoderado'));
+
         Mail::to(session::get('apoderado')["email"])->send(new activationMail($message));
+        
         return view('mail_sended');   
     }
-
-
     public function logout(){
         if(session::has('apoderado')){
             session::forget('apoderado');
@@ -591,6 +575,4 @@ class GlobalController extends Controller
             return redirect('/admin');
         }
     }
-
-       
 }
