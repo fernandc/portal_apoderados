@@ -30,7 +30,7 @@ Saint Charles Formularios
         <div class="abs-center">
             <form action="/auth_admin" method="GET" class="border p-3 was-validated">
                 @csrf
-                <img src="scc_logo.png" class="card-img-top rounded mx-auto d-block" alt="logo" style="width: 150px;">
+                <img src="public/scc_logo.png" class="card-img-top rounded mx-auto d-block" alt="logo" style="width: 150px;">
                 <div class="card-header">
                     <h4 style="text-align: center;">Panel de Administración</h4>
                 </div>

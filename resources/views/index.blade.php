@@ -11,7 +11,7 @@ Saint Charles Portal Apoderados
 @section("context")
     <div class="container mx-auto" style="display: flex;min-height: 100vh;align-items: center;justify-content: center;">
         <div class="card">
-            <img src="scc_logo.png" class="card-img-top rounded mx-auto d-block my-3" alt="logo" style="width: 150px;">
+            <img src="public/scc_logo.png" class="card-img-top rounded mx-auto d-block my-3" alt="logo" style="width: 150px;">
             <div class="card-header">
                 <h4 style="text-align: center;">Portal de Apoderados</h4>
             </div>
