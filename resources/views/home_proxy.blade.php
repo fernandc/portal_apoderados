@@ -96,7 +96,7 @@ Saint Charles Formularios
             <div class="tab-content" id="myTabContent">
                 @if($dataProxy == NULL)
                     <div class="alert alert-danger" role="alert">
-                        Debe completar formulario <a href="/apoderados/home?active=info">Mi información</a>
+                        Debe completar formulario <a href="/apoderados/home?active=info">Mi información</a> para proceder a matrículas de estudiantes <i class="fas fa-anchor"></i> 
                     </div>
                 @endif
                 <div class="tab-pane fade {{$homeC}}" id="home" role="tabpanel" aria-labelledby="home-tab">
