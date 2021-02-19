@@ -13,7 +13,7 @@ $arr = array(
     "same_ins"=>$same_ins,
     "idgroup"=>$idgroup
 );
-$arrayBase= array()
+$arrayBase= array();
 for($i=0; $i<10; $i++)
 {
     $arrayBase = array_push($arrayBase, $arr);
