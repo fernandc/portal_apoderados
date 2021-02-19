@@ -441,7 +441,7 @@ class GlobalController extends Controller
                         "work_phone" => $gets["work_phone"],
                         "id_apo" => Session::get('apoderado')["id"],
                         "matricula" => getenv("MATRICULAS_PARA"),
-                        "kinship" => $gets["kinship"]
+                        "kinship" => $gets["kinship"],
             ]
         );
         
@@ -457,6 +457,9 @@ class GlobalController extends Controller
         if(!isset($gets["ddlproxy"]) && !isset($gets["kinship"])){
             $gets["ddlproxy"] = NULL;
             $gets["kinship"] = NULL;
+        }
+        if(!isset($gets["parent_type"])){
+            $gets["parent_type"] = NULL;
         }
         if(!isset($gets["current_civil_status"])){
             $gets["current_civil_status"] = NULL;
