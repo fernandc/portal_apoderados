@@ -369,7 +369,7 @@ class GlobalController extends Controller
         );
        
         $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
-        return back()->with('message',$response);
+        return redirect("home?active=matricula")->with('message',$response);
     }
     public function add_student_background(Request $request){
         $gets = $request->input();
