@@ -395,7 +395,7 @@ class GlobalController extends Controller
                         "does_keep_st" => $gets["does_keep_st"],
                         "why_does_keep_st" => $gets["why_does_keep_st"],
                         "id_apo" => Session::get('apoderado')["id"],
-                        "visits_per_month" => gets["visits_per_month"],
+                        "visits_per_month" => $gets["visits_per_month"],
                         "matricula" => getenv("MATRICULAS_PARA")
                     ]
         );
@@ -451,8 +451,23 @@ class GlobalController extends Controller
     }
     public function add_proxy_background(Request $request){
         $gets = $request->input();
+        
         if(!isset($gets["rut"])){
             $gets["rut"] = Session::get('apoderado')["dni"];
+        }
+        if(isset($gets["kinship"])){
+            $arr = array(
+                'institution' => getenv("APP_NAME"),
+                'public_key' => getenv("APP_PUBLIC_KEY"),
+                'method' => 'add_proxy_background',
+                'data' => [ "student" => $gets["student"],
+                            "kinship" => $gets["kinship"],
+                            "id" => $gets["id_apo"] ]
+            );
+            $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+            $data = json_decode($response->body(),true);
+            return redirect('/home');
+
         }
         if(!isset($gets["ddlproxy"]) && !isset($gets["kinship"])){
             $gets["ddlproxy"] = NULL;
@@ -487,7 +502,7 @@ class GlobalController extends Controller
                         "rut" => $gets["rut"],
                         "parent_type" => $gets["parent_type"],
                         "ddlproxy" => $gets["ddlproxy"],
-                        "kinship" => $gets["kinship"],
+                        //"kinship" => $gets["kinship"],
                         "visits_per_months" => $gets["visits_per_months"],
                         "live_with" => $gets["live_with"],
                         "nombresparent" => $gets["nombresparent"],
