@@ -1,14 +1,4 @@
-<!DOCTYPE html> 
-@extends("layouts.mcdn")
-@section("title")
-Test Section
-@endsection
 
-@section("headex")
-
-@endsection
-
-@section("context")
 <div class="container text-center">
     <h4 class="my-3" id="test">Informacion de personas que viven con el/los estudiante/s</h4>
     <form action="" id="form0">
@@ -261,4 +251,3 @@ Test Section
         });
     </script>
 </section>
-@endsection
