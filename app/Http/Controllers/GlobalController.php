@@ -468,7 +468,7 @@ class GlobalController extends Controller
             $gets["visits_per_months"] = NULL;
         }
         if(!isset($gets["live_with"])){
-            $hryd["live_with"] = NULL;
+            $gets["live_with"] = NULL;
         }
         $arr = array(
             'institution' => getenv("APP_NAME"),
