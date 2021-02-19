@@ -12,6 +12,6 @@ Saint charles Activación
 <div class="container">
     <h3 class="text-center my-3">Cuenta activada</h3>
     <p>Ahora puede ingresar a su cuenta en el siguiente link</p>
-    <button class="btn btn-success"><a href="{{route('/logout')}}">Ingresar</a></button>
+    <button class="btn btn-success"><a href="logout">Ingresar</a></button>
 </div>
 @endsection
