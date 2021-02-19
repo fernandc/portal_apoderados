@@ -55,7 +55,7 @@ if(isset($dataHomeCircle)){
         </div>
     </form>
     <hr>
-    <form action="" id="form0">
+    <form action="" id="form1">
         <div class="card">
             <div class="card-header">
                 <h4 class="my-3">Persona 2</h4>
@@ -77,7 +77,7 @@ if(isset($dataHomeCircle)){
         </div>
     </form>
 
-    <form action="" id="form0">
+    <form action="" id="form2">
         <div class="card">
             <div class="card-header">
                 <h4 class="my-3">Persona 3</h4>
@@ -99,7 +99,7 @@ if(isset($dataHomeCircle)){
         </div>
     </form>
 
-    <form action="" id="form0">
+    <form action="" id="form3">
         <div class="card">
             <div class="card-header">
                 <h4 class="my-3">Persona 4</h4>
@@ -121,7 +121,7 @@ if(isset($dataHomeCircle)){
         </div>
     </form>
 
-    <form action="" id="form0">
+    <form action="" id="form4">
         <div class="card">
             <div class="card-header">
                 <h4 class="my-3">Persona 5</h4>
@@ -143,7 +143,7 @@ if(isset($dataHomeCircle)){
         </div>
     </form>
 
-    <form action="" id="form0">
+    <form action="" id="form5">
         <div class="card">
             <div class="card-header">
                 <h4 class="my-3">Persona 6</h4>
@@ -165,7 +165,7 @@ if(isset($dataHomeCircle)){
         </div>
     </form>
 
-    <form action="" id="form0">
+    <form action="" id="form6">
         <div class="card">
             <div class="card-header">
                 <h4 class="my-3">Persona 7</h4>
@@ -187,7 +187,7 @@ if(isset($dataHomeCircle)){
         </div>
     </form>
 
-    <form action="" id="form0">
+    <form action="" id="form7">
         <div class="card">
             <div class="card-header">
                 <h4 class="my-3">Persona 8</h4>
@@ -209,7 +209,7 @@ if(isset($dataHomeCircle)){
         </div>
     </form>
 
-    <form action="" id="form0">
+    <form action="" id="form8">
         <div class="card">
             <div class="card-header">
                 <h4 class="my-3">Persona 9</h4>
@@ -231,7 +231,7 @@ if(isset($dataHomeCircle)){
         </div>
     </form>
 
-    <form action="" id="form0">
+    <form action="" id="form9">
         <div class="card">
             <div class="card-header">
                 <h4 class="my-3">Persona 10</h4>
