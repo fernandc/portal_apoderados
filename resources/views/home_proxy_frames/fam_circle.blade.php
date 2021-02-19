@@ -28,7 +28,7 @@ if(!isset($dataHomeCircle)){
             "years_old"=>$row["years_old"],
             "occupation"=>$row["occupation"],
             "same_ins"=>$row["same_ins"],
-            "idgroup"=>$row["idgroup"]
+            "idgroup"=>$row["parent_num"]
         );
         array_push($arrayData,$arr2);
     }
