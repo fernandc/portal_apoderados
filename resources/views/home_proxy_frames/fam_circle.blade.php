@@ -42,7 +42,7 @@ if(isset($dataHomeCircle)){
                 <div class="form-row">
                     <div class="form-group col-md-4"><label for="inName">Nombre</label><input class="form-control" type="text"  name="inName" value="{{$arrayBase[0]["full_name"]}}"></div>
                     <div class="form-group col-md-4"><label for="edad">Edad</label><input class="form-control" type="text" name="edad" value="{{$arrayBase[0]["years_old"]}}"></div>
-                    <div class="form-group col-md-4"><label for="parentezco">Parentezco</label><input class="form-control" type="text"name="parentezco" value="{{$arrayData[0]["kinship"]}}"></div>
+                    <div class="form-group col-md-4"><label for="parentezco">Parentezco</label><input class="form-control" type="text"name="parentezco" value="{{$arrayBase[0]["kinship"]}}"></div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6"><label for="ocupation">Ocupación</label><input class="form-control" type="text" name="ocupation" value="{{$arrayBase[0]["occupation"]}}"></div>
@@ -64,7 +64,7 @@ if(isset($dataHomeCircle)){
                 <div class="form-row">
                     <div class="form-group col-md-4"><label for="inName">Nombre</label><input class="form-control" type="text"  name="inName" value="{{$arrayBase[1]["full_name"]}}"></div>
                     <div class="form-group col-md-4"><label for="edad">Edad</label><input class="form-control" type="text" name="edad" value="{{$arrayBase[1]["years_old"]}}"></div>
-                    <div class="form-group col-md-4"><label for="parentezco">Parentezco</label><input class="form-control" type="text"name="parentezco" value="{{$arrayData[1]["kinship"]}}"></div>
+                    <div class="form-group col-md-4"><label for="parentezco">Parentezco</label><input class="form-control" type="text"name="parentezco" value="{{$arrayBase[1]["kinship"]}}"></div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6"><label for="ocupation">Ocupación</label><input class="form-control" type="text" name="ocupation" value="{{$arrayBase[1]["occupation"]}}"></div>
@@ -86,7 +86,7 @@ if(isset($dataHomeCircle)){
                 <div class="form-row">
                     <div class="form-group col-md-4"><label for="inName">Nombre</label><input class="form-control" type="text"  name="inName" value="{{$arrayBase[2]["full_name"]}}"></div>
                     <div class="form-group col-md-4"><label for="edad">Edad</label><input class="form-control" type="text" name="edad" value="{{$arrayBase[2]["years_old"]}}"></div>
-                    <div class="form-group col-md-4"><label for="parentezco">Parentezco</label><input class="form-control" type="text"name="parentezco" value="{{$arrayData[2]["kinship"]}}"></div>
+                    <div class="form-group col-md-4"><label for="parentezco">Parentezco</label><input class="form-control" type="text"name="parentezco" value="{{$arrayBase[2]["kinship"]}}"></div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6"><label for="ocupation">Ocupación</label><input class="form-control" type="text" name="ocupation" value="{{$arrayBase[2]["occupation"]}}"></div>
@@ -108,7 +108,7 @@ if(isset($dataHomeCircle)){
                 <div class="form-row">
                     <div class="form-group col-md-4"><label for="inName">Nombre</label><input class="form-control" type="text"  name="inName" value="{{$arrayBase[3]["full_name"]}}"></div>
                     <div class="form-group col-md-4"><label for="edad">Edad</label><input class="form-control" type="text" name="edad" value="{{$arrayBase[3]["years_old"]}}"></div>
-                    <div class="form-group col-md-4"><label for="parentezco">Parentezco</label><input class="form-control" type="text"name="parentezco" value="{{$arrayData[3]["kinship"]}}"></div>
+                    <div class="form-group col-md-4"><label for="parentezco">Parentezco</label><input class="form-control" type="text"name="parentezco" value="{{$arrayBase[3]["kinship"]}}"></div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6"><label for="ocupation">Ocupación</label><input class="form-control" type="text" name="ocupation" value="{{$arrayBase[3]["occupation"]}}"></div>
@@ -130,7 +130,7 @@ if(isset($dataHomeCircle)){
                 <div class="form-row">
                     <div class="form-group col-md-4"><label for="inName">Nombre</label><input class="form-control" type="text"  name="inName" value="{{$arrayBase[4]["full_name"]}}"></div>
                     <div class="form-group col-md-4"><label for="edad">Edad</label><input class="form-control" type="text" name="edad" value="{{$arrayBase[4]["years_old"]}}"></div>
-                    <div class="form-group col-md-4"><label for="parentezco">Parentezco</label><input class="form-control" type="text"name="parentezco" value="{{$arrayData[4]["kinship"]}}"></div>
+                    <div class="form-group col-md-4"><label for="parentezco">Parentezco</label><input class="form-control" type="text"name="parentezco" value="{{$arrayBase[4]["kinship"]}}"></div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6"><label for="ocupation">Ocupación</label><input class="form-control" type="text" name="ocupation" value="{{$arrayBase[4]["occupation"]}}"></div>
