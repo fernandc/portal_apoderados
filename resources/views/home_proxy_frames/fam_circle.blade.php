@@ -13,26 +13,23 @@ $arr = array(
     "same_ins"=>$same_ins,
     "idgroup"=>$idgroup
 );
+$arrayBase= array()
+for($i=0; $i<10; $i++)
+{
+    $arrayBase = array_push($arrayBase, $arr);
+}
 $arrayData = array();
-if(!isset($dataHomeCircle)){
-    $array = array();
-    for($in = 0; $in<10 ; $in++){
-        array_push($array,$arr);
-    }
-    $arrayData=$array;
-}else{
+if(isset($dataHomeCircle)){
     foreach ($dataHomeCircle as $row) {
-        $arr2 = array(
-            "full_name"=>$row["full_name"] ,
-            "kinship"=>$row["kinship"],
-            "years_old"=>$row["years_old"],
-            "occupation"=>$row["occupation"],
-            "same_ins"=>$row["same_ins"],
-            "idgroup"=>$row["parent_num"]
-        );
-        array_push($arrayData,$arr2);
+        if(isset($row["parent_num"])){
+            $arrayBase[intval($row["parent_num"]-1)]["full_name"] = $row["full_name"],
+            $arrayBase[intval($row["parent_num"]-1)]["kinship"] = $row["kinship"],
+            $arrayBase[intval($row["parent_num"]-1)]["years_old"] = $row["years_old"],
+            $arrayBase[intval($row["parent_num"]-1)]["occupation"] = $row["occupation"],
+            $arrayBase[intval($row["parent_num"]-1)]["same_ins"] = $row["same_ins"],          
+            $arrayBase[intval($row["parent_num"]-1)]["idgroup"] = $row["idgroup"]
+        }
     }
-    dd($arrayData);
 }
 ?>
 <div class="container text-center">
@@ -44,12 +41,12 @@ if(!isset($dataHomeCircle)){
             </div>
             <div class="card-body">
                 <div class="form-row">
-                    <div class="form-group col-md-4"><label for="inName">Nombre</label><input class="form-control" type="text"  name="inName" value="{{$arrayData[0]["full_name"]}}"></div>
-                    <div class="form-group col-md-4"><label for="edad">Edad</label><input class="form-control" type="text" name="edad" value="{{$years_old}}"></div>
-                    <div class="form-group col-md-4"><label for="parentezco">Parentezco</label><input class="form-control" type="text"name="parentezco" value="{{$kinship}}"></div>
+                    <div class="form-group col-md-4"><label for="inName">Nombre</label><input class="form-control" type="text"  name="inName" value="{{$arrayBase[0]["full_name"]}}"></div>
+                    <div class="form-group col-md-4"><label for="edad">Edad</label><input class="form-control" type="text" name="edad" value="{{$arrayBase[0]["years_old"]}}"></div>
+                    <div class="form-group col-md-4"><label for="parentezco">Parentezco</label><input class="form-control" type="text"name="parentezco" value="{{$arrayData[0]["kinship"]}}"></div>
                 </div>
                 <div class="form-row">
-                    <div class="form-group col-md-6"><label for="ocupation">Ocupación</label><input class="form-control" type="text" name="ocupation" value="{{$occupation}}"></div>
+                    <div class="form-group col-md-6"><label for="ocupation">Ocupación</label><input class="form-control" type="text" name="ocupation" value="{{{{$arrayBase[0]["occupation"]}}}}"></div>
                     <div class="form-group col-md-6"><label for="sameIns">¿Pertenece al colegio?</label><select class="form-control" name="sameIns" ><option value="SI">Si</option><option value="NO">No</option></select></div>
                 </div>
             </div>
@@ -59,203 +56,226 @@ if(!isset($dataHomeCircle)){
         </div>
     </form>
     <hr>
-    <form action="" id="form1">
+    <form action="" id="form0">
         <div class="card">
             <div class="card-header">
-                <h4 class="my-3">Persona 2</h4>
+                <h4 class="my-3">Persona 1</h4>
             </div>
             <div class="card-body">
                 <div class="form-row">
-                    <div class="form-group col-md-4"><label for="inName">Nombre</label><input class="form-control" type="text"  name="inName"></div>
-                    <div class="form-group col-md-4"><label for="edad">Edad</label><input class="form-control" type="text" name="edad"></div>
-                    <div class="form-group col-md-4"><label for="parentezco">Parentezco</label><input class="form-control" type="text"name="parentezco"></div>
+                    <div class="form-group col-md-4"><label for="inName">Nombre</label><input class="form-control" type="text"  name="inName" value="{{$arrayBase[1]["full_name"]}}"></div>
+                    <div class="form-group col-md-4"><label for="edad">Edad</label><input class="form-control" type="text" name="edad" value="{{$arrayBase[1]["years_old"]}}"></div>
+                    <div class="form-group col-md-4"><label for="parentezco">Parentezco</label><input class="form-control" type="text"name="parentezco" value="{{$arrayData[1]["kinship"]}}"></div>
                 </div>
                 <div class="form-row">
-                    <div class="form-group col-md-6"><label for="ocupation">Ocupación</label><input class="form-control" type="text" name="ocupation"></div>
+                    <div class="form-group col-md-6"><label for="ocupation">Ocupación</label><input class="form-control" type="text" name="ocupation" value="{{{{$arrayBase[0]["occupation"]}}}}"></div>
                     <div class="form-group col-md-6"><label for="sameIns">¿Pertenece al colegio?</label><select class="form-control" name="sameIns" ><option value="SI">Si</option><option value="NO">No</option></select></div>
                 </div>
             </div>
             <div class="card-footer">
-                <button class="btn btn-success btn-submit-ss" id="btn1" type="button">Guardar</button>
+                <button class="btn btn-success btn-submit-ss" id="btn0" type="button">Guardar</button>
             </div>
         </div>
     </form>
-    <hr>
-    <form action="" id="form2">
+
+    <form action="" id="form0">
         <div class="card">
             <div class="card-header">
-                <h4 class="my-3">Persona 3</h4>
+                <h4 class="my-3">Persona 1</h4>
             </div>
             <div class="card-body">
                 <div class="form-row">
-                    <div class="form-group col-md-4"><label for="inName">Nombre</label><input class="form-control" type="text"  name="inName"></div>
-                    <div class="form-group col-md-4"><label for="edad">Edad</label><input class="form-control" type="text" name="edad"></div>
-                    <div class="form-group col-md-4"><label for="parentezco">Parentezco</label><input class="form-control" type="text"name="parentezco"></div>
+                    <div class="form-group col-md-4"><label for="inName">Nombre</label><input class="form-control" type="text"  name="inName" value="{{$arrayBase[1]["full_name"]}}"></div>
+                    <div class="form-group col-md-4"><label for="edad">Edad</label><input class="form-control" type="text" name="edad" value="{{$arrayBase[1]["years_old"]}}"></div>
+                    <div class="form-group col-md-4"><label for="parentezco">Parentezco</label><input class="form-control" type="text"name="parentezco" value="{{$arrayData[1]["kinship"]}}"></div>
                 </div>
                 <div class="form-row">
-                    <div class="form-group col-md-6"><label for="ocupation">Ocupación</label><input class="form-control" type="text" name="ocupation"></div>
+                    <div class="form-group col-md-6"><label for="ocupation">Ocupación</label><input class="form-control" type="text" name="ocupation" value="{{{{$arrayBase[0]["occupation"]}}}}"></div>
                     <div class="form-group col-md-6"><label for="sameIns">¿Pertenece al colegio?</label><select class="form-control" name="sameIns" ><option value="SI">Si</option><option value="NO">No</option></select></div>
                 </div>
             </div>
             <div class="card-footer">
-                <button class="btn btn-success btn-submit-ss" id="btn2" type="button">Guardar</button>
+                <button class="btn btn-success btn-submit-ss" id="btn0" type="button">Guardar</button>
             </div>
         </div>
     </form>
-    <hr>
-    <form action="" id="form3">
+
+    <form action="" id="form0">
         <div class="card">
             <div class="card-header">
-                <h4 class="my-3">Persona 4</h4>
+                <h4 class="my-3">Persona 1</h4>
             </div>
             <div class="card-body">
                 <div class="form-row">
-                    <div class="form-group col-md-4"><label for="inName">Nombre</label><input class="form-control" type="text"  name="inName"></div>
-                    <div class="form-group col-md-4"><label for="edad">Edad</label><input class="form-control" type="text" name="edad"></div>
-                    <div class="form-group col-md-4"><label for="parentezco">Parentezco</label><input class="form-control" type="text"name="parentezco"></div>
+                    <div class="form-group col-md-4"><label for="inName">Nombre</label><input class="form-control" type="text"  name="inName" value="{{$arrayBase[1]["full_name"]}}"></div>
+                    <div class="form-group col-md-4"><label for="edad">Edad</label><input class="form-control" type="text" name="edad" value="{{$arrayBase[1]["years_old"]}}"></div>
+                    <div class="form-group col-md-4"><label for="parentezco">Parentezco</label><input class="form-control" type="text"name="parentezco" value="{{$arrayData[1]["kinship"]}}"></div>
                 </div>
                 <div class="form-row">
-                    <div class="form-group col-md-6"><label for="ocupation">Ocupación</label><input class="form-control" type="text" name="ocupation"></div>
+                    <div class="form-group col-md-6"><label for="ocupation">Ocupación</label><input class="form-control" type="text" name="ocupation" value="{{{{$arrayBase[0]["occupation"]}}}}"></div>
                     <div class="form-group col-md-6"><label for="sameIns">¿Pertenece al colegio?</label><select class="form-control" name="sameIns" ><option value="SI">Si</option><option value="NO">No</option></select></div>
                 </div>
             </div>
             <div class="card-footer">
-                <button class="btn btn-success btn-submit-ss" id="btn3" type="button">Guardar</button>
+                <button class="btn btn-success btn-submit-ss" id="btn0" type="button">Guardar</button>
             </div>
         </div>
     </form>
-    <hr>
-    <form action="" id="form4">
+
+    <form action="" id="form0">
         <div class="card">
             <div class="card-header">
-                <h4 class="my-3">Persona 5</h4>
+                <h4 class="my-3">Persona 1</h4>
             </div>
             <div class="card-body">
                 <div class="form-row">
-                    <div class="form-group col-md-4"><label for="inName">Nombre</label><input class="form-control" type="text"  name="inName"></div>
-                    <div class="form-group col-md-4"><label for="edad">Edad</label><input class="form-control" type="text" name="edad"></div>
-                    <div class="form-group col-md-4"><label for="parentezco">Parentezco</label><input class="form-control" type="text"name="parentezco"></div>
+                    <div class="form-group col-md-4"><label for="inName">Nombre</label><input class="form-control" type="text"  name="inName" value="{{$arrayBase[1]["full_name"]}}"></div>
+                    <div class="form-group col-md-4"><label for="edad">Edad</label><input class="form-control" type="text" name="edad" value="{{$arrayBase[1]["years_old"]}}"></div>
+                    <div class="form-group col-md-4"><label for="parentezco">Parentezco</label><input class="form-control" type="text"name="parentezco" value="{{$arrayData[1]["kinship"]}}"></div>
                 </div>
                 <div class="form-row">
-                    <div class="form-group col-md-6"><label for="ocupation">Ocupación</label><input class="form-control" type="text" name="ocupation"></div>
+                    <div class="form-group col-md-6"><label for="ocupation">Ocupación</label><input class="form-control" type="text" name="ocupation" value="{{{{$arrayBase[0]["occupation"]}}}}"></div>
                     <div class="form-group col-md-6"><label for="sameIns">¿Pertenece al colegio?</label><select class="form-control" name="sameIns" ><option value="SI">Si</option><option value="NO">No</option></select></div>
                 </div>
             </div>
             <div class="card-footer">
-                <button class="btn btn-success btn-submit-ss" id="btn4" type="button">Guardar</button>
+                <button class="btn btn-success btn-submit-ss" id="btn0" type="button">Guardar</button>
             </div>
         </div>
     </form>
-    <hr>
-    <form action="" id="form5">
+
+    <form action="" id="form0">
         <div class="card">
             <div class="card-header">
-                <h4 class="my-3">Persona 6</h4>
+                <h4 class="my-3">Persona 1</h4>
             </div>
             <div class="card-body">
                 <div class="form-row">
-                    <div class="form-group col-md-4"><label for="inName">Nombre</label><input class="form-control" type="text"  name="inName"></div>
-                    <div class="form-group col-md-4"><label for="edad">Edad</label><input class="form-control" type="text" name="edad"></div>
-                    <div class="form-group col-md-4"><label for="parentezco">Parentezco</label><input class="form-control" type="text"name="parentezco"></div>
+                    <div class="form-group col-md-4"><label for="inName">Nombre</label><input class="form-control" type="text"  name="inName" value="{{$arrayBase[1]["full_name"]}}"></div>
+                    <div class="form-group col-md-4"><label for="edad">Edad</label><input class="form-control" type="text" name="edad" value="{{$arrayBase[1]["years_old"]}}"></div>
+                    <div class="form-group col-md-4"><label for="parentezco">Parentezco</label><input class="form-control" type="text"name="parentezco" value="{{$arrayData[1]["kinship"]}}"></div>
                 </div>
                 <div class="form-row">
-                    <div class="form-group col-md-6"><label for="ocupation">Ocupación</label><input class="form-control" type="text" name="ocupation"></div>
+                    <div class="form-group col-md-6"><label for="ocupation">Ocupación</label><input class="form-control" type="text" name="ocupation" value="{{{{$arrayBase[0]["occupation"]}}}}"></div>
                     <div class="form-group col-md-6"><label for="sameIns">¿Pertenece al colegio?</label><select class="form-control" name="sameIns" ><option value="SI">Si</option><option value="NO">No</option></select></div>
                 </div>
             </div>
             <div class="card-footer">
-                <button class="btn btn-success btn-submit-ss" id="btn5" type="button">Guardar</button>
+                <button class="btn btn-success btn-submit-ss" id="btn0" type="button">Guardar</button>
             </div>
         </div>
     </form>
-    <hr>
-    <form action="" id="form6">
+
+    <form action="" id="form0">
         <div class="card">
             <div class="card-header">
-                <h4 class="my-3">Persona 7</h4>
+                <h4 class="my-3">Persona 1</h4>
             </div>
             <div class="card-body">
                 <div class="form-row">
-                    <div class="form-group col-md-4"><label for="inName">Nombre</label><input class="form-control" type="text"  name="inName"></div>
-                    <div class="form-group col-md-4"><label for="edad">Edad</label><input class="form-control" type="text" name="edad"></div>
-                    <div class="form-group col-md-4"><label for="parentezco">Parentezco</label><input class="form-control" type="text"name="parentezco"></div>
+                    <div class="form-group col-md-4"><label for="inName">Nombre</label><input class="form-control" type="text"  name="inName" value="{{$arrayBase[1]["full_name"]}}"></div>
+                    <div class="form-group col-md-4"><label for="edad">Edad</label><input class="form-control" type="text" name="edad" value="{{$arrayBase[1]["years_old"]}}"></div>
+                    <div class="form-group col-md-4"><label for="parentezco">Parentezco</label><input class="form-control" type="text"name="parentezco" value="{{$arrayData[1]["kinship"]}}"></div>
                 </div>
                 <div class="form-row">
-                    <div class="form-group col-md-6"><label for="ocupation">Ocupación</label><input class="form-control" type="text" name="ocupation"></div>
+                    <div class="form-group col-md-6"><label for="ocupation">Ocupación</label><input class="form-control" type="text" name="ocupation" value="{{{{$arrayBase[0]["occupation"]}}}}"></div>
                     <div class="form-group col-md-6"><label for="sameIns">¿Pertenece al colegio?</label><select class="form-control" name="sameIns" ><option value="SI">Si</option><option value="NO">No</option></select></div>
                 </div>
             </div>
             <div class="card-footer">
-                <button class="btn btn-success btn-submit-ss" id="btn6" type="button">Guardar</button>
+                <button class="btn btn-success btn-submit-ss" id="btn0" type="button">Guardar</button>
             </div>
         </div>
     </form>
-    <hr>
-    <form action="" id="form7">
+
+    <form action="" id="form0">
         <div class="card">
             <div class="card-header">
-                <h4 class="my-3">Persona 8</h4>
+                <h4 class="my-3">Persona 1</h4>
             </div>
             <div class="card-body">
                 <div class="form-row">
-                    <div class="form-group col-md-4"><label for="inName">Nombre</label><input class="form-control" type="text"  name="inName"></div>
-                    <div class="form-group col-md-4"><label for="edad">Edad</label><input class="form-control" type="text" name="edad"></div>
-                    <div class="form-group col-md-4"><label for="parentezco">Parentezco</label><input class="form-control" type="text"name="parentezco"></div>
+                    <div class="form-group col-md-4"><label for="inName">Nombre</label><input class="form-control" type="text"  name="inName" value="{{$arrayBase[1]["full_name"]}}"></div>
+                    <div class="form-group col-md-4"><label for="edad">Edad</label><input class="form-control" type="text" name="edad" value="{{$arrayBase[1]["years_old"]}}"></div>
+                    <div class="form-group col-md-4"><label for="parentezco">Parentezco</label><input class="form-control" type="text"name="parentezco" value="{{$arrayData[1]["kinship"]}}"></div>
                 </div>
                 <div class="form-row">
-                    <div class="form-group col-md-6"><label for="ocupation">Ocupación</label><input class="form-control" type="text" name="ocupation"></div>
+                    <div class="form-group col-md-6"><label for="ocupation">Ocupación</label><input class="form-control" type="text" name="ocupation" value="{{{{$arrayBase[0]["occupation"]}}}}"></div>
                     <div class="form-group col-md-6"><label for="sameIns">¿Pertenece al colegio?</label><select class="form-control" name="sameIns" ><option value="SI">Si</option><option value="NO">No</option></select></div>
                 </div>
             </div>
             <div class="card-footer">
-                <button class="btn btn-success btn-submit-ss" id="btn7" type="button">Guardar</button>
+                <button class="btn btn-success btn-submit-ss" id="btn0" type="button">Guardar</button>
             </div>
         </div>
     </form>
-    <hr>
-    <form action="" id="form8">
+
+    <form action="" id="form0">
         <div class="card">
             <div class="card-header">
-                <h4 class="my-3">Persona 9</h4>
+                <h4 class="my-3">Persona 1</h4>
             </div>
             <div class="card-body">
                 <div class="form-row">
-                    <div class="form-group col-md-4"><label for="inName">Nombre</label><input class="form-control" type="text"  name="inName"></div>
-                    <div class="form-group col-md-4"><label for="edad">Edad</label><input class="form-control" type="text" name="edad"></div>
-                    <div class="form-group col-md-4"><label for="parentezco">Parentezco</label><input class="form-control" type="text"name="parentezco"></div>
+                    <div class="form-group col-md-4"><label for="inName">Nombre</label><input class="form-control" type="text"  name="inName" value="{{$arrayBase[1]["full_name"]}}"></div>
+                    <div class="form-group col-md-4"><label for="edad">Edad</label><input class="form-control" type="text" name="edad" value="{{$arrayBase[1]["years_old"]}}"></div>
+                    <div class="form-group col-md-4"><label for="parentezco">Parentezco</label><input class="form-control" type="text"name="parentezco" value="{{$arrayData[1]["kinship"]}}"></div>
                 </div>
                 <div class="form-row">
-                    <div class="form-group col-md-6"><label for="ocupation">Ocupación</label><input class="form-control" type="text" name="ocupation"></div>
+                    <div class="form-group col-md-6"><label for="ocupation">Ocupación</label><input class="form-control" type="text" name="ocupation" value="{{{{$arrayBase[0]["occupation"]}}}}"></div>
                     <div class="form-group col-md-6"><label for="sameIns">¿Pertenece al colegio?</label><select class="form-control" name="sameIns" ><option value="SI">Si</option><option value="NO">No</option></select></div>
                 </div>
             </div>
             <div class="card-footer">
-                <button class="btn btn-success btn-submit-ss" id="btn8" type="button">Guardar</button>
+                <button class="btn btn-success btn-submit-ss" id="btn0" type="button">Guardar</button>
             </div>
         </div>
     </form>
-    <hr>
-    <form action="" id="form9">
+
+    <form action="" id="form0">
         <div class="card">
             <div class="card-header">
-                <h4 class="my-3">Persona 10</h4>
+                <h4 class="my-3">Persona 1</h4>
             </div>
             <div class="card-body">
                 <div class="form-row">
-                    <div class="form-group col-md-4"><label for="inName">Nombre</label><input class="form-control" type="text"  name="inName"></div>
-                    <div class="form-group col-md-4"><label for="edad">Edad</label><input class="form-control" type="text" name="edad"></div>
-                    <div class="form-group col-md-4"><label for="parentezco">Parentezco</label><input class="form-control" type="text"name="parentezco"></div>
+                    <div class="form-group col-md-4"><label for="inName">Nombre</label><input class="form-control" type="text"  name="inName" value="{{$arrayBase[1]["full_name"]}}"></div>
+                    <div class="form-group col-md-4"><label for="edad">Edad</label><input class="form-control" type="text" name="edad" value="{{$arrayBase[1]["years_old"]}}"></div>
+                    <div class="form-group col-md-4"><label for="parentezco">Parentezco</label><input class="form-control" type="text"name="parentezco" value="{{$arrayData[1]["kinship"]}}"></div>
                 </div>
                 <div class="form-row">
-                    <div class="form-group col-md-6"><label for="ocupation">Ocupación</label><input class="form-control" type="text" name="ocupation"></div>
+                    <div class="form-group col-md-6"><label for="ocupation">Ocupación</label><input class="form-control" type="text" name="ocupation" value="{{{{$arrayBase[0]["occupation"]}}}}"></div>
                     <div class="form-group col-md-6"><label for="sameIns">¿Pertenece al colegio?</label><select class="form-control" name="sameIns" ><option value="SI">Si</option><option value="NO">No</option></select></div>
                 </div>
             </div>
             <div class="card-footer">
-                <button class="btn btn-success btn-submit-ss" id="btn9" type="button">Guardar</button>
+                <button class="btn btn-success btn-submit-ss" id="btn0" type="button">Guardar</button>
             </div>
         </div>
     </form>
+
+    <form action="" id="form0">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="my-3">Persona 1</h4>
+            </div>
+            <div class="card-body">
+                <div class="form-row">
+                    <div class="form-group col-md-4"><label for="inName">Nombre</label><input class="form-control" type="text"  name="inName" value="{{$arrayBase[1]["full_name"]}}"></div>
+                    <div class="form-group col-md-4"><label for="edad">Edad</label><input class="form-control" type="text" name="edad" value="{{$arrayBase[1]["years_old"]}}"></div>
+                    <div class="form-group col-md-4"><label for="parentezco">Parentezco</label><input class="form-control" type="text"name="parentezco" value="{{$arrayData[1]["kinship"]}}"></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6"><label for="ocupation">Ocupación</label><input class="form-control" type="text" name="ocupation" value="{{{{$arrayBase[0]["occupation"]}}}}"></div>
+                    <div class="form-group col-md-6"><label for="sameIns">¿Pertenece al colegio?</label><select class="form-control" name="sameIns" ><option value="SI">Si</option><option value="NO">No</option></select></div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <button class="btn btn-success btn-submit-ss" id="btn0" type="button">Guardar</button>
+            </div>
+        </div>
+    </form>
+    
     <hr>
 </div>
 <section>
