@@ -37,7 +37,7 @@
 
 
 
-<form action="/add_proxy_data" method="GET">
+<form action="add_proxy_data" method="GET">
     <div id="formproxy" class="row" style="font-size: 0.9rem">
         <div class="form-group col-md-6">
             <label for="rutparent">Rut <span class="text-danger">(Importante)</span></label>
@@ -81,7 +81,7 @@
                 var res = rut.substring(0,2)+"."+rut.substring(2,5)+"."+rut.substring(5,10);
                 $.ajax({
                     type: "GET",
-                    url: "/get_info/",
+                    url: "apoderados/get_info/",
                     data: "rut="+res,
                     success: function(data)
                     {
