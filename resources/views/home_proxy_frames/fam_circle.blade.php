@@ -236,7 +236,7 @@
                 processData: false,
                 contentType: false,
                 type: 'GET',
-                url:"/home_circle",
+                url:"home_circle",
                 success: function (dataofconfirm) {
                     $("#test").html(dataofconfirm);
                     Swal.fire({
