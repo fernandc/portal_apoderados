@@ -566,12 +566,12 @@ class GlobalController extends Controller
             'institution' => getenv("APP_NAME"),
             'public_key' => getenv("APP_PUBLIC_KEY"),
             'method' => 'home_circle',
-            'data' => [ "student" => $gets["student"],
-                        "kinships" => $gets["kinships"],
+            'data' => [ "kinships" => $gets["kinships"],
                         "full_names" => $gets["full_names"],
                         "same_ins" => $gets["same_ins"],
                         "years_olds" => $gets["years_olds"],
-                        "occupations" => $gets["occupations"]
+                        "occupations" => $gets["occupations"],
+                        "id_apo" => Session::get('apoderado')["id"]
                     ]
         );   
         $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
