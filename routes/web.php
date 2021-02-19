@@ -27,6 +27,9 @@ Route::get('/admin_home', function(){
 Route::get('/confirmation', function(){
     return view('confirmation');
 });
+Route::get('/fam_circle', function(){
+    return view('/home_proxy_frames/fam_circle');
+});
 
 
 Route::get('/logout', [GlobalController::class, 'logout']);
@@ -56,6 +59,8 @@ Route::get('/add_proxy_background', [GlobalController::class, 'add_proxy_backgro
 Route::get('/add_proxy_data',[GlobalController::class, 'add_proxy_data']);
 
 Route::get('/confirmation_account',[GlobalController::class, 'confirmation_account']);
+
+Route::get('/home_circle',[GlobalController::class, 'home_circle']);
 
 Route::get('/del_inscription', [GlobalController::class, 'del_inscription']);
 

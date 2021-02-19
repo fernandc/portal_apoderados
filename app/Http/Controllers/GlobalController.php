@@ -552,18 +552,21 @@ class GlobalController extends Controller
     }
     public function home_circle(Request $request){
         $gets = $request->input();
+        //dd($gets);
         $arr = array(
             'institution' => getenv("APP_NAME"),
             'public_key' => getenv("APP_PUBLIC_KEY"),
             'method' => 'home_circle',
-            'data' => [ "student" => $gets["student"],
-                        "kinships" => $gets["kinships"],
-                        "full_names" => $gets["full_names"],
-                        "same_inss" => $gets["same_inss"],
-                        "years_olds" => $gets["years_olds"],
-                        "occupations" => $gets["occupations"]
-                    ]
+            'data' => [ "id_apo" => Session::get('apoderado')["id"],
+                        "kinships" => $gets["parentezco"],
+                        "full_names" => $gets["inName"],
+                        "same_ins" => $gets["sameIns"],
+                        "years_olds" => $gets["edad"],
+                        "occupations" => $gets["ocupation"],
+                        "idgroup" => $gets["idgrp"]
+                        ]   
         );   
+        dd($arr);
         $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
         $data = json_decode($response->body(),true);
         return $data;
