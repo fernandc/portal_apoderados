@@ -462,7 +462,9 @@ class GlobalController extends Controller
                 'method' => 'add_proxy_background',
                 'data' => [ "student" => $gets["student"],
                             "kinship" => $gets["kinship"],
-                            "id_apo" => Session::get('apoderado')["id"] ]
+                            "id_apo" => Session::get('apoderado')["id"],
+                            "matricula" => getenv("MATRICULAS_PARA") ]
+
             );
             $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
             $data = json_decode($response->body(),true);
