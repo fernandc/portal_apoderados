@@ -566,7 +566,6 @@ class GlobalController extends Controller
                         "idgroup" => $gets["idgrp"]
                         ]   
         );   
-        dd($arr);
         $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
         $data = json_decode($response->body(),true);
         return $data;
