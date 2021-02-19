@@ -60,7 +60,7 @@
                                             var res = rut.substring(0,2)+"."+rut.substring(2,5)+"."+rut.substring(5,10);
                                             $.ajax({
                                                 type: "GET",
-                                                url: "/get_info/",
+                                                url: "apoderados/get_info/",
                                                 data: "rut="+res,
                                                 success: function(data)
                                                 {
@@ -254,7 +254,7 @@
                                     if (result.isConfirmed) {
                                         $.ajax({
                                             type: "GET",
-                                            url: "/del_inscription",
+                                            url: "apoderados/del_inscription",
                                             data: "stu={{$row["id_stu"]}}",
                                             success: function(data)
                                             {
@@ -293,7 +293,7 @@
                                         $('#globmod{{$row["id_stu"]}}').modal('show');
                                         $.ajax({
                                             type: "GET",
-                                            url: "/modal_data",
+                                            url: "apoderados/modal_data",
                                             data:"stu={{$row["id_stu"]}}&data="+meth+"&id_apo={{$id_apo}}",
                                             success: function(data)
                                             {
