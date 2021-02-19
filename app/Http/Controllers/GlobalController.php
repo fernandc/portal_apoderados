@@ -567,8 +567,8 @@ class GlobalController extends Controller
                         ]   
         );   
         $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
-        $data = json_decode($response->body(),true);
-        return $data;
+        $data3 = json_decode($response->body(),true);
+        return back()->compact('data3');
     }
     public function del_inscription(Request $request){
         $gets = $request->input();

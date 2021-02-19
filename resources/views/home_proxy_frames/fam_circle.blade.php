@@ -1,4 +1,40 @@
-
+<?php
+$full_name = null;
+$kinship = null;
+$years_old = null;
+$occupation = null;
+$sameIns = null;
+$idgroup = null;
+$arr = array(
+    "full_name"=>$full_name,
+    "kinship"=>$kinship,
+    "years_old"=>$years_old,
+    "occupation"=>$occupation,
+    "sameIns"=>$sameIns,
+    "idgroup"=>$idgroup
+);
+if(!isset($data3)){
+    $array = array();
+    for($in = 0; $in<10 ; $in++){
+        array_push($array,$arr);
+    }
+    //dd($array);
+}else{
+    $arrayData = array();
+    foreach ($data3 as $row) {
+        $arr2 = array(
+            "full_name"=>$row["full_name"] ,
+            "kinship"=>$row["kinship"],
+            "years_old"=>$row["years_old"],
+            "occupation"=>$row["occupation"],
+            "sameIns"=>$row["sameIns"],
+            "idgroup"=>$row["idgroup"]
+        );
+        array_push($arrayData,$arr2);
+    }
+    dd($arrayData);
+}
+?>
 <div class="container text-center">
     <h4 class="my-3" id="test">Informacion de personas que viven con el/los estudiante/s</h4>
     <form action="" id="form0">
