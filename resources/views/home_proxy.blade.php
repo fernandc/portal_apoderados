@@ -94,6 +94,11 @@ Saint Charles Formularios
             </ul>
             <hr>
             <div class="tab-content" id="myTabContent">
+                @if($dataProxy == NULL)
+                    <div class="alert alert-danger" role="alert">
+                        Debe completar formulario <a href="/apoderados/home?active=info">Mi información</a>
+                    </div>
+                @endif
                 <div class="tab-pane fade {{$homeC}}" id="home" role="tabpanel" aria-labelledby="home-tab">
                     <div class="card">
                         <div class="card-body">
