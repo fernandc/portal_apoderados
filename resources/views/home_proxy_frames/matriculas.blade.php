@@ -293,7 +293,7 @@
                                         $('#globmod{{$row["id_stu"]}}').modal('show');
                                         $.ajax({
                                             type: "GET",
-                                            url: "apoderados/modal_data",
+                                            url: "modal_data",
                                             data:"stu={{$row["id_stu"]}}&data="+meth+"&id_apo={{$id_apo}}",
                                             success: function(data)
                                             {
