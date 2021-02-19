@@ -17,7 +17,7 @@ Saint Charles Formularios
             <button class="btn btn-success " type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                 Agregar nuevo apoderado
             </button>
-            <a class="btn btn-outline-danger text-danger" href="/logout">Salir</a>
+            <a class="btn btn-outline-danger text-danger" href="logout">Salir</a>
             <?php
             if(isset($_GET['error'])){
                 ?>
@@ -27,7 +27,7 @@ Saint Charles Formularios
             ?>
             <div class="collapse mt-2" id="collapseExample">
                 <div class="card card-body">
-                    <form class="row" action="/add_new_user" method="POST">
+                    <form class="row" action="add_new_user" method="POST">
                         @csrf
                         <div class="form-group col-4">
                             <label for="emailAdd">Rut (sin puntos ni guión)</label>

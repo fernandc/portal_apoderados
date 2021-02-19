@@ -39,7 +39,7 @@ Saint Charles Formularios
                     <h2 style="text-align: center">Bienvenido <br> {{$var["names"]}} {{$var["last_p"]}} {{$var["last_m"]}}</h2>
                 </div>
                 <div class="col-md-4" style="text-align: right">
-                    <a href="/logout" class="btn btn-outline-danger text-danger">Salir</a>
+                    <a href="logout" class="btn btn-outline-danger text-danger">Salir</a>
                 </div>
             </div>
             <hr>

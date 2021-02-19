@@ -24,6 +24,11 @@ Route::get('/admin_home', function(){
     return view('admin_home');
 });
 
+Route::get('/confirmation', function(){
+    return view('confirmation');
+});
+
+
 Route::get('/logout', [GlobalController::class, 'logout']);
 
 Route::get('/disable_user', [GlobalController::class, 'disable_user']);

@@ -16,7 +16,7 @@ Saint Charles Portal Apoderados
                 <h4 style="text-align: center;">Portal de Apoderados</h4>
             </div>
             <div class="card-body">
-                <form class="was-validated" action="/auth_proxy" method="GET">
+                <form class="was-validated" action="auth_proxy" method="GET">
                     @csrf
                     <div class="form-row">
                         @if ( session('message') )

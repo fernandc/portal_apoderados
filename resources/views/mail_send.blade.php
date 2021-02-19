@@ -15,8 +15,8 @@ Test Section
             Activación de Cuenta
         </div>
         <div class="card-body">
-            <button class="btn btn-success"> <a href="/confirmation_account">< Enviar código de activacion a Correo</a></button>
-            <button class="btn btn-success">Enviar código de activacion por SMS</button>
+            <button class="btn btn-success text-white"> <a href="confirmation_account"> Enviar código de activacion a Correo</a></button>
+            <button class="btn btn-success" disabled>Enviar código de activacion por SMS</button>
         </div>
     </div>
 </div>

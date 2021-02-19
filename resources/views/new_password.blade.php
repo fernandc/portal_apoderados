@@ -23,7 +23,7 @@ Cambio de contraseña
     <div class=" card container my-5">
 
       <div class="container my-3">
-          <form action="/change_password" method="GET">
+          <form action="change_password" method="GET">
               @csrf
               <h1 class="text-center">Actualizar datos personales</h1>
               
@@ -45,7 +45,7 @@ Cambio de contraseña
               <div class="form-row">
                   <div class="form-group col-md-6">
                     <label for="email">Correo electrónico</label>
-                    <input type="email" name="email" class="form-control" placeholder="Ingrese Correo..." id="email">
+                    <input type="email" name="email" class="form-control" placeholder="Ingrese Correo..." id="email" required>
                   </div>
                   <div class="form-group col-md-6">
                     <label for="cell_phone">Teléfono celular</label>
@@ -58,12 +58,12 @@ Cambio de contraseña
               @endif
               <div class="form-group">
                 <label for="passwd">Nueva Contraseña</label>
-                <input type="password" min="6" maxlength="20" class="form-control" id="passwd" placeholder="Ingrese contraseña..." name="passwd">
+                <input type="password" min="6" maxlength="20" class="form-control" id="passwd" placeholder="Ingrese contraseña..." name="passwd" required="">
                 <small id="emailHelp" class="form-text text-muted">Ingrese mínimo 6 caracteres y como máximo 20 caracteres</small>
               </div>
               <div class="form-group">
                 <label for="passwdconf">Reingrese Contraseña</label>
-                <input type="password" min="6" maxlength="20" class="form-control" id="passwd" placeholder="reingrese contraseña..." name="passwdconf">
+                <input type="password" min="6" maxlength="20" class="form-control" id="passwdconf" placeholder="reingrese contraseña..." name="passwdconf" required="">
               </div>   
               <div class="text-center">
                   <button type="submit" class="btn btn-success">Enviar</button>
