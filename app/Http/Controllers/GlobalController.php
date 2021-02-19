@@ -400,7 +400,7 @@ class GlobalController extends Controller
         );
         $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
         $message = json_decode($response->body(),true);
-        return back()->with('message',$message);
+        return redirect("home?active=matricula")->with('message',$message);
     }
     public function add_proxy_data(Request $request){
         $gets = $request->input();
@@ -528,7 +528,7 @@ class GlobalController extends Controller
             
             $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
             $data = json_decode($response->body(),true);
-            return redirect('/home');
+            return redirect("home?active=matricula");
         }
     }
     public function aditional_info(Request $request){
@@ -547,7 +547,7 @@ class GlobalController extends Controller
         );
         $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
         if($response == "DONE"){
-            return back();
+            return redirect("home?active=matricula");
         } 
     }
     public function home_circle(Request $request){
