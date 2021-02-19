@@ -3,14 +3,14 @@ $full_name = null;
 $kinship = null;
 $years_old = null;
 $occupation = null;
-$sameIns = null;
+$sameins = null;
 $idgroup = null;
 $arr = array(
     "full_name"=>$full_name,
     "kinship"=>$kinship,
     "years_old"=>$years_old,
     "occupation"=>$occupation,
-    "sameIns"=>$sameIns,
+    "same_ins"=>$same_ins,
     "idgroup"=>$idgroup
 );
 $arrayData = array();
@@ -27,7 +27,7 @@ if(!isset($dataHomeCircle)){
             "kinship"=>$row["kinship"],
             "years_old"=>$row["years_old"],
             "occupation"=>$row["occupation"],
-            "sameIns"=>$row["sameIns"],
+            "same_ins"=>$row["same_ins"],
             "idgroup"=>$row["idgroup"]
         );
         array_push($arrayData,$arr2);
