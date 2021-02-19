@@ -304,8 +304,7 @@
         $last_f = $parent_data["last_f"];
         $last_m = $parent_data["last_m"]; 
         $born_date = $parent_data["born_date"];
-        //$kinship = $parent_data["kinship"];
-        $kinship = $row['apoderado'];
+        $kinship = $parent_data["kinship"];
         $is_proxy = $parent_data["is_proxy"];
         $live_with = $parent_data["live_with"];
         $agree_live_with = $parent_data["agree_live_with"];
@@ -356,7 +355,7 @@
             @elseif($parent == "p")
             <div class="form-group col-md-3">
                 <label>Parentezco</label>
-                <input id="kinship" class="form-control" value="{{$kinship}}" name="kinship" type="text" minlength="3" required="" >
+                <input id="kinship" class="form-control" value="" name="kinship" type="text" minlength="3" required="" >
             </div>
             <div class="form-group col-md-6">
                 <label class="text-primary">Declara que el apoderado vive con el estudiante</label>
