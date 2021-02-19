@@ -458,6 +458,9 @@ class GlobalController extends Controller
             $gets["ddlproxy"] = NULL;
             $gets["kinship"] = NULL;
         }
+        if(!isset($gets["ddlproxy"])){
+            $gets["ddlproxy"] = NULL;
+        }
         if(!isset($gets["parent_type"])){
             $gets["parent_type"] = NULL;
         }
