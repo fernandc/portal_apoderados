@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Contracts\Encryption\DecryptException;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\activationMail;
 
 class GlobalController extends Controller
 {
@@ -125,7 +129,8 @@ class GlobalController extends Controller
     
                     $responseContact = Http::withBody(json_encode($arrContact), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
                     if($response == "DONE" && $responseContact=="DONE"){
-                        return $this->logout();
+
+                        return $this->confirmation_account();
                     }
                     else{
                         if($response== "FAILED" || $responseContact== "FAILED"){
@@ -559,7 +564,17 @@ class GlobalController extends Controller
         return $message;
     }
 
+    public function confirmation_account(){
+        $id = Session::get('apoderado')["id"];
+        $rut = Session::get('apoderado')["dni"];
+        $id_cryp = Crypt::encryptString($id);
+        $rut_cryp = Crypt::encryptString($rut);
+        
+        $message = "www.scc.cloupping.com/api-apoderados?method=confirmation_account&id=".$id_cryp."&code=".$rut_cryp;
 
+        Mail::to(Session::get('apoderado')["email"])->send(new activationMail($message));
+        return view('confirmation');   
+    }
 
 
     public function logout(){

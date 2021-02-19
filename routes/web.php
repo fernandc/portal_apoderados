@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GlobalController;
+
 Route::get('/', function () {
     return view("index");
 });
@@ -48,6 +49,8 @@ Route::get('/add_student', [GlobalController::class, 'add_student']);
 Route::get('/add_proxy_background', [GlobalController::class, 'add_proxy_background']);
 
 Route::get('/add_proxy_data',[GlobalController::class, 'add_proxy_data']);
+
+Route::get('/confirmation_account',[GlobalController::class, 'confirmation_account']);
 
 Route::get('/del_inscription', [GlobalController::class, 'del_inscription']);
 
