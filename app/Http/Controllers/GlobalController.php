@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Crypt;
 use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\activationMail;
+use Illuminate\Support\Facades\Hash;
 
 class GlobalController extends Controller
 {
@@ -556,13 +557,9 @@ class GlobalController extends Controller
     public function confirmation_account(){
         $id = Session::get('apoderado')["id"];
         $rut = Session::get('apoderado')["dni"];
-        $id_cryp = Crypt::encryptString($id);
-        $rut_cryp = Crypt::encryptString($rut);
-        $message = "www.scc.cloupping.com/api-apoderado?method=confirmation_account&id=".$id_cryp."&code=".$rut_cryp;
-        //dd(Session::get('apoderado'));
-
+        $newid = urlencode(Hash::make($id));
+        $message = "www.scc.cloupping.com/api-apoderado?method=confirmation_account&id=".$newid;
         Mail::to(session::get('apoderado')["email"])->send(new activationMail($message));
-        
         return view('mail_sended');   
     }
     public function logout(){
