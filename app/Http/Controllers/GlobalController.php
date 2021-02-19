@@ -405,9 +405,6 @@ class GlobalController extends Controller
     }
     public function add_proxy_data(Request $request){
         $gets = $request->input();
-        if(!isset($gets["rut"])){
-            $gets["rut"] = Session::get('apoderado')["dni"];
-        }
         $dni = str_replace("-","",$gets["rut"]);
         if(!isset($gets["ddlproxy"]) && !isset($gets["kinship"])){
             $gets["ddlproxy"] = NULL;
@@ -454,7 +451,9 @@ class GlobalController extends Controller
     }
     public function add_proxy_background(Request $request){
         $gets = $request->input();
-
+        if(!isset($gets["rut"])){
+            $gets["rut"] = Session::get('apoderado')["dni"];
+        }
         if(!isset($gets["ddlproxy"]) && !isset($gets["kinship"])){
             $gets["ddlproxy"] = NULL;
             $gets["kinship"] = NULL;
