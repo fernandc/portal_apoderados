@@ -39,7 +39,7 @@ class GlobalController extends Controller
                         session::put(['apoderado' => $data[0]]);
                         return $this->confirmation_account();
                     }
-                    else{
+                    else{ 
                         session::put(['apoderado'=> $data[0]]);
                         $arrMatricula = array(
                             'institution' => getenv("APP_NAME"),
@@ -395,6 +395,7 @@ class GlobalController extends Controller
                         "does_keep_st" => $gets["does_keep_st"],
                         "why_does_keep_st" => $gets["why_does_keep_st"],
                         "id_apo" => Session::get('apoderado')["id"],
+                        "visits_per_month" => gets["visits_per_month"],
                         "matricula" => getenv("MATRICULAS_PARA")
                     ]
         );
