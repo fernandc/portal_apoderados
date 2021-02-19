@@ -76,8 +76,18 @@ class GlobalController extends Controller
         );
         $responseProxy = Http::withBody(json_encode($arrProxy), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
         $dataProxy = json_decode($responseProxy->body(),true);
-        //dd($dataProxy);
-        return view('home_proxy',compact('matriculas','dataProxy'));     
+        
+
+        $target = array(
+            'institution' => getenv("APP_NAME"),
+            'public_key' => getenv("APP_PUBLIC_KEY"),
+            'method' => 'get_home_circle',
+            'data' => ['id_apo' => session::get('apoderado')["id"],]
+        );
+
+        $responseTarget =  Http::withBody(json_encode($target), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+        $dataHomeCircle = json_decode($responseTarget->body(),true); 
+        return view('home_proxy',compact('matriculas','dataProxy','dataHomeCircle'));     
     }
     public function auth_admin(Request $request){
         $gets= $request->input();
@@ -552,19 +562,17 @@ class GlobalController extends Controller
     }
     public function home_circle(Request $request){
         $gets = $request->input();
-        //dd($gets);
         $arr = array(
             'institution' => getenv("APP_NAME"),
             'public_key' => getenv("APP_PUBLIC_KEY"),
             'method' => 'home_circle',
-            'data' => [ "id_apo" => Session::get('apoderado')["id"],
-                        "kinships" => $gets["parentezco"],
-                        "full_names" => $gets["inName"],
-                        "same_ins" => $gets["sameIns"],
-                        "years_olds" => $gets["edad"],
-                        "occupations" => $gets["ocupation"],
-                        "idgroup" => $gets["idgrp"]
-                        ]   
+            'data' => [ "student" => $gets["student"],
+                        "kinships" => $gets["kinships"],
+                        "full_names" => $gets["full_names"],
+                        "same_inss" => $gets["same_inss"],
+                        "years_olds" => $gets["years_olds"],
+                        "occupations" => $gets["occupations"]
+                    ]
         );   
         $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
         $data3 = json_decode($response->body(),true);

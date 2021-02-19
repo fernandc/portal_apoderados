@@ -13,15 +13,15 @@ $arr = array(
     "sameIns"=>$sameIns,
     "idgroup"=>$idgroup
 );
-if(!isset($data3)){
+$arrayData = array();
+if(!isset($dataHomeCircle)){
     $array = array();
     for($in = 0; $in<10 ; $in++){
         array_push($array,$arr);
     }
-    //dd($array);
+    $arrayData=$array;
 }else{
-    $arrayData = array();
-    foreach ($data3 as $row) {
+    foreach ($dataHomeCircle as $row) {
         $arr2 = array(
             "full_name"=>$row["full_name"] ,
             "kinship"=>$row["kinship"],
@@ -44,12 +44,12 @@ if(!isset($data3)){
             </div>
             <div class="card-body">
                 <div class="form-row">
-                    <div class="form-group col-md-4"><label for="inName">Nombre</label><input class="form-control" type="text"  name="inName"></div>
-                    <div class="form-group col-md-4"><label for="edad">Edad</label><input class="form-control" type="text" name="edad"></div>
-                    <div class="form-group col-md-4"><label for="parentezco">Parentezco</label><input class="form-control" type="text"name="parentezco"></div>
+                    <div class="form-group col-md-4"><label for="inName">Nombre</label><input class="form-control" type="text"  name="inName" value="{{$arrayData[0]["full_name"]}}"></div>
+                    <div class="form-group col-md-4"><label for="edad">Edad</label><input class="form-control" type="text" name="edad" value="{{$years_old}}"></div>
+                    <div class="form-group col-md-4"><label for="parentezco">Parentezco</label><input class="form-control" type="text"name="parentezco" value="{{$kinship}}"></div>
                 </div>
                 <div class="form-row">
-                    <div class="form-group col-md-6"><label for="ocupation">Ocupación</label><input class="form-control" type="text" name="ocupation"></div>
+                    <div class="form-group col-md-6"><label for="ocupation">Ocupación</label><input class="form-control" type="text" name="ocupation" value="{{$occupation}}"></div>
                     <div class="form-group col-md-6"><label for="sameIns">¿Pertenece al colegio?</label><select class="form-control" name="sameIns" ><option value="SI">Si</option><option value="NO">No</option></select></div>
                 </div>
             </div>
