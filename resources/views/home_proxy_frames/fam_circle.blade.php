@@ -73,7 +73,7 @@ if(isset($dataHomeCircle)){
                 </div>
             </div>
             <div class="card-footer">
-                <button class="btn btn-success btn-submit-ss" id="btn0" type="button">Guardar</button>
+                <button class="btn btn-success btn-submit-ss" id="btn1" type="button">Guardar</button>
             </div>
         </div>
     </form>
@@ -95,7 +95,7 @@ if(isset($dataHomeCircle)){
                 </div>
             </div>
             <div class="card-footer">
-                <button class="btn btn-success btn-submit-ss" id="btn0" type="button">Guardar</button>
+                <button class="btn btn-success btn-submit-ss" id="btn2" type="button">Guardar</button>
             </div>
         </div>
     </form>
@@ -117,7 +117,7 @@ if(isset($dataHomeCircle)){
                 </div>
             </div>
             <div class="card-footer">
-                <button class="btn btn-success btn-submit-ss" id="btn0" type="button">Guardar</button>
+                <button class="btn btn-success btn-submit-ss" id="btn3" type="button">Guardar</button>
             </div>
         </div>
     </form>
@@ -139,29 +139,7 @@ if(isset($dataHomeCircle)){
                 </div>
             </div>
             <div class="card-footer">
-                <button class="btn btn-success btn-submit-ss" id="btn0" type="button">Guardar</button>
-            </div>
-        </div>
-    </form>
-
-    <form action="" id="form0">
-        <div class="card">
-            <div class="card-header">
-                <h4 class="my-3">Persona 1</h4>
-            </div>
-            <div class="card-body">
-                <div class="form-row">
-                    <div class="form-group col-md-4"><label for="inName">Nombre</label><input class="form-control" type="text"  name="inName" value="{{$arrayBase[1]["full_name"]}}"></div>
-                    <div class="form-group col-md-4"><label for="edad">Edad</label><input class="form-control" type="text" name="edad" value="{{$arrayBase[1]["years_old"]}}"></div>
-                    <div class="form-group col-md-4"><label for="parentezco">Parentezco</label><input class="form-control" type="text"name="parentezco" value="{{$arrayData[1]["kinship"]}}"></div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-6"><label for="ocupation">Ocupación</label><input class="form-control" type="text" name="ocupation" value="{{{{$arrayBase[0]["occupation"]}}}}"></div>
-                    <div class="form-group col-md-6"><label for="sameIns">¿Pertenece al colegio?</label><select class="form-control" name="sameIns" ><option value="SI">Si</option><option value="NO">No</option></select></div>
-                </div>
-            </div>
-            <div class="card-footer">
-                <button class="btn btn-success btn-submit-ss" id="btn0" type="button">Guardar</button>
+                <button class="btn btn-success btn-submit-ss" id="btn4" type="button">Guardar</button>
             </div>
         </div>
     </form>
@@ -183,7 +161,7 @@ if(isset($dataHomeCircle)){
                 </div>
             </div>
             <div class="card-footer">
-                <button class="btn btn-success btn-submit-ss" id="btn0" type="button">Guardar</button>
+                <button class="btn btn-success btn-submit-ss" id="btn5" type="button">Guardar</button>
             </div>
         </div>
     </form>
@@ -205,7 +183,7 @@ if(isset($dataHomeCircle)){
                 </div>
             </div>
             <div class="card-footer">
-                <button class="btn btn-success btn-submit-ss" id="btn0" type="button">Guardar</button>
+                <button class="btn btn-success btn-submit-ss" id="btn6" type="button">Guardar</button>
             </div>
         </div>
     </form>
@@ -227,7 +205,7 @@ if(isset($dataHomeCircle)){
                 </div>
             </div>
             <div class="card-footer">
-                <button class="btn btn-success btn-submit-ss" id="btn0" type="button">Guardar</button>
+                <button class="btn btn-success btn-submit-ss" id="btn7" type="button">Guardar</button>
             </div>
         </div>
     </form>
@@ -249,7 +227,7 @@ if(isset($dataHomeCircle)){
                 </div>
             </div>
             <div class="card-footer">
-                <button class="btn btn-success btn-submit-ss" id="btn0" type="button">Guardar</button>
+                <button class="btn btn-success btn-submit-ss" id="btn8" type="button">Guardar</button>
             </div>
         </div>
     </form>
@@ -271,7 +249,7 @@ if(isset($dataHomeCircle)){
                 </div>
             </div>
             <div class="card-footer">
-                <button class="btn btn-success btn-submit-ss" id="btn0" type="button">Guardar</button>
+                <button class="btn btn-success btn-submit-ss" id="btn9" type="button">Guardar</button>
             </div>
         </div>
     </form>
