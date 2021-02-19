@@ -469,67 +469,67 @@ class GlobalController extends Controller
             if($response == "DONE"){
                 return redirect('/home');
             }
-
+        }else{
+            if(!isset($gets["ddlproxy"]) && !isset($gets["kinship"])){
+                $gets["ddlproxy"] = NULL;
+                $gets["kinship"] = NULL;
+            }
+            if(!isset($gets["ddlproxy"])){
+                $gets["ddlproxy"] = NULL;
+            }
+            if(!isset($gets["parent_type"])){
+                $gets["parent_type"] = NULL;
+            }
+            if(!isset($gets["current_civil_status"])){
+                $gets["current_civil_status"] = NULL;
+            }
+            if(!isset($gets["legal_civil_status"])){
+                $gets["legal_civil_status"] = NULL;
+            }
+            if(!isset($gets["educational_level"])){
+                $gets["educational_level"] = NULL;
+            }
+            if(!isset($gets["visits_per_months"])){
+                $gets["visits_per_months"] = NULL;
+            }
+            if(!isset($gets["live_with"])){
+                $gets["live_with"] = NULL;
+            }
+            $arr = array(
+                'institution' => getenv("APP_NAME"),
+                'public_key' => getenv("APP_PUBLIC_KEY"),
+                'method' => 'add_proxy_background',
+                'data' => [ "student" => $gets["student"],
+                            "rut" => $gets["rut"],
+                            "parent_type" => $gets["parent_type"],
+                            "ddlproxy" => $gets["ddlproxy"],
+                            "kinship" => $gets["kinship"],
+                            "visits_per_months" => $gets["visits_per_months"],
+                            "live_with" => $gets["live_with"],
+                            "nombresparent" => $gets["nombresparent"],
+                            "apellido_pparent" => $gets["apellido_pparent"],
+                            "apellido_mparent" => $gets["apellido_mparent"],
+                            "fecha_nacparent" => $gets["fecha_nacparent"],
+                            "legal_civil_status" => $gets["legal_civil_status"],
+                            "current_civil_status" => $gets["current_civil_status"],
+                            "districtparent" => $gets["districtparent"],
+                            "addressparent" => $gets["addressparent"],
+                            "phoneparent" => $gets["phoneparent"],
+                            "cellphoneparent" => $gets["cellphoneparent"],
+                            "emailparent" => $gets["emailparent"],
+                            "educational_level" => $gets["educational_level"],
+                            "work" => $gets["work"],
+                            "work_address" => $gets["work_address"],
+                            "work_phone" => $gets["work_phone"],
+                            "id_apo" => Session::get('apoderado')["id"],
+                            "matricula" => getenv("MATRICULAS_PARA") 
+                ]
+            );
+            
+            $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+            $data = json_decode($response->body(),true);
+            return redirect('/home');
         }
-        if(!isset($gets["ddlproxy"]) && !isset($gets["kinship"])){
-            $gets["ddlproxy"] = NULL;
-            $gets["kinship"] = NULL;
-        }
-        if(!isset($gets["ddlproxy"])){
-            $gets["ddlproxy"] = NULL;
-        }
-        if(!isset($gets["parent_type"])){
-            $gets["parent_type"] = NULL;
-        }
-        if(!isset($gets["current_civil_status"])){
-            $gets["current_civil_status"] = NULL;
-        }
-        if(!isset($gets["legal_civil_status"])){
-            $gets["legal_civil_status"] = NULL;
-        }
-        if(!isset($gets["educational_level"])){
-            $gets["educational_level"] = NULL;
-        }
-        if(!isset($gets["visits_per_months"])){
-            $gets["visits_per_months"] = NULL;
-        }
-        if(!isset($gets["live_with"])){
-            $gets["live_with"] = NULL;
-        }
-        $arr = array(
-            'institution' => getenv("APP_NAME"),
-            'public_key' => getenv("APP_PUBLIC_KEY"),
-            'method' => 'add_proxy_background',
-            'data' => [ "student" => $gets["student"],
-                        "rut" => $gets["rut"],
-                        "parent_type" => $gets["parent_type"],
-                        "ddlproxy" => $gets["ddlproxy"],
-                        //"kinship" => $gets["kinship"],
-                        "visits_per_months" => $gets["visits_per_months"],
-                        "live_with" => $gets["live_with"],
-                        "nombresparent" => $gets["nombresparent"],
-                        "apellido_pparent" => $gets["apellido_pparent"],
-                        "apellido_mparent" => $gets["apellido_mparent"],
-                        "fecha_nacparent" => $gets["fecha_nacparent"],
-                        "legal_civil_status" => $gets["legal_civil_status"],
-                        "current_civil_status" => $gets["current_civil_status"],
-                        "districtparent" => $gets["districtparent"],
-                        "addressparent" => $gets["addressparent"],
-                        "phoneparent" => $gets["phoneparent"],
-                        "cellphoneparent" => $gets["cellphoneparent"],
-                        "emailparent" => $gets["emailparent"],
-                        "educational_level" => $gets["educational_level"],
-                        "work" => $gets["work"],
-                        "work_address" => $gets["work_address"],
-                        "work_phone" => $gets["work_phone"],
-                        "id_apo" => Session::get('apoderado')["id"],
-                        "matricula" => getenv("MATRICULAS_PARA") 
-            ]
-        );
-        
-        $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
-        $data = json_decode($response->body(),true);
-        return redirect('/home');
     }
     public function aditional_info(Request $request){
         $gets = $request->input();
