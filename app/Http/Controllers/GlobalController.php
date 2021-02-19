@@ -467,7 +467,7 @@ class GlobalController extends Controller
             $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
             $data = json_decode($response->body(),true);
             if($response == "DONE"){
-                return redirect('/home');
+                return back();
             }
         }else{
             if(!isset($gets["ddlproxy"]) && !isset($gets["kinship"])){
