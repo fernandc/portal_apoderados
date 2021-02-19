@@ -11,7 +11,7 @@ $arr = array(
     "years_old"=>$years_old,
     "occupation"=>$occupation,
     "same_ins"=>$same_ins,
-    "idgroup"=>$idgroup
+    "parent_num"=>$idgroup
 );
 $arrayBase= array();
 for($i=0; $i<10; $i++){
@@ -26,7 +26,7 @@ if(isset($dataHomeCircle)){
             $arrayBase[intval($row["parent_num"]-1)]["years_old"] = $row["years_old"];
             $arrayBase[intval($row["parent_num"]-1)]["occupation"] = $row["occupation"];
             $arrayBase[intval($row["parent_num"]-1)]["same_ins"] = $row["same_ins"];          
-            $arrayBase[intval($row["parent_num"]-1)]["idgroup"] = $row["idgroup"];
+            $arrayBase[intval($row["parent_num"]-1)]["parent_num"] = $row["parent_num"];
         }
     }
 }
