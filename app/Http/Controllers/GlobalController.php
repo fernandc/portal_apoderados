@@ -569,7 +569,7 @@ class GlobalController extends Controller
             'data' => [ "student" => $gets["student"],
                         "kinships" => $gets["kinships"],
                         "full_names" => $gets["full_names"],
-                        "same_inss" => $gets["same_inss"],
+                        "same_ins" => $gets["same_ins"],
                         "years_olds" => $gets["years_olds"],
                         "occupations" => $gets["occupations"]
                     ]
