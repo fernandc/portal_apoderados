@@ -62,6 +62,7 @@ Saint Charles Formularios
                         $prof = "";
                         $matr = "";
                         $homeC = "show active";
+                        $home_circle = "show active";
                         $profC = "";
                         $matrC = "";
                     }
@@ -69,7 +70,8 @@ Saint Charles Formularios
                     $home = "active";
                     $prof = "";
                     $matr = "";
-                    $homeC = "show active";
+                    $circle_data = "show active";
+                    $circle_dataC = "show active";
                     $profC = "";
                     $matrC = "";
                 }
@@ -114,6 +116,8 @@ Saint Charles Formularios
                 </div>
                 <div class="tab-pane fade {{$profC}}" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                     @include('home_proxy_frames.proxy_data')
+                </div>
+                <div class="tab-pane fade {{$circle_dataC}}" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                     @include('home_proxy_frames.fam_circle')
                 </div>
                 <div class="tab-pane fade {{$matrC}}" id="matriculas" role="tabpanel" aria-labelledby="matriculas-tab">
