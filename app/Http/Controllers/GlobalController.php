@@ -30,22 +30,28 @@ class GlobalController extends Controller
                 return back()->with('message','Usuario o contraseña incorrecto(s).');
             }
             else{
-                if($data[0]["date_login"] ==NULL){
+                if($data[0]["date_login"] == NULL){
                     
                     session::put(['apoderado'=> $data[0]]);
                     return redirect('/new_password');
                 }
                 else{
-                    session::put(['apoderado'=> $data[0]]);
-                    $arrMatricula = array(
-                        'institution' => getenv("APP_NAME"),
-                        'public_key' => getenv("APP_PUBLIC_KEY"),
-                        'method' => 'home_proxy',
-                        'data' => ['dni' => $data[0]["dni"], 'matricula' => getenv("MATRICULAS_PARA")]
-                    );
-                    $responseMatricula = Http::withBody(json_encode($arrMatricula), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
-                    $matriculas = json_decode($responseMatricula->body(),true);
-                    return redirect('/home');
+                    if($data[0]["account_active"]!= "TRUE"){
+                        session::put(['apoderado' => $data[0]]);
+                        return $this->confirmation_account();
+                    }
+                    else{
+                        session::put(['apoderado'=> $data[0]]);
+                        $arrMatricula = array(
+                            'institution' => getenv("APP_NAME"),
+                            'public_key' => getenv("APP_PUBLIC_KEY"),
+                            'method' => 'home_proxy',
+                            'data' => ['dni' => $data[0]["dni"], 'matricula' => getenv("MATRICULAS_PARA")]
+                        );
+                        $responseMatricula = Http::withBody(json_encode($arrMatricula), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+                        $matriculas = json_decode($responseMatricula->body(),true);
+                        return redirect('/home');
+                    }
                 }
             }
         }else{
@@ -129,8 +135,8 @@ class GlobalController extends Controller
     
                     $responseContact = Http::withBody(json_encode($arrContact), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
                     if($response == "DONE" && $responseContact=="DONE"){
-
-                        return $this->confirmation_account();
+                        
+                        return view('mail_send');
                     }
                     else{
                         if($response== "FAILED" || $responseContact== "FAILED"){
@@ -543,7 +549,6 @@ class GlobalController extends Controller
         );   
         $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
         $data = json_decode($response->body(),true);
-        dd($response);
         return $data;
     }
 
@@ -569,11 +574,10 @@ class GlobalController extends Controller
         $rut = Session::get('apoderado')["dni"];
         $id_cryp = Crypt::encryptString($id);
         $rut_cryp = Crypt::encryptString($rut);
-        
         $message = "www.scc.cloupping.com/api-apoderados?method=confirmation_account&id=".$id_cryp."&code=".$rut_cryp;
-
-        Mail::to(Session::get('apoderado')["email"])->send(new activationMail($message));
-        return view('confirmation');   
+        
+        Mail::to(session::get('apoderado')["email"])->send(new activationMail($message));
+        return view('mail_sended');   
     }
 
 
