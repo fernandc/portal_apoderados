@@ -60,7 +60,7 @@
                                             var res = rut.substring(0,2)+"."+rut.substring(2,5)+"."+rut.substring(5,10);
                                             $.ajax({
                                                 type: "GET",
-                                                url: "apoderados/get_info/",
+                                                url: "get_info/",
                                                 data: "rut="+res,
                                                 success: function(data)
                                                 {
@@ -254,7 +254,7 @@
                                     if (result.isConfirmed) {
                                         $.ajax({
                                             type: "GET",
-                                            url: "apoderados/del_inscription",
+                                            url: "del_inscription/",
                                             data: "stu={{$row["id_stu"]}}",
                                             success: function(data)
                                             {
