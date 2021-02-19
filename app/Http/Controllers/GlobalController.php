@@ -566,11 +566,12 @@ class GlobalController extends Controller
             'institution' => getenv("APP_NAME"),
             'public_key' => getenv("APP_PUBLIC_KEY"),
             'method' => 'home_circle',
-            'data' => [ "kinships" => $gets["kinships"],
-                        "full_names" => $gets["full_names"],
-                        "same_ins" => $gets["same_ins"],
-                        "years_olds" => $gets["years_olds"],
-                        "occupations" => $gets["occupations"],
+            'data' => [ "kinship" => $gets["parentezco"],
+                        "full_names" => $gets["inName"],
+                        "same_ins" => $gets["sameIns"],
+                        "years_olds" => $gets["edad"],
+                        "occupations" => $gets["ocupation"],
+                        "idgroup" => $gets["idgrp"],
                         "id_apo" => Session::get('apoderado')["id"]
                     ]
         );   
