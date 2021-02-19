@@ -14,9 +14,8 @@ $arr = array(
     "idgroup"=>$idgroup
 );
 $arrayBase= array();
-for($i=0; $i<10; $i++)
-{
-    $arrayBase = array_push($arrayBase, $arr);
+for($i=0; $i<10; $i++){
+    array_push($arrayBase, $arr);
 }
 $arrayData = array();
 if(isset($dataHomeCircle)){
