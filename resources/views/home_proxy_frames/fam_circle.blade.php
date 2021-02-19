@@ -22,12 +22,12 @@ $arrayData = array();
 if(isset($dataHomeCircle)){
     foreach ($dataHomeCircle as $row) {
         if(isset($row["parent_num"])){
-            $arrayBase[intval($row["parent_num"]-1)]["full_name"] = $row["full_name"],
-            $arrayBase[intval($row["parent_num"]-1)]["kinship"] = $row["kinship"],
-            $arrayBase[intval($row["parent_num"]-1)]["years_old"] = $row["years_old"],
-            $arrayBase[intval($row["parent_num"]-1)]["occupation"] = $row["occupation"],
-            $arrayBase[intval($row["parent_num"]-1)]["same_ins"] = $row["same_ins"],          
-            $arrayBase[intval($row["parent_num"]-1)]["idgroup"] = $row["idgroup"]
+            $arrayBase[intval($row["parent_num"]-1)]["full_name"] = $row["full_name"];
+            $arrayBase[intval($row["parent_num"]-1)]["kinship"] = $row["kinship"];
+            $arrayBase[intval($row["parent_num"]-1)]["years_old"] = $row["years_old"];
+            $arrayBase[intval($row["parent_num"]-1)]["occupation"] = $row["occupation"];
+            $arrayBase[intval($row["parent_num"]-1)]["same_ins"] = $row["same_ins"];          
+            $arrayBase[intval($row["parent_num"]-1)]["idgroup"] = $row["idgroup"];
         }
     }
 }
