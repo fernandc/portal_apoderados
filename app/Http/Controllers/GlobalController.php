@@ -466,7 +466,7 @@ class GlobalController extends Controller
         
         $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
         $data = json_decode($response->body(),true);
-        return redirect('/home');
+        return redirect('/home?active=info');
     }
     public function add_proxy_background(Request $request){
         $gets = $request->input();

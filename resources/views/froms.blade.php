@@ -365,15 +365,22 @@
                 @if($parent != "p")
                     <div id="formproxy" class="row" style="{{$is_p}}">
                         <div class="form-group col-md-6">
-                            <label for="rutparent">Rut <span class="text-danger">(Importante)</span></label>
-                            <input id="rutparent" class="form-control is-invalid" autocomplete="off" name="rut" value="{{$dni}}" type="text" oninput="checkRut(this)" minlength="1" maxlength="11">
+                            <label for="rutparentM">Rut <span class="text-danger">(Importante)</span></label>
+                            <input id="rutparentM" class="form-control is-invalid" autocomplete="off" name="rut" value="{{$dni}}" type="text" oninput="checkRut(this)" minlength="1" maxlength="11">
                             <script>
+                                $("#rutparentM").keyup(function(){
+                                    $("#btnapisearch3").removeClass("btn-secondary");
+                                    $("#btnapisearch3").removeClass("btn-success");
+                                    $("#btnapisearch3").addClass("btn-primary");
+                                    $("#btnapisearch3").attr("disabled",false);
+                                    $("#btnapisearch3").html("Autocompletar");
+                                });
                                 function checkRut(rut) {
-                                    $("#btnapisearch2").removeClass("btn-secondary");
-                                    $("#btnapisearch2").removeClass("btn-success");
-                                    $("#btnapisearch2").addClass("btn-primary");
-                                    $("#btnapisearch2").attr("disabled",false);
-                                    $("#btnapisearch2").html("Autocompletar");
+                                    $("#btnapisearch3").removeClass("btn-secondary");
+                                    $("#btnapisearch3").removeClass("btn-success");
+                                    $("#btnapisearch3").addClass("btn-primary");
+                                    $("#btnapisearch3").attr("disabled",false);
+                                    $("#btnapisearch3").html("Autocompletar");
                                     var valor = rut.value.replace('.','');
                                     valor = valor.replace('-','');
                                     cuerpo = valor.slice(0,-1);
@@ -396,13 +403,13 @@
                             </script>
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="btnapisearch2">Buscar datos por el rut</label>
-                            <button class="form-control btn btn-primary" type="button" id="btnapisearch2">Autocompletar</button>
+                            <label for="btnapisearch3">Buscar datos por el rut</label>
+                            <button class="form-control btn btn-primary" type="button" id="btnapisearch3">Autocompletar</button>
                             <script>
-                            $("#btnapisearch2").click(function(){
-                                $("#btnapisearch2").html("Cargando");
-                                $("#btnapisearch2").attr("disabled",true);
-                                var rut = $("#rutparent").val();
+                            $("#btnapisearch3").click(function(){
+                                $("#btnapisearch3").html("Cargando");
+                                $("#btnapisearch3").attr("disabled",true);
+                                var rut = $("#rutparentM").val();
                                 var res = rut.substring(0,2)+"."+rut.substring(2,5)+"."+rut.substring(5,10);
                                 $.ajax({
                                     type: "GET",
@@ -416,26 +423,26 @@
                                             var names = "";
                                             for (i = 0; i < res.length; i++) {
                                                 if(i==0){
-                                                    $("#apellido_pparent").val(res[i]);
+                                                    $("#apellido_pparentM").val(res[i]);
                                                 }else if(i==1){
-                                                    $("#apellido_mparent").val(res[i]);
+                                                    $("#apellido_mparentM").val(res[i]);
                                                 }else{
                                                     names = names + " " + res[i];
                                                 }
                                             }
-                                            $("#nombresparent").val(names);
-                                            $("#addressparent").val(obj.address);
-                                            $("#districtparent").val(obj.commune);
-                                            $("#btnapisearch2").attr("disabled",true);
-                                            $("#btnapisearch2").removeClass("btn-primary");
-                                            $("#btnapisearch2").removeClass("btn-secondary");
-                                            $("#btnapisearch2").addClass("btn-success");
-                                            $("#btnapisearch2").html("Actualizado");
+                                            $("#nombresparentM").val(names);
+                                            $("#addressparentM").val(obj.address);
+                                            $("#districtparentM").val(obj.commune);
+                                            $("#btnapisearch3").attr("disabled",true);
+                                            $("#btnapisearch3").removeClass("btn-primary");
+                                            $("#btnapisearch3").removeClass("btn-secondary");
+                                            $("#btnapisearch3").addClass("btn-success");
+                                            $("#btnapisearch3").html("Actualizado");
                                         }else{
-                                            $("#btnapisearch2").removeClass("btn-primary");
-                                            $("#btnapisearch2").addClass("btn-secondary");
-                                            $("#btnapisearch2").attr("disabled",true);
-                                            $("#btnapisearch2").html("No encontrad@ :(");
+                                            $("#btnapisearch3").removeClass("btn-primary");
+                                            $("#btnapisearch3").addClass("btn-secondary");
+                                            $("#btnapisearch3").attr("disabled",true);
+                                            $("#btnapisearch3").html("No encontrad@ :(");
                                         }
                                     },
                                     error: function(data2){
@@ -447,15 +454,15 @@
                         </div>
                         <div class="form-group col-md-6">
                             <label for="">Nombres <span class="text-danger">(Importante)</span></label>
-                            <input id="nombresparent" type="text" class="form-control" name="nombresparent" value="{{$names}}" placeholder="Nombres" minlength="2" required="">
+                            <input id="nombresparentM" type="text" class="form-control" name="nombresparent" value="{{$names}}" placeholder="Nombres" minlength="2" required="">
                         </div>
                         <div class="form-group col-md-6">
                             <label for="">Apellido Paterno <span class="text-danger">(Importante)</span></label>
-                            <input id="apellido_pparent" type="text" class="form-control" name="apellido_pparent" value="{{$last_f}}" placeholder="Apellido paterno" minlength="2" required="">
+                            <input id="apellido_pparentM" type="text" class="form-control" name="apellido_pparent" value="{{$last_f}}" placeholder="Apellido paterno" minlength="2" required="">
                         </div>
                         <div class="form-group col-md-6">
                             <label for="">Apellido Materno <span class="text-danger">(Importante)</span></label>
-                            <input id="apellido_mparent" type="text" class="form-control" name="apellido_mparent" value="{{$last_m}}" placeholder="Apellido materno" minlength="2" required="">
+                            <input id="apellido_mparentM" type="text" class="form-control" name="apellido_mparent" value="{{$last_m}}" placeholder="Apellido materno" minlength="2" required="">
                         </div>
                         <div class="form-group col-md-6">
                             <label for="">Fecha de Nacimiento <span class="text-danger">(Importante)</span></label>
@@ -542,11 +549,11 @@
                         </div>
                         <div class="form-group col-md-6">
                             <label >Comuna <span class="text-danger">(Importante)</span></label>
-                            <input id="districtparent" type="text" class="form-control" name="districtparent" value="{{$district}}" placeholder="Ej: La Florida" minlength="2" required="">
+                            <input id="districtparentM" type="text" class="form-control" name="districtparent" value="{{$district}}" placeholder="Ej: La Florida" minlength="2" required="">
                         </div>
                         <div class="form-group col-md-6">
                             <label >Dirección <span class="text-danger">(Importante)</span></label>
-                            <input id="addressparent" type="text" class="form-control" name="addressparent" value="{{$address}}" placeholder="Calle #" minlength="2" required="">
+                            <input id="addressparentM" type="text" class="form-control" name="addressparent" value="{{$address}}" placeholder="Calle #" minlength="2" required="">
                         </div>
                         <div class="form-group col-md-6">
                             <label >Teléfono Casa <span class="text-danger">(Importante)</span></label>

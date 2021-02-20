@@ -41,14 +41,17 @@
     <div id="formproxy" class="row" style="font-size: 0.9rem">
         <div class="form-group col-md-6">
             <label for="rutparent">Rut <span class="text-danger">(Importante)</span></label>
-            <input id="rutparent" class="form-control is-invalid" autocomplete="off" name="rut" value="{{$rut}}" type="text" oninput="checkRut(this)" minlength="1" maxlength="11">
+            <input id="rutparent" class="form-control" autocomplete="off" name="rut" value="{{$rut}}" type="text" oninput="checkRut(this)" minlength="1" maxlength="11">
             <script>
-                function checkRut(rut) {
+                $("#rutparent").keyup(function(){
                     $("#btnapisearch2").removeClass("btn-secondary");
                     $("#btnapisearch2").removeClass("btn-success");
                     $("#btnapisearch2").addClass("btn-primary");
                     $("#btnapisearch2").attr("disabled",false);
                     $("#btnapisearch2").html("Autocompletar");
+                });
+                function checkRut(rut) {
+                    
                     var valor = rut.value.replace('.','');
                     valor = valor.replace('-','');
                     cuerpo = valor.slice(0,-1);
@@ -77,7 +80,7 @@
             $("#btnapisearch2").click(function(){
 				$("#btnapisearch2").html("Cargando");
 				$("#btnapisearch2").attr("disabled",true);
-				var rut = $("#rutalumno").val();
+				var rut = $("#rutparent").val();
 				var res = rut.substring(0,2)+"."+rut.substring(2,5)+"."+rut.substring(5,10);
 				$.ajax({
 					type: "GET",
@@ -91,15 +94,16 @@
 							var names = "";
 							for (i = 0; i < res.length; i++) {
 								if(i==0){
-									$("#apellido_p").val(res[i]);
+									$("#apellido_pparent").val(res[i]);
 								}else if(i==1){
-									$("#apellido_m").val(res[i]);
+									$("#apellido_mparent").val(res[i]);
 								}else{
 									names = names + " " + res[i];
 								}
 							}
-							$("#nombres").val(names);
-							$('#ddlgenero option[value="'+obj.gender+'"]').attr("selected", "selected");
+							$("#nombresparent").val(names);
+                            $("#addressparent").val(obj.address);
+							//$('#ddlgenero option[value="'+obj.gender+'"]').attr("selected", "selected");
 							$("#btnapisearch2").attr("disabled",true);
 							$("#btnapisearch2").removeClass("btn-primary");
 							$("#btnapisearch2").removeClass("btn-secondary");
@@ -109,7 +113,7 @@
 							$("#btnapisearch2").removeClass("btn-primary");
 							$("#btnapisearch2").addClass("btn-secondary");
 							$("#btnapisearch2").attr("disabled",true);
-							$("#btnapisearch2").html("No encontrad@ :(");
+							$("#btnapisearch2").html("Rut no encontrado :(");
 						}
 					},
 					error: function(data2){

@@ -85,7 +85,7 @@ Saint Charles Formularios
                     <a class="nav-link {{$home}}" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Mis Datos</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{$prof}}" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Mi Información</a>
+                    <a class="nav-link {{$prof}}" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Actualizar mi información</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {{$circle_data}}" id="circle-tab" data-toggle="tab" href="#circle" role="tab" aria-controls="circle" aria-selected="false">Mi círculo Familiar</a>
