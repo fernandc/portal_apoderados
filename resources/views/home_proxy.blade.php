@@ -52,17 +52,20 @@ Saint Charles Formularios
                 $profC = "";
                 $matrC = "";
                 $circle_data = "";
+                $circle_dataC = "";
                 if (isset($_GET["active"])) {
                     $active = $_GET["active"];
                     if($active == "home"){$home = "active"; $homeC = "show active";}
                     elseif ($active == "info") {$prof = "active"; $profC = "show active";}
+                    elseif ($active == "circle") {$circle_data = "active"; $circle_dataC = "show active";}
                     elseif ($active == "matricula") {$matr = "active"; $matrC = "show active";}
                     else {
                         $home = "active";
                         $prof = "";
                         $matr = "";
+                        $circle_data = "";
                         $homeC = "show active";
-                        $home_circle = "show active";
+                        $circle_dataC = "";
                         $profC = "";
                         $matrC = "";
                     }
@@ -70,8 +73,9 @@ Saint Charles Formularios
                     $home = "active";
                     $prof = "";
                     $matr = "";
-                    $circle_data = "show active";
-                    $circle_dataC = "show active";
+                    $circle_data = "";
+                    $homeC = "show active";
+                    $circle_dataC = "";
                     $profC = "";
                     $matrC = "";
                 }
@@ -87,14 +91,12 @@ Saint Charles Formularios
                     <a class="nav-link {{$circle_data}}" id="circle-tab" data-toggle="tab" href="#circle" role="tab" aria-controls="circle" aria-selected="false">Mi círculo Familiar</a>
                 </li>
                 <li class="nav-item">
-                   
                     <a class="nav-link" id="matriculas-tab" data-toggle="tab" href="#matriculas" role="tab" aria-controls="matriculas" aria-selected="false">Mis Alumnos matriculados</a>
                     
                     <script>
                         @if($dataProxy == NULL)
                             $("#matriculas-tab").remove();
                         @endif 
-
                     </script>
                 </li>
             </ul>
@@ -108,6 +110,7 @@ Saint Charles Formularios
                 <div class="tab-pane fade {{$homeC}}" id="home" role="tabpanel" aria-labelledby="home-tab">
                     <div class="card">
                         <div class="card-body">
+                            
                             <p><strong>Nombre:</strong> {{$var["names"]}} {{$var["last_p"]}} {{$var["last_m"]}}</p>
                             <p><strong>Teléfono Celular:</strong> {{$var["cell_phone"]}}</p>
                             <p><strong>Email:</strong> {{$var["email"]}}</p>
@@ -117,12 +120,13 @@ Saint Charles Formularios
                 <div class="tab-pane fade {{$profC}}" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                     @include('home_proxy_frames.proxy_data')
                 </div>
-                <div class="tab-pane fade {{$circle_dataC}}" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                <div class="tab-pane fade {{$circle_dataC}}" id="circle" role="tabpanel" aria-labelledby="circle-tab">
                     @include('home_proxy_frames.fam_circle')
                 </div>
                 <div class="tab-pane fade {{$matrC}}" id="matriculas" role="tabpanel" aria-labelledby="matriculas-tab">
                     @include('home_proxy_frames.matriculas')
                 </div>
+                
             </div>
             <!--END-->
         </div>
