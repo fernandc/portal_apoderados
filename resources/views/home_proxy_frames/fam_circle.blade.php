@@ -20,6 +20,7 @@ for($i=0; $i<10; $i++){
 $arrayData = array();
 if(isset($dataHomeCircle)){
     foreach ($dataHomeCircle as $row) {
+        //dd(intval($row["parent_num"])-1);
         if(isset($row["parent_num"])){
             $arrayBase[intval($row["parent_num"])-1]["full_name"] = $row["full_name"];
             $arrayBase[intval($row["parent_num"])-1]["kinship"] = $row["kinship"];
@@ -261,7 +262,7 @@ if(isset($dataHomeCircle)){
             var idbtn = $(this).attr('id'); //btnguardar4
             var idgroup = idbtn.substr(3);
             var newid = parseInt(idgroup)+1;
-            var chardata = $('#form'+idgroup).serialize().concat("&").concat("idgrp").concat('=').concat(newid);
+            var chardata = $('#form'+idgroup).serialize().concat("&").concat("idgrp").concat('=').concat(nemwid);
             alert(chardata)
             $.ajax({
                 data:chardata,
