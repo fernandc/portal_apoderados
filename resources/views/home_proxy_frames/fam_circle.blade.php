@@ -41,13 +41,13 @@ if(isset($dataHomeCircle)){
             </div>
             <div class="card-body">
                 <div class="form-row">
-                    <div class="form-group col-md-4"><label for="inName">Nombre</label><input class="form-control" type="text"  name="inName" value="{{$arrayBase[0]["full_name"]}}"></div>
-                    <div class="form-group col-md-4"><label for="edad">Edad</label><input class="form-control" type="text" name="edad" value="{{$arrayBase[0]["years_old"]}}"></div>
-                    <div class="form-group col-md-4"><label for="parentezco">Parentezco</label><input class="form-control" type="text"name="parentezco" value="{{$arrayBase[0]["kinship"]}}"></div>
+                    <div class="form-group col-md-4"><label for="inName">Nombre</label><input class="form-control" type="text"  name="inName" value="{{$arrayBase[0]["full_name"]}}" required></div>
+                    <div class="form-group col-md-4"><label for="edad">Edad</label><input class="form-control" type="text" name="edad" value="{{$arrayBase[0]["years_old"]}}" required></div>
+                    <div class="form-group col-md-4"><label for="parentezco">Parentezco</label><input class="form-control" type="text"name="parentezco" value="{{$arrayBase[0]["kinship"]}}" required></div>
                 </div>
                 <div class="form-row">
-                    <div class="form-group col-md-6"><label for="ocupation">Ocupación</label><input class="form-control" type="text" name="ocupation" value="{{$arrayBase[0]["occupation"]}}"></div>
-                    <div class="form-group col-md-6"><label for="sameIns">¿Pertenece al colegio?</label><select class="form-control" name="sameIns" ><option value="SI">Si</option><option value="NO">No</option></select></div>
+                    <div class="form-group col-md-6"><label for="ocupation">Ocupación</label><input class="form-control" type="text" name="ocupation" value="{{$arrayBase[0]["occupation"]}}" required></div>
+                    <div class="form-group col-md-6"><label for="sameIns">¿Pertenece al colegio?</label><select class="form-control" name="sameIns" required ><option value="SI">Si</option><option value="NO">No</option></select></div>
                 </div>
             </div>
             <div class="card-footer">
@@ -63,13 +63,13 @@ if(isset($dataHomeCircle)){
             </div>
             <div class="card-body">
                 <div class="form-row">
-                    <div class="form-group col-md-4"><label for="inName">Nombre</label><input class="form-control" type="text"  name="inName" value="{{$arrayBase[1]["full_name"]}}"></div>
-                    <div class="form-group col-md-4"><label for="edad">Edad</label><input class="form-control" type="text" name="edad" value="{{$arrayBase[1]["years_old"]}}"></div>
-                    <div class="form-group col-md-4"><label for="parentezco">Parentezco</label><input class="form-control" type="text"name="parentezco" value="{{$arrayBase[1]["kinship"]}}"></div>
+                    <div class="form-group col-md-4"><label for="inName">Nombre</label><input class="form-control" type="text"  name="inName" value="{{$arrayBase[1]["full_name"]}}" required></div>
+                    <div class="form-group col-md-4"><label for="edad">Edad</label><input class="form-control" type="text" name="edad" value="{{$arrayBase[1]["years_old"]}}" required></div>
+                    <div class="form-group col-md-4"><label for="parentezco">Parentezco</label><input class="form-control" type="text"name="parentezco" value="{{$arrayBase[1]["kinship"]}}" required></div>
                 </div>
                 <div class="form-row">
-                    <div class="form-group col-md-6"><label for="ocupation">Ocupación</label><input class="form-control" type="text" name="ocupation" value="{{$arrayBase[1]["occupation"]}}"></div>
-                    <div class="form-group col-md-6"><label for="sameIns">¿Pertenece al colegio?</label><select class="form-control" name="sameIns" ><option value="SI">Si</option><option value="NO">No</option></select></div>
+                    <div class="form-group col-md-6"><label for="ocupation">Ocupación</label><input class="form-control" type="text" name="ocupation" value="{{$arrayBase[1]["occupation"]}}" required></div>
+                    <div class="form-group col-md-6"><label for="sameIns">¿Pertenece al colegio?</label><select class="form-control" name="sameIns" required><option value="SI">Si</option><option value="NO">No</option></select></div>
                 </div>
             </div>
             <div class="card-footer">
@@ -85,13 +85,13 @@ if(isset($dataHomeCircle)){
             </div>
             <div class="card-body">
                 <div class="form-row">
-                    <div class="form-group col-md-4"><label for="inName">Nombre</label><input class="form-control" type="text"  name="inName" value="{{$arrayBase[2]["full_name"]}}"></div>
-                    <div class="form-group col-md-4"><label for="edad">Edad</label><input class="form-control" type="text" name="edad" value="{{$arrayBase[2]["years_old"]}}"></div>
-                    <div class="form-group col-md-4"><label for="parentezco">Parentezco</label><input class="form-control" type="text"name="parentezco" value="{{$arrayBase[2]["kinship"]}}"></div>
+                    <div class="form-group col-md-4"><label for="inName">Nombre</label><input class="form-control" type="text"  name="inName" value="{{$arrayBase[2]["full_name"]}}" required></div>
+                    <div class="form-group col-md-4"><label for="edad">Edad</label><input class="form-control" type="text" name="edad" value="{{$arrayBase[2]["years_old"]}}" required></div>
+                    <div class="form-group col-md-4"><label for="parentezco">Parentezco</label><input class="form-control" type="text"name="parentezco" value="{{$arrayBase[2]["kinship"]}}" required></div>
                 </div>
                 <div class="form-row">
-                    <div class="form-group col-md-6"><label for="ocupation">Ocupación</label><input class="form-control" type="text" name="ocupation" value="{{$arrayBase[2]["occupation"]}}"></div>
-                    <div class="form-group col-md-6"><label for="sameIns">¿Pertenece al colegio?</label><select class="form-control" name="sameIns" ><option value="SI">Si</option><option value="NO">No</option></select></div>
+                    <div class="form-group col-md-6"><label for="ocupation">Ocupación</label><input class="form-control" type="text" name="ocupation" value="{{$arrayBase[2]["occupation"]}}" required></div>
+                    <div class="form-group col-md-6"><label for="sameIns">¿Pertenece al colegio?</label><select class="form-control" name="sameIns" required><option value="SI">Si</option><option value="NO">No</option></select></div>
                 </div>
             </div>
             <div class="card-footer">
@@ -107,13 +107,13 @@ if(isset($dataHomeCircle)){
             </div>
             <div class="card-body">
                 <div class="form-row">
-                    <div class="form-group col-md-4"><label for="inName">Nombre</label><input class="form-control" type="text"  name="inName" value="{{$arrayBase[3]["full_name"]}}"></div>
-                    <div class="form-group col-md-4"><label for="edad">Edad</label><input class="form-control" type="text" name="edad" value="{{$arrayBase[3]["years_old"]}}"></div>
-                    <div class="form-group col-md-4"><label for="parentezco">Parentezco</label><input class="form-control" type="text"name="parentezco" value="{{$arrayBase[3]["kinship"]}}"></div>
+                    <div class="form-group col-md-4"><label for="inName">Nombre</label><input class="form-control" type="text"  name="inName" value="{{$arrayBase[3]["full_name"]}}" required></div>
+                    <div class="form-group col-md-4"><label for="edad">Edad</label><input class="form-control" type="text" name="edad" value="{{$arrayBase[3]["years_old"]}}" required></div>
+                    <div class="form-group col-md-4"><label for="parentezco">Parentezco</label><input class="form-control" type="text"name="parentezco" value="{{$arrayBase[3]["kinship"]}}" required></div>
                 </div>
                 <div class="form-row">
-                    <div class="form-group col-md-6"><label for="ocupation">Ocupación</label><input class="form-control" type="text" name="ocupation" value="{{$arrayBase[3]["occupation"]}}"></div>
-                    <div class="form-group col-md-6"><label for="sameIns">¿Pertenece al colegio?</label><select class="form-control" name="sameIns" ><option value="SI">Si</option><option value="NO">No</option></select></div>
+                    <div class="form-group col-md-6"><label for="ocupation">Ocupación</label><input class="form-control" type="text" name="ocupation" value="{{$arrayBase[3]["occupation"]}}" required></div>
+                    <div class="form-group col-md-6"><label for="sameIns">¿Pertenece al colegio?</label><select class="form-control" name="sameIns" required><option value="SI">Si</option><option value="NO">No</option></select></div>
                 </div>
             </div>
             <div class="card-footer">
@@ -129,13 +129,13 @@ if(isset($dataHomeCircle)){
             </div>
             <div class="card-body">
                 <div class="form-row">
-                    <div class="form-group col-md-4"><label for="inName">Nombre</label><input class="form-control" type="text"  name="inName" value="{{$arrayBase[4]["full_name"]}}"></div>
-                    <div class="form-group col-md-4"><label for="edad">Edad</label><input class="form-control" type="text" name="edad" value="{{$arrayBase[4]["years_old"]}}"></div>
-                    <div class="form-group col-md-4"><label for="parentezco">Parentezco</label><input class="form-control" type="text"name="parentezco" value="{{$arrayBase[4]["kinship"]}}"></div>
+                    <div class="form-group col-md-4"><label for="inName">Nombre</label><input class="form-control" type="text"  name="inName" value="{{$arrayBase[4]["full_name"]}}" required></div>
+                    <div class="form-group col-md-4"><label for="edad">Edad</label><input class="form-control" type="text" name="edad" value="{{$arrayBase[4]["years_old"]}}" required></div>
+                    <div class="form-group col-md-4"><label for="parentezco">Parentezco</label><input class="form-control" type="text"name="parentezco" value="{{$arrayBase[4]["kinship"]}}" required></div>
                 </div>
                 <div class="form-row">
-                    <div class="form-group col-md-6"><label for="ocupation">Ocupación</label><input class="form-control" type="text" name="ocupation" value="{{$arrayBase[4]["occupation"]}}"></div>
-                    <div class="form-group col-md-6"><label for="sameIns">¿Pertenece al colegio?</label><select class="form-control" name="sameIns" ><option value="SI">Si</option><option value="NO">No</option></select></div>
+                    <div class="form-group col-md-6"><label for="ocupation">Ocupación</label><input class="form-control" type="text" name="ocupation" value="{{$arrayBase[4]["occupation"]}}" required></div>
+                    <div class="form-group col-md-6"><label for="sameIns">¿Pertenece al colegio?</label><select class="form-control" name="sameIns" required><option value="SI">Si</option><option value="NO">No</option></select></div>
                 </div>
             </div>
             <div class="card-footer">
@@ -151,13 +151,13 @@ if(isset($dataHomeCircle)){
             </div>
             <div class="card-body">
                 <div class="form-row">
-                    <div class="form-group col-md-4"><label for="inName">Nombre</label><input class="form-control" type="text"  name="inName" value="{{$arrayBase[5]["full_name"]}}"></div>
-                    <div class="form-group col-md-4"><label for="edad">Edad</label><input class="form-control" type="text" name="edad" value="{{$arrayBase[5]["years_old"]}}"></div>
-                    <div class="form-group col-md-4"><label for="parentezco">Parentezco</label><input class="form-control" type="text"name="parentezco" value="{{$arrayBase[5]["kinship"]}}"></div>
+                    <div class="form-group col-md-4"><label for="inName">Nombre</label><input class="form-control" type="text"  name="inName" value="{{$arrayBase[5]["full_name"]}}" required></div>
+                    <div class="form-group col-md-4"><label for="edad">Edad</label><input class="form-control" type="text" name="edad" value="{{$arrayBase[5]["years_old"]}}" required></div>
+                    <div class="form-group col-md-4"><label for="parentezco">Parentezco</label><input class="form-control" type="text"name="parentezco" value="{{$arrayBase[5]["kinship"]}}" required></div>
                 </div>
                 <div class="form-row">
-                    <div class="form-group col-md-6"><label for="ocupation">Ocupación</label><input class="form-control" type="text" name="ocupation" value="{{$arrayBase[5]["occupation"]}}"></div>
-                    <div class="form-group col-md-6"><label for="sameIns">¿Pertenece al colegio?</label><select class="form-control" name="sameIns" ><option value="SI">Si</option><option value="NO">No</option></select></div>
+                    <div class="form-group col-md-6"><label for="ocupation">Ocupación</label><input class="form-control" type="text" name="ocupation" value="{{$arrayBase[5]["occupation"]}}" required></div>
+                    <div class="form-group col-md-6"><label for="sameIns">¿Pertenece al colegio?</label><select class="form-control" name="sameIns" required><option value="SI">Si</option><option value="NO">No</option></select></div>
                 </div>
             </div>
             <div class="card-footer">
@@ -173,13 +173,13 @@ if(isset($dataHomeCircle)){
             </div>
             <div class="card-body">
                 <div class="form-row">
-                    <div class="form-group col-md-4"><label for="inName">Nombre</label><input class="form-control" type="text"  name="inName" value="{{$arrayBase[6]["full_name"]}}"></div>
-                    <div class="form-group col-md-4"><label for="edad">Edad</label><input class="form-control" type="text" name="edad" value="{{$arrayBase[6]["years_old"]}}"></div>
-                    <div class="form-group col-md-4"><label for="parentezco">Parentezco</label><input class="form-control" type="text"name="parentezco" value="{{$arrayBase[6]["kinship"]}}"></div>
+                    <div class="form-group col-md-4"><label for="inName">Nombre</label><input class="form-control" type="text"  name="inName" value="{{$arrayBase[6]["full_name"]}}" required></div>
+                    <div class="form-group col-md-4"><label for="edad">Edad</label><input class="form-control" type="text" name="edad" value="{{$arrayBase[6]["years_old"]}}" required></div>
+                    <div class="form-group col-md-4"><label for="parentezco">Parentezco</label><input class="form-control" type="text"name="parentezco" value="{{$arrayBase[6]["kinship"]}}" required></div>
                 </div>
                 <div class="form-row">
-                    <div class="form-group col-md-6"><label for="ocupation">Ocupación</label><input class="form-control" type="text" name="ocupation" value="{{$arrayBase[6]["occupation"]}}"></div>
-                    <div class="form-group col-md-6"><label for="sameIns">¿Pertenece al colegio?</label><select class="form-control" name="sameIns" ><option value="SI">Si</option><option value="NO">No</option></select></div>
+                    <div class="form-group col-md-6"><label for="ocupation">Ocupación</label><input class="form-control" type="text" name="ocupation" value="{{$arrayBase[6]["occupation"]}}" required></div>
+                    <div class="form-group col-md-6"><label for="sameIns">¿Pertenece al colegio?</label><select class="form-control" name="sameIns" required><option value="SI">Si</option><option value="NO">No</option></select></div>
                 </div>
             </div>
             <div class="card-footer">
@@ -195,13 +195,13 @@ if(isset($dataHomeCircle)){
             </div>
             <div class="card-body">
                 <div class="form-row">
-                    <div class="form-group col-md-4"><label for="inName">Nombre</label><input class="form-control" type="text"  name="inName" value="{{$arrayBase[7]["full_name"]}}"></div>
-                    <div class="form-group col-md-4"><label for="edad">Edad</label><input class="form-control" type="text" name="edad" value="{{$arrayBase[7]["years_old"]}}"></div>
-                    <div class="form-group col-md-4"><label for="parentezco">Parentezco</label><input class="form-control" type="text"name="parentezco" value="{{$arrayBase[7]["kinship"]}}"></div>
+                    <div class="form-group col-md-4"><label for="inName">Nombre</label><input class="form-control" type="text"  name="inName" value="{{$arrayBase[7]["full_name"]}}" required></div>
+                    <div class="form-group col-md-4"><label for="edad">Edad</label><input class="form-control" type="text" name="edad" value="{{$arrayBase[7]["years_old"]}}" required></div>
+                    <div class="form-group col-md-4"><label for="parentezco">Parentezco</label><input class="form-control" type="text"name="parentezco" value="{{$arrayBase[7]["kinship"]}}" required></div>
                 </div>
                 <div class="form-row">
-                    <div class="form-group col-md-6"><label for="ocupation">Ocupación</label><input class="form-control" type="text" name="ocupation" value="{{$arrayBase[7]["occupation"]}}"></div>
-                    <div class="form-group col-md-6"><label for="sameIns">¿Pertenece al colegio?</label><select class="form-control" name="sameIns" ><option value="SI">Si</option><option value="NO">No</option></select></div>
+                    <div class="form-group col-md-6"><label for="ocupation">Ocupación</label><input class="form-control" type="text" name="ocupation" value="{{$arrayBase[7]["occupation"]}}" required></div>
+                    <div class="form-group col-md-6"><label for="sameIns">¿Pertenece al colegio?</label><select class="form-control" name="sameIns" required><option value="SI">Si</option><option value="NO">No</option></select></div>
                 </div>
             </div>
             <div class="card-footer">
@@ -217,13 +217,13 @@ if(isset($dataHomeCircle)){
             </div>
             <div class="card-body">
                 <div class="form-row">
-                    <div class="form-group col-md-4"><label for="inName">Nombre</label><input class="form-control" type="text"  name="inName" value="{{$arrayBase[8]["full_name"]}}"></div>
-                    <div class="form-group col-md-4"><label for="edad">Edad</label><input class="form-control" type="text" name="edad" value="{{$arrayBase[8]["years_old"]}}"></div>
-                    <div class="form-group col-md-4"><label for="parentezco">Parentezco</label><input class="form-control" type="text"name="parentezco" value="{{$arrayBase[8]["kinship"]}}"></div>
+                    <div class="form-group col-md-4"><label for="inName">Nombre</label><input class="form-control" type="text"  name="inName" value="{{$arrayBase[8]["full_name"]}}" required></div>
+                    <div class="form-group col-md-4"><label for="edad">Edad</label><input class="form-control" type="text" name="edad" value="{{$arrayBase[8]["years_old"]}}" required></div>
+                    <div class="form-group col-md-4"><label for="parentezco">Parentezco</label><input class="form-control" type="text"name="parentezco" value="{{$arrayBase[8]["kinship"]}}" required></div>
                 </div>
                 <div class="form-row">
-                    <div class="form-group col-md-6"><label for="ocupation">Ocupación</label><input class="form-control" type="text" name="ocupation" value="{{$arrayBase[8]["occupation"]}}"></div>
-                    <div class="form-group col-md-6"><label for="sameIns">¿Pertenece al colegio?</label><select class="form-control" name="sameIns" ><option value="SI">Si</option><option value="NO">No</option></select></div>
+                    <div class="form-group col-md-6"><label for="ocupation">Ocupación</label><input class="form-control" type="text" name="ocupation" value="{{$arrayBase[8]["occupation"]}}" required></div>
+                    <div class="form-group col-md-6"><label for="sameIns">¿Pertenece al colegio?</label><select class="form-control" name="sameIns" required><option value="SI">Si</option><option value="NO">No</option></select></div>
                 </div>
             </div>
             <div class="card-footer">
@@ -239,13 +239,13 @@ if(isset($dataHomeCircle)){
             </div>
             <div class="card-body">
                 <div class="form-row">
-                    <div class="form-group col-md-4"><label for="inName">Nombre</label><input class="form-control" type="text"  name="inName" value="{{$arrayBase[9]["full_name"]}}"></div>
-                    <div class="form-group col-md-4"><label for="edad">Edad</label><input class="form-control" type="text" name="edad" value="{{$arrayBase[9]["years_old"]}}"></div>
-                    <div class="form-group col-md-4"><label for="parentezco">Parentezco</label><input class="form-control" type="text"name="parentezco" value="{{$arrayBase[9]["kinship"]}}"></div>
+                    <div class="form-group col-md-4"><label for="inName">Nombre</label><input class="form-control" type="text"  name="inName" value="{{$arrayBase[9]["full_name"]}}" required></div>
+                    <div class="form-group col-md-4"><label for="edad">Edad</label><input class="form-control" type="text" name="edad" value="{{$arrayBase[9]["years_old"]}}" required></div>
+                    <div class="form-group col-md-4"><label for="parentezco">Parentezco</label><input class="form-control" type="text"name="parentezco" value="{{$arrayBase[9]["kinship"]}}" required></div>
                 </div>
                 <div class="form-row">
-                    <div class="form-group col-md-6"><label for="ocupation">Ocupación</label><input class="form-control" type="text" name="ocupation" value="{{$arrayBase[9]["occupation"]}}"></div>
-                    <div class="form-group col-md-6"><label for="sameIns">¿Pertenece al colegio?</label><select class="form-control" name="sameIns" ><option value="SI">Si</option><option value="NO">No</option></select></div>
+                    <div class="form-group col-md-6"><label for="ocupation">Ocupación</label><input class="form-control" type="text" name="ocupation" value="{{$arrayBase[9]["occupation"]}}" required></div>
+                    <div class="form-group col-md-6"><label for="sameIns">¿Pertenece al colegio?</label><select class="form-control" name="sameIns" required><option value="SI">Si</option><option value="NO">No</option></select></div>
                 </div>
             </div>
             <div class="card-footer">
