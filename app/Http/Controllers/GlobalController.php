@@ -211,7 +211,9 @@ class GlobalController extends Controller
             'institution' => getenv("APP_NAME"),
             'public_key' => getenv("APP_PUBLIC_KEY"),
             'method' => 'downloadPdf',
-            'data' => ["id" => $gets["student"]]
+            'data' => ["id" => $gets["student"],
+                        "id_apo" => Session::get('apoderado')["id"]
+                    ]
         );
         $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
         $data = json_decode($response->body(), true);
