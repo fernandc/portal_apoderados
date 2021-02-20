@@ -15,11 +15,14 @@ class GlobalController extends Controller
 {
     public function auth_proxy(Request $request){
         $gets = $request->input();
+        $dni = $gets['dni'];
+        $dni = str_replace(".","",$dni);
+        $dni = str_replace("-","",$dni);
         $arr = array(
             'institution' => getenv("APP_NAME"),
             'public_key' => getenv("APP_PUBLIC_KEY"),
             'method' => 'auth_proxy',
-            'data' => ['dni' => $gets['dni'], 'passwd' => $gets['passwd']]);
+            'data' => ['dni' => $dni, 'passwd' => $gets['passwd']]);
         $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
         $status = $response->status();
 

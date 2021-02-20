@@ -39,7 +39,7 @@
 
 <form action="add_proxy_data" method="GET">
     <div id="formproxy" class="row" style="font-size: 0.9rem">
-        <div class="form-group col-md-6">
+        <div class="form-group col-md-6" style="display: none">
             <label for="rutparent">Rut <span class="text-danger">(Importante)</span></label>
             <input id="rutparent" class="form-control" autocomplete="off" name="rut" value="{{$rut}}" type="text" oninput="checkRut(this)" minlength="1" maxlength="11">
             <script>
@@ -73,7 +73,7 @@
                 }
             </script>
         </div>
-        <div class="form-group col-md-6">
+        <div class="form-group col-md-6" style="display: none">
             <label for="btnapisearch2">Buscar datos por el rut</label>
             <button class="form-control btn btn-primary" type="button" id="btnapisearch2">Autocompletar</button>
             <script>
