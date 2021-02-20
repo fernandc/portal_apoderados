@@ -314,6 +314,14 @@ class GlobalController extends Controller
     }
     public function get_data_info(request $request){
         $rut = $request->input()["rut"];
+        $pos = strpos($rut, "-");
+        if ($pos === false) {
+            $rut = substr($rut, 0,-1)."-".substr($rut, -1);
+        }
+        $pos = strpos($rut, ".");
+        if ($pos === false) {
+            $rut = substr($rut, 0,-8).".".substr($rut, -8,3).".".substr($rut, -5);
+        }
         $curl = curl_init();
         curl_setopt_array($curl, array(
           CURLOPT_URL => 'https://www.nombrerutyfirma.com/rut',
