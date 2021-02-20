@@ -75,8 +75,8 @@
             <button class="form-control btn btn-primary" type="button" id="btnapisearch2">Autocompletar</button>
             <script>
             $("#btnapisearch2").click(function(){
-				$("#btnapisearch").html("Cargando");
-				$("#btnapisearch").attr("disabled",true);
+				$("#btnapisearch2").html("Cargando");
+				$("#btnapisearch2").attr("disabled",true);
 				var rut = $("#rutalumno").val();
 				var res = rut.substring(0,2)+"."+rut.substring(2,5)+"."+rut.substring(5,10);
 				$.ajax({
@@ -100,16 +100,16 @@
 							}
 							$("#nombres").val(names);
 							$('#ddlgenero option[value="'+obj.gender+'"]').attr("selected", "selected");
-							$("#btnapisearch").attr("disabled",true);
-							$("#btnapisearch").removeClass("btn-primary");
-							$("#btnapisearch").removeClass("btn-secondary");
-							$("#btnapisearch").addClass("btn-success");
-							$("#btnapisearch").html("Actualizado");
+							$("#btnapisearch2").attr("disabled",true);
+							$("#btnapisearch2").removeClass("btn-primary");
+							$("#btnapisearch2").removeClass("btn-secondary");
+							$("#btnapisearch2").addClass("btn-success");
+							$("#btnapisearch2").html("Actualizado");
 						}else{
-							$("#btnapisearch").removeClass("btn-primary");
-							$("#btnapisearch").addClass("btn-secondary");
-							$("#btnapisearch").attr("disabled",true);
-							$("#btnapisearch").html("No encontrad@ :(");
+							$("#btnapisearch2").removeClass("btn-primary");
+							$("#btnapisearch2").addClass("btn-secondary");
+							$("#btnapisearch2").attr("disabled",true);
+							$("#btnapisearch2").html("No encontrad@ :(");
 						}
 					},
 					error: function(data2){
@@ -203,8 +203,8 @@
             <input type="text" class="form-control" name="work_phone" value="{{$work_phone}}" minlength="2" required="">
         </div>
         <div class="form-group col-md-4">
-            <label for="btnapisearch2">Guardar los cambios</label>
-            <button class="form-control btn btn-success" type="submit" id="btnapisearch2">Guardar</button>
+            <label>Guardar los cambios</label>
+            <button class="form-control btn btn-success" type="submit" >Guardar</button>
         </div>
     </div>
 </form>
