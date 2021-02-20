@@ -262,7 +262,7 @@ if(isset($dataHomeCircle)){
             var idbtn = $(this).attr('id'); //btnguardar4
             var idgroup = idbtn.substr(3);
             var newid = parseInt(idgroup)+1;
-            var chardata = $('#form'+idgroup).serialize().concat("&").concat("idgrp").concat('=').concat(nemwid);
+            var chardata = $('#form'+idgroup).serialize().concat("&").concat("idgrp").concat('=').concat(newid);
             alert(chardata)
             $.ajax({
                 data:chardata,

@@ -577,7 +577,7 @@ class GlobalController extends Controller
         );   
         $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
         $data3 = json_decode($response->body(),true);
-        return redirect('home');
+        //return redirect('home');
     }
     public function del_inscription(Request $request){
         $gets = $request->input();
