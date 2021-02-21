@@ -154,10 +154,12 @@ class GlobalController extends Controller
                     if($response == "DONE" && $responseContact=="DONE"){
                         
                         return view('mail_send');
+                    }elseif($responseContact == "DUPLICATED"){
+                        return back()->with('error','El correo ya está siendo utilizado, en caso de que ud desconozca que se haya registrado, envíe un correo a servicio@saintcharlescollege.cl');
                     }
                     else{
                         if($response== "FAILED" || $responseContact== "FAILED"){
-                            return back()->with('message','Error inesperado.');
+                            return back()->with('message','Error inesperado. Vuelva a intentarlo, si el error persiste envíe un correo a servicio@saintcharlescollege.cl');
                         }
                     }
                 }
@@ -172,18 +174,26 @@ class GlobalController extends Controller
     }
     public function add_new_user(Request $request){
         $gets = $request->input();
+        $rut = $gets["dni"];
+        $pos = strpos($rut, "-");
+        if ($pos === false) {
+            $rut = substr($rut, 0,-1)."-".substr($rut, -1);
+        }
+        $pos = strpos($rut, ".");
+        if ($pos === false) {
+            $rut = substr($rut, 0,-8).".".substr($rut, -8,3).".".substr($rut, -5);
+        }
         if(session::has('admin')){
             $arr = array(
                 'institution' => getenv("APP_NAME"),
                 'public_key' => getenv("APP_PUBLIC_KEY"),
                 'method' => 'first_pass',
-                'data' => ["dni" => $gets["dni"]]
+                'data' => ["dni" => $rut]
             );
             $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
             if($response == "DONE"){
                 return back()->with('message','Apoderado agregado');
-            }
-            else{
+            }else{
                 return back()->with('error','El apoderado ya está registrado');
             }
         }

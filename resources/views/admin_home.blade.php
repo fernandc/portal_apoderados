@@ -30,7 +30,7 @@ Saint Charles Formularios
                     <form class="row" action="add_new_user" method="POST">
                         @csrf
                         <div class="form-group col-4">
-                            <label for="emailAdd">Rut (sin puntos ni guión)</label>
+                            <label for="emailAdd">Rut</label>
                             <input type="text" class="form-control" name="dni" placeholder="Rut" required="">
                         </div>
                         <div class="form-group col-4">
