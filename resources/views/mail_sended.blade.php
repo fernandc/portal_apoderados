@@ -16,7 +16,7 @@ Test Section
         </div>
         <div class="card-body">
             Hemos enviado un correo con un enlace de activación a su e-mail. Verifique su bandeja de entrada.
-            En caso de no encontrarlo, revise su bandeja de spam (correo no deseado).
+            <strong><span class="text-danger">En caso de no encontrarlo, revise su bandeja de spam (correo no deseado).</span></strong>
         </div>
     </div>
 </div>

@@ -27,8 +27,7 @@ Saint Charles Formularios
             ?>
             <div class="collapse mt-2" id="collapseExample">
                 <div class="card card-body">
-                    <form class="row" action="add_new_user" method="POST">
-                        @csrf
+                    <form class="row" action="add_new_user" method="GET">
                         <div class="form-group col-4">
                             <label for="emailAdd">Rut</label>
                             <input type="text" class="form-control" name="dni" placeholder="Rut" required="">

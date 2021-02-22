@@ -206,7 +206,11 @@
                     @endif
                     
                     <hr class="mrnull">
-                    <a class="triggmodal{{$row["id_stu"]}}" data="proxys&parent=m" href="#">Antecedentes de la Madre </a>
+                    @if($row["antecedentes"] == 0)
+                        <span class="text-secondary" >Antecedentes de la Madre </span>
+                    @else
+                        <a class="triggmodal{{$row["id_stu"]}}" data="proxys&parent=m" href="#">Antecedentes de la Madre </a>
+                    @endif
                     @if($row["a_madre"] == 0)
                     <span class="badge badge-warning">Pendiente</span> 
                     @else

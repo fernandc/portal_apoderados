@@ -144,23 +144,37 @@
         <div class="form-group col-md-4">
             <label for="">Estado Civil Legal <span class="text-danger">(Importante)</span></label>
             <select id="ddllegal_civil_status" class="custom-select mr-sm-2" autocomplete="off" name="legal_civil_status">
-                <option disabled="" selected="{{$legal_civil_status}}" value="Sin Información">Seleccionar</option>
+                <option disabled="" selected="" value="Sin Información">Seleccionar</option>
                 <option value="soltero">Soltero/a</option>
                 <option value="casado">Casado/a</option>
                 <option value="viudo">Viudo/a</option>
                 <option value="divorciado">Divorciado/a</option>
                 <option value="separado">Separado/a</option>
             </select>
+            @if(isset($legal_civil_status))
+            <script>
+                $( document ).ready(function() {
+                    $('#ddllegal_civil_status option[value={{$legal_civil_status}}').prop('selected', true);
+                });
+            </script>
+            @endif
         </div>
         <div class="form-group col-md-4">
             <label for="">Estado Civil Actual (No acorde a lo legal) <span class="text-danger">(Importante)</span></label>
             <select id="ddlcurrent_civil_status" class="custom-select mr-sm-2" autocomplete="off" name="current_civil_status">
-                <option disabled="" selected="{{$current_civil_status}}" value="Sin información">Seleccionar</option>
+                <option disabled="" selected="" value="Sin información">Seleccionar</option>
                 <option value="soltero">Soltero/a</option>
                 <option value="convive">Convive</option>
                 <option value="separado">Separado/a</option>
                 <option value="viudo">Viudo/a</option>
             </select>
+            @if(isset($current_civil_status))
+            <script>
+                $( document ).ready(function() {
+                    $('#ddlcurrent_civil_status option[value={{$current_civil_status}}').prop('selected', true);
+                });
+            </script>
+            @endif
         </div>
         <div class="form-group col-md-6">
             <label>Comuna <span class="text-danger">(Importante)</span></label>

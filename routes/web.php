@@ -36,7 +36,7 @@ Route::get('/logout', [GlobalController::class, 'logout']);
 
 Route::get('/disable_user', [GlobalController::class, 'disable_user']);
 
-Route::post('/add_new_user', [GlobalController::class, 'add_new_user']);
+Route::get('/add_new_user', [GlobalController::class, 'add_new_user']);
 
 Route::get('/datos_students', [GlobalController::class, 'datos_students']);
 
