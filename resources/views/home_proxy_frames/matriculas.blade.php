@@ -191,10 +191,10 @@
                 <h5 >{{$row["nombre_stu"]}}</h5>
                 <p class="card-text">
                     <hr class="mrnull">
-                    Curso postulado: <span class="text-success">{{$row["curso"]}} - {{$row["para_periodo"]}}</span>
+                    Curso : <span class="text-success">{{$row["curso"]}} - {{$row["para_periodo"]}}</span>
                     
                     <hr class="mrnull">
-                    <a class="triggmodal{{$row["id_stu"]}}" data="stuinfo" href="#">Información del estudiante y curso postulado</a>
+                    <a class="triggmodal{{$row["id_stu"]}}" data="stuinfo" href="#">Información del estudiante y curso {{$row["para_periodo"]}}</a>
                     <span class="badge badge-success">Completada</span> 
                     
                     <hr class="mrnull">
