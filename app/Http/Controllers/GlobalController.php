@@ -632,10 +632,11 @@ class GlobalController extends Controller
         );
         $response = Http::withBody(json_encode($arr),'application/json')->post("https://scc.cloupping.com/api-apoderado");
         $data = json_decode($response->body(),true);
-        $pdf = PDF::loadView('print_details_inscription', compact('data'));
+        $pdf = \PDF::loadView('print_details_inscription', compact('data'));
         $name = getenv("MATRICULAS_PARA") . " Matrícula ". $data["student"]["last_f"]." ".$data["student"]["last_m"]." ".$data["student"]["names"].".pdf";
         $output = $pdf->output();
-        Mail::to($gets["email"])->send(new detailsInscription($output, $name,$data));
+        $email = session::get('apoderado')["email"];
+        Mail::to($email)->send(new detailsInscription($output, $name,$data));
     }
     public function logout(){
         if(session::has('apoderado')){

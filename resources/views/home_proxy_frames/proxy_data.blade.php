@@ -222,7 +222,16 @@
         </div>
         <div class="form-group col-md-4">
             <label>Guardar los cambios</label>
-            <button class="form-control btn btn-success" type="submit" >Guardar</button>
+            <button class="form-control btn btn-success" id="btnguardar" type="submit" >Guardar</button>
+            <script>
+                $("#btnguardar").click(function(){
+                    Swal.fire({
+                    icon: 'success',
+                    title: 'Guardado',
+                    text: 'Los datos han sido guardados'
+                    })
+                })
+            </script>
         </div>
     </div>
 </form>

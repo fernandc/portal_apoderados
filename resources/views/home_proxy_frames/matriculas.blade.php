@@ -218,15 +218,24 @@
                     @endif
 
                     <br>
-                    <a class="triggmodal{{$row["id_stu"]}}" data="proxys&parent=f" href="#">Antecedentes del Padre </a>
+                    @if($row["a_madre"] == 0)
+                        <span class="text-secondary" >Antecedentes del Padre </span>
+                    @else
+                        <a class="triggmodal{{$row["id_stu"]}}" data="proxys&parent=f" href="#">Antecedentes del Padre </a>
+                    @endif
                     @if($row["a_padre"] == 0)
                     <span class="badge badge-warning">Pendiente</span> 
                     @else
                     <span class="badge badge-success">Completada</span>
                     @endif
                     <br>
-                    <a class="triggmodal{{$row["id_stu"]}}" data="proxys&parent=p" href="#">Apoderado 
-                    </a>
+
+                    @if($row["a_padre"] == 0)
+                        <span class="text-secondary" >Apoderado </span>
+                    @else
+                    <a class="triggmodal{{$row["id_stu"]}}" data="proxys&parent=p" href="#">Apoderado </a>
+                    @endif
+
                     @if($row['apoderado'] != "" && $row['apoderado'] != null)
                     <span class="badge badge-primary">{{$row['apoderado']}}</span>
                     <span class="badge badge-success">Completada</span>
@@ -234,15 +243,21 @@
                     <span class="text-danger">[No Definido]</span>
                     <span class="badge badge-warning">Pendiente</span>
                     @endif
+
                     <hr class="mrnull">
-                    <a class="triggmodal{{$row["id_stu"]}}" data="circle" href="#">Información adicional importante</a>
+                    @if($row['apoderado'] != "" && $row['apoderado'] != null)
+                        <a class="triggmodal{{$row["id_stu"]}}" data="circle" href="#">Información adicional importante</a>
+                    @else
+                        <span class="text-secondary" >Información adicional importante</span>
+                    @endif
+
                     @if($row["misc"] == 0)
                     <span id="lastone{{$row["id_stu"]}}" class="badge badge-warning">Pendiente</span> 
                     @else
                     <span class="badge badge-success">Completada</span>
                     @endif
                     <hr>
-                    
+                    <button class="btn btn-success" id="send{{$row["id_stu"]}}">Enviar datos</button>
                     <button id="del{{$row["id_stu"]}}" class="btn btn-outline-danger rounded float-right"><i class="fas fa-trash-alt"></i></button>
                     <script>
                         $("#del{{$row["id_stu"]}}").click(function(){
@@ -281,8 +296,44 @@
                                         Swal.fire('No se realizaron cambios.', '', 'info')
                                     }
                                 })
-                            });
-                        </script>
+                        });
+                        $("#send{{$row["id_stu"]}}").click(function (){
+                            Swal.fire({
+                                title: '¿Quieres enviar los datos de {{$row["nombre_stu"]}}?',
+                                showDenyButton: true,
+                                showCancelButton: true,
+                                confirmButtonText: `Enviar`,
+                                confirmButtonColor: '#28a745',
+                                denyButtonText: `Cancelar`,
+                            }).then((result) => {
+                                /* Read more about isConfirmed, isDenied below */
+                                    if (result.isConfirmed) {
+                                        $.ajax({
+                                            type: "GET",
+                                            url: "sendInscription/",
+                                            data: "student={{$row["id_stu"]}}",
+                                            success: function(data)
+                                            {
+                                                if(data == "OK"){
+                                                    Swal.fire({
+                                                        icon: 'success',
+                                                        title: 'Datos Enviados',
+                                                        text: 'Se ha enviado una copia de la información ingresada a su correo electrónico.'
+                                                    });
+                                                }else{
+                                                    Swal.fire('Error! A', data, 'error')
+                                                }
+                                            },
+                                            error: function(data2){
+                                                Swal.fire('Error! B', '', 'error')
+                                            }
+                                        });
+                                    } else if (result.isDenied) {
+                                        Swal.fire('No se realizaron cambios.', '', 'info')
+                                    }
+                                })
+                        })
+                    </script>
                         <div id="globmod{{$row["id_stu"]}}" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-xl" role="document">
                                 <div id="datamodal{{$row["id_stu"]}}" class="modal-content">
