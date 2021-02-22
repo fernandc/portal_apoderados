@@ -323,7 +323,7 @@ class GlobalController extends Controller
         );
         $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
         $message = json_decode($response->body(), true);
-        return redirect('/home');
+        return redirect('/home?active=matricula');
     }
     public function get_data_info(request $request){
         $rut = $request->input()["rut"];
