@@ -64,3 +64,5 @@ Route::get('/home_circle',[GlobalController::class, 'home_circle']);
 
 Route::get('/del_inscription', [GlobalController::class, 'del_inscription']);
 
+Route:: get('/sendInscription', [GlobalController::class, 'sendDetailsInscription']);
+
