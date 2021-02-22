@@ -187,8 +187,11 @@ class GlobalController extends Controller
                 'data' => ["dni" => $rut]
             );
             $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
-            if($response == "DONE"){
-                return back()->with('message','Apoderado agregado');
+            $data = json_decode($response->body(), true);
+            $emails = $data[0];
+            //dd($data[1]);
+            if($data[1] == "DONE"){
+                return view('admin_home', compact('emails'))->with('message','Apoderado agregado');
             }else{
                 return back()->with('error','El apoderado ya está registrado');
             }
