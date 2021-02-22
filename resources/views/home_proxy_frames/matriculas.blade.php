@@ -257,9 +257,12 @@
                     <span class="badge badge-success">Completada</span>
                     @endif
                     <hr>
-                    @if($row["antecedentes"] != 0 && $row["a_madre"] !=0 && $row["a_padre"] !=0 && $row["apoderado"] != "" && $row["apoderado"] != NULL)
+                    @if($row["antecedentes"] != 0 && $row["a_madre"] !=0 && $row["a_padre"] !=0 && $row["apoderado"] != "" && $row["apoderado"] != NULL && $row["confirmado"] != "1")
+                        
                         <button class="btn btn-success" id="send{{$row["id_stu"]}}">Enviar datos</button>
-                    @else 
+                    @elseif($row["confirmado"]== "1")
+                        <button class="btn btn-success" id="send{{$row["id_stu"]}}">Reenviar datos</button>
+                    @else
                         <button class="btn btn-success disabled" id="">Enviar datos</button>
                     @endif
                     <button id="del{{$row["id_stu"]}}" class="btn btn-outline-danger rounded float-right"><i class="fas fa-trash-alt"></i></button>
@@ -274,11 +277,11 @@
                                 denyButtonText: `Cancelar`,
                                 }).then((result) => {
                                 /* Read more about isConfirmed, isDenied below */
-                                    if (result.isConfirmed) {
+                                    if (result.isConfirmed) {                                     
                                         $.ajax({
                                             type: "GET",
                                             url: "del_inscription/",
-                                            data: "stu={{$row["id_stu"]}}",
+                                            data: "stu={{$row["id_stu"]}}",     
                                             success: function(data)
                                             {
                                                 if(data == "OK"){
@@ -312,10 +315,21 @@
                             }).then((result) => {
                                 /* Read more about isConfirmed, isDenied below */
                                     if (result.isConfirmed) {
+                                        var sweet_loader = '<div class="sweet_loader"><i class="fas fa-circle-notch fa-spin" style="font-size:45pt;"></i></div>';
                                         $.ajax({
                                             type: "GET",
                                             url: "sendInscription/",
                                             data: "student={{$row["id_stu"]}}",
+                                            beforeSend: function(){
+                                                Swal.fire({
+                                                    html: '<h5>Enviando datos...</h5>',
+                                                    showConfirmButton:false,
+                                                    onRender: function(){
+                                                        $('.swal2-content').prepend(sweet_loader);
+                                                    }
+
+                                                });
+                                            },
                                             success: function(data)
                                             {
                                                 if(data == "OK"){
