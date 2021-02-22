@@ -19,11 +19,10 @@ class detailsInscription extends Mailable
     public $pdf;
     public $name;
     public $message;
-    public function __construct($pdf,$name,$message)
+    public function __construct($pdf,$name)
     {
         $this->pdf = $pdf;
         $this->name = $name;
-        $this->message = $message;
     }
 
     /**
@@ -33,9 +32,11 @@ class detailsInscription extends Mailable
      */
     public function build()
     {
-        $data = $this->message;
-        return $this->view('mails.detailsInscription',compact('data'))
-        ->attachData($this->pdf, ['as' => $this->name,
-                    'mime' => 'application/pdf']);
+        $params = array(
+            'as' => 'datos.pdf',
+            'mime' => 'application/pdf'
+        ); 
+        return $this->view('mails.detailsInscription')
+        ->attachData($this->pdf,'datos_Inscripción_'.getenv("MATRICULAS_PARA").'.pdf');
     }
 }

@@ -9,7 +9,9 @@ use Illuminate\Support\Facades\Crypt;
 use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\activationMail;
+use App\Mail\detailsInscription;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 
 class GlobalController extends Controller
 {
@@ -635,8 +637,10 @@ class GlobalController extends Controller
         $pdf = \PDF::loadView('print_details_inscription', compact('data'));
         $name = getenv("MATRICULAS_PARA") . " Matrícula ". $data["student"]["last_f"]." ".$data["student"]["last_m"]." ".$data["student"]["names"].".pdf";
         $output = $pdf->output();
+        Log::debug($output);
         $email = session::get('apoderado')["email"];
-        Mail::to($email)->send(new detailsInscription($output, $name,$data));
+        Mail::to($email)->send(new detailsInscription($output, $name));
+        return "OK";
     }
     public function logout(){
         if(session::has('apoderado')){
