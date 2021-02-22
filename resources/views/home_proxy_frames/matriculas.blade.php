@@ -151,7 +151,7 @@
                                         </script>
                                     </div>
                                     <div class="form-group col-md-12">
-                                        <label for="btnapisearch">Curso al que postula</label>
+                                        <label for="btnapisearch">Curso año 2021</label>
                                         <select class="custom-select mr-sm-2" autocomplete="off" name="ddlcurso" required="">
                                             <option disabled="" selected="" value="">Seleccionar</option>
                                             <option value="1">Pre-Kinder</option>
