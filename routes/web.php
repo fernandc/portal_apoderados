@@ -18,7 +18,7 @@ Route::get('/admin', function(){
     return view('admin');
 });
 
-Route::get('/auth_admin', [GlobalController::class, 'auth_admin']);
+Route::post('/auth_admin', [GlobalController::class, 'auth_admin']);
 
 Route::get('/admin_home', function(){
     return view('admin_home');
