@@ -257,7 +257,11 @@
                     <span class="badge badge-success">Completada</span>
                     @endif
                     <hr>
-                    <button class="btn btn-success" id="send{{$row["id_stu"]}}">Enviar datos</button>
+                    @if($row["antecedentes"] != 0 && $row["a_madre"] !=0 && $row["a_padre"] !=0 && $row["apoderado"] != "" && $row["apoderado"] != NULL)
+                        <button class="btn btn-success" id="send{{$row["id_stu"]}}">Enviar datos</button>
+                    @else 
+                        <button class="btn btn-success disabled" id="">Enviar datos</button>
+                    @endif
                     <button id="del{{$row["id_stu"]}}" class="btn btn-outline-danger rounded float-right"><i class="fas fa-trash-alt"></i></button>
                     <script>
                         $("#del{{$row["id_stu"]}}").click(function(){
