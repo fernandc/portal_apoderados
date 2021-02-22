@@ -2,7 +2,7 @@
     <div class="col-md-6">
         <div class="card bg-success mb-1" >
             <div class="card-body">
-                <h5 class="card-title text-white">Nueva Matrícula</h5>
+                <h5 class="card-title text-white">Datos del Alumno Año Escolar 2021</h5>
                 <p class="card-text text-white">Se requiere completar ficha de matrícula y aceptar las condiciones mencionadas en formulario.</p>
                 <button class="btn btn-light btn-sm" data-toggle="modal" data-target="#staticBackdrop">Crear nueva a Matrícula</button>
                 <!-- Modal -->
@@ -10,7 +10,7 @@
                     <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                        <h5 class="modal-title" id="staticBackdropLabel">Nueva Matrícula</h5>
+                        <h5 class="modal-title" id="staticBackdropLabel">Datos del Alumno Año Escolar 2021</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
