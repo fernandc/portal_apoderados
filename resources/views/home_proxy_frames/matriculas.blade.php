@@ -1,11 +1,4 @@
 <div class="row">
-    <script>
-        Swal.fire(
-            'icon': 'warning',
-            'title': 'Importante',
-            'text' : 'No olvide completar todos los datos de la matrícula.'
-        );
-    </script>
     <div class="col-md-6">
         <div class="card bg-success mb-1" >
             <div class="card-body">

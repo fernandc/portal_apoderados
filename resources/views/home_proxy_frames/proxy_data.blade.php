@@ -172,7 +172,7 @@
         </div>
         <div class="form-group col-md-4">
             <label>Teléfono Casa <span class="text-danger">(Importante)</span></label>
-            <input type="text" class="form-control" name="phoneparent" value="{{$phoneparent}}" minlength="2" required="">
+            <input type="text" class="form-control" name="phoneparent" value="{{$phoneparent}}" minlength="2" >
         </div>
         <div class="form-group col-md-4">
             <label>Celular <span class="text-danger">(Importante)</span></label>
@@ -200,11 +200,11 @@
         </div>
         <div class="form-group col-md-4">
             <label>Dirección Completa del trabajo </label>
-            <input type="text" class="form-control" name="work_address" value="{{$work_address}}" minlength="2" required="">
+            <input type="text" class="form-control" name="work_address" value="{{$work_address}}" minlength="2" >
         </div>
         <div class="form-group col-md-4">
             <label>Teléfono del trabajo </label>
-            <input type="text" class="form-control" name="work_phone" value="{{$work_phone}}" minlength="2" required="">
+            <input type="text" class="form-control" name="work_phone" value="{{$work_phone}}" minlength="2" >
         </div>
         <div class="form-group col-md-4">
             <label>Guardar los cambios</label>

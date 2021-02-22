@@ -15,8 +15,8 @@ Test Section
             Activación de Cuenta
         </div>
         <div class="card-body">
-            Hemos enviado un correo con un enlace de activación para tu cuenta su e-mail. Verifique su bandeja de entrada.
-            En caso de no encontrarlo, revise su bandeja de entrada.
+            Hemos enviado un correo con un enlace de activación a su e-mail. Verifique su bandeja de entrada.
+            En caso de no encontrarlo, revise su bandeja de spam (correo no deseado).
         </div>
     </div>
 </div>
