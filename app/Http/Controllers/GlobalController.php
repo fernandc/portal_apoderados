@@ -627,6 +627,16 @@ class GlobalController extends Controller
     }
     public function sendDetailsInscription(Request $request){
         $gets = $request->input();
+        $arr2 = array(
+            'institution' => getenv("APP_NAME"),
+            'public_key' => getenv("APP_PUBLIC_KEY"),
+            'method' => 'confirm_inscription',
+            'data' => ['id' => $gets["student"],
+                    'id_apo' => Session::get('apoderado')["id"]
+        ]);
+        $response2 = Http::withBody(json_encode($arr2),'application/json')->post("https://scc.cloupping.com/api-apoderado");
+        $data2 = json_decode($response2->body(),true);
+
         $arr = array(
             'institution' => getenv("APP_NAME"),
             'public_key' => getenv("APP_PUBLIC_KEY"),
@@ -642,8 +652,12 @@ class GlobalController extends Controller
         $output = $pdf->output();
         Log::debug($output);
         $email = session::get('apoderado')["email"];
-        Mail::to($email)->send(new detailsInscription($output, $name));
-        return "OK";
+        if($response == "OK" && $response2 =="OK"){
+            Mail::to($email)->send(new detailsInscription($output, $name));
+            return "OK";
+        }else{
+            return "FAIL";
+        }
     }
     public function logout(){
         if(session::has('apoderado')){
