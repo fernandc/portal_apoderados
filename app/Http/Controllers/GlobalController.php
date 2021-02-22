@@ -652,7 +652,7 @@ class GlobalController extends Controller
         $output = $pdf->output();
         Log::debug($output);
         $email = session::get('apoderado')["email"];
-        if($response == "OK" && $response2 =="OK"){
+        if( $response2 =="OK"){
             Mail::to($email)->send(new detailsInscription($output, $name));
             return "OK";
         }else{
