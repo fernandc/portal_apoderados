@@ -106,10 +106,25 @@ class GlobalController extends Controller
         $emails = json_decode($response->body(),true);
         if($response!= "FAILED"){ 
             session::put(['admin' => "admin"]);
-            return view('admin_home', compact('emails'));
+            return redirect('admin_home');
         }
         else{
             return back()->with('message','Contraseña incorrecta. Vuelva a intentar.');
+        }
+    }
+    public function admin_home(){
+        if(Session::has('admin')){
+            $arr = array(
+                'institution' => getenv("APP_NAME"),
+                'public_key' => getenv("APP_PUBLIC_KEY"),
+                'method' => 'emails_apoderados',
+                'data' => []
+            );
+            $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+            $emails = json_decode($response->body(),true);
+            if($response != "FAILED"){
+                return view('admin_home',compact('emails'));
+            }
         }
     }
     public function change_password(Request $request){
@@ -191,7 +206,7 @@ class GlobalController extends Controller
             $emails = $data[0];
             //dd($data[1]);
             if($data[1] == "DONE"){
-                return view('admin_home', compact('emails'))->with('message','Apoderado agregado');
+                return redirect('admin_home');
             }else{
                 return back()->with('error','El apoderado ya está registrado');
             }

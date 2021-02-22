@@ -20,9 +20,8 @@ Route::get('/admin', function(){
 
 Route::post('/auth_admin', [GlobalController::class, 'auth_admin']);
 
-Route::get('/admin_home', function(){
-    return view('admin_home');
-});
+Route::get('/admin_home', [GlobalController::class, 'admin_home'] );
+
 
 Route::get('/confirmation', function(){
     return view('confirmation');
