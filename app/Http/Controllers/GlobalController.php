@@ -175,14 +175,8 @@ class GlobalController extends Controller
     public function add_new_user(Request $request){
         $gets = $request->input();
         $rut = $gets["dni"];
-        $pos = strpos($rut, "-");
-        if ($pos === false) {
-            $rut = substr($rut, 0,-1)."-".substr($rut, -1);
-        }
-        $pos = strpos($rut, ".");
-        if ($pos === false) {
-            $rut = substr($rut, 0,-8).".".substr($rut, -8,3).".".substr($rut, -5);
-        }
+        $rut = str_replace(".","",$rut);
+        $rut = str_replace("-","",$rut);
         if(session::has('admin')){
             $arr = array(
                 'institution' => getenv("APP_NAME"),
