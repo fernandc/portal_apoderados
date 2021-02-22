@@ -650,7 +650,7 @@ if ($misc != null){
         </div>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="close{{$id_stu}}">Cerrar</button>
         <button id="cbutton_form{{$id_stu}}" type="button" class="btn btn-success">Guardar</button>
         <script>
             $("#cbutton_form{{$id_stu}}").click(function(e){
@@ -701,6 +701,7 @@ if ($misc != null){
                             title: 'Datos Guardados',
                             text: 'Los datos fueron guardados correctamente'
                         }); 
+                       location.reload();
                    }
                  });
             });
