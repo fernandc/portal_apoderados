@@ -69,8 +69,8 @@
                     </tr>
                     <tr>
                       <th>Año Ingreso al establecimiento: {{$data["student_background"]["school_origin_year_in"]}} </th>
-                      <th>Pertenece a PIE 2020: @if($data["student_background"]["has_pie"]==true) Si @else No @endif</th>
-                      <th>Postula a PIE 2021: @if($data["student_background"]["apply_pie_next_year"]==true) Si @else no @endif</th>
+                      <th>Pertenece a PIE 2020: @if($data["student_background"]["has_pie"]=="true") Si @else No @endif</th>
+                      <th>Postula a PIE 2021: @if($data["student_background"]["apply_pie_next_year"]=="true") Si @else no @endif</th>
                     </tr>
                     <tr>
                       <th colspan="3">Enfermedad de riesgo del estudiante: {{$data["student_background"]["risk_disease"]}}</th>
@@ -82,8 +82,8 @@
                       <th colspan="3">Dificultad o tratamiento sensorial: {{$data["student_background"]["sensory_difficulties"]}} </th>
                     </tr>
                     <tr>
-                      <th colspan="2">Tratamiento especial recibido: @if($data["student_background"]["has_special_treatment"]==true)Si @else No @endif</th>
-                      <th>Continúa tratamiento: @if($data["student_background"]["does_keep_st"]==true)Si @else No @endif</th>
+                      <th colspan="2">Tratamiento especial recibido: @if($data["student_background"]["has_special_treatment"]=="true")Si @else No @endif</th>
+                      <th>Continúa tratamiento: @if($data["student_background"]["does_keep_st"]=="true")Si @else No @endif</th>
                     </tr>
                     <tr>
                       <th colspan="3">Motivo Continuidad del tratamiento: {{$data["student_background"]["why_does_keep_st"]}} </th>
