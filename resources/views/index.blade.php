@@ -33,6 +33,8 @@ Saint Charles Portal Apoderados
                     </div>
                     <button type="submit" class="btn btn-primary">Continuar</button>
                 </form>
+                <hr>
+                <h6 class="text-primary">Cualquier duda, problema o consulta envíar un correo a: servicio@saintcharlescollege.cl</h6>
                 @if(isset($exc))
                 <hr>
                 <h6 class="text-danger" style="text-align: center">{{$exc}}</h6>
