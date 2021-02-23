@@ -195,11 +195,13 @@
                     <option value="false">No</option>
                     <option value="true">Si</option>
                   </select>
+                  @if(isset($has_pie))
                   <script>
                         $( document ).ready(function() {
-                            $('#ddlhas_pie option[value={{$has_pie}}').prop('selected', true)
+                            $('#ddlhas_pie option[value={{$has_pie}}').prop('selected', true);
                         });
                   </script>
+                  @endif
               </div>
               <div class="form-group col-md-6">
                   <label>Postula a PIE {{getenv("MATRICULAS_PARA")}} </label>
@@ -207,11 +209,13 @@
                     <option value="false">No</option>
                     <option value="true">Si</option>
                   </select>
+                  @if(isset($has_pie))
                   <script>
                         $( document ).ready(function() {
-                            $('#ddlapply_pie_next_year option[value={{$apply_pie_next_year}}').prop('selected', true)
+                            $('#ddlapply_pie_next_year option[value={{$apply_pie_next_year}}').prop('selected', true);
                         });
                   </script>
+                  @endif
               </div>
               <?php
                 $str= $emergency_data;
