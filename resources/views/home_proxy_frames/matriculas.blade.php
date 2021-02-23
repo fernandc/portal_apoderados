@@ -3,7 +3,7 @@
         <div class="card bg-primary mb-1" >
             <div class="card-body">
                 <h5 class="card-title text-white">Datos del Alumno Año Escolar 2021</h5>
-                <p class="card-text text-white">Se requiere completar ficha de matrícula y aceptar las condiciones mencionadas en formulario.</p>
+                <p class="card-text text-white">Se requiere completar los formularios y aceptar las condiciones mencionadas .</p>
                 <button class="btn btn-light btn-sm" data-toggle="modal" data-target="#staticBackdrop">Crear nuevo registro</button>
                 <!-- Modal -->
                 <div class="modal fade" id="staticBackdrop" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
