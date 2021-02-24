@@ -24,7 +24,7 @@ Saint Charles Portal Apoderados
                         @endif
                         <div class="form-group col-md-12">
                             <label for="dni">Ingrese su rut</label>
-                            <input type="text" class="form-control is-invalid" id="dni" name="dni" autofocus="" placeholder="12345678" required="">
+                        <input type="text" class="form-control is-invalid" id="dni" name="dni" autofocus="" placeholder="12345678 (sin puntos ni guión)" required="">
                         </div>
                         <div class="form-group col-md-12">
                             <label for="passwd">Contraseña<br></label>
