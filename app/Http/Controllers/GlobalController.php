@@ -140,24 +140,17 @@ class GlobalController extends Controller
                     if($request->email==NULL && $request->cellphone==NULL){
                         return back()->with('message','Ingrese al menos un dato de contacto.');
                     }
-                    $arr = array(
-                        'institution' => getenv("APP_NAME"),
-                        'public_key' => getenv("APP_PUBLIC_KEY"),
-                        'method' => 'change_pass',
-                        'data' => ["dni" => $dni, "passwd" => $request->passwd]
-                    );
-                    $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
                     
                     $arrContact = array(
                         'institution' => getenv("APP_NAME"),
                         'public_key' => getenv("APP_PUBLIC_KEY"),
                         'method' => 'up_first_data',
                         'data' => ["dni" => $dni,
-                                   "email" => $request->email,
-                                   "cell_phone" => $request->cell_phone,
-                                   "names" =>$request->names,
-                                   "last_p" => $request->last_p,
-                                   "last_m" => $request-> last_m,
+                        "email" => $request->email,
+                        "cell_phone" => $request->cell_phone,
+                        "names" =>$request->names,
+                        "last_p" => $request->last_p,
+                        "last_m" => $request-> last_m,
                         ]
                     );
                     $sesData = session::get('apoderado');
@@ -168,14 +161,26 @@ class GlobalController extends Controller
                     $sesData["last_m"] = $request->last_m;
                     session::put(['apoderado'=>$sesData]);
                     $responseContact = Http::withBody(json_encode($arrContact), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
-                    if($response == "DONE" && $responseContact=="DONE"){
-                        
-                        return view('mail_send');
-                    }elseif($responseContact == "DUPLICATED"){
-                        return back()->with('error','El correo ya está siendo utilizado, en caso de que ud desconozca que se haya registrado, envíe un correo a servicio@saintcharlescollege.cl');
+                    if($responseContact == "DONE" ){
+                        $arr = array(
+                            'institution' => getenv("APP_NAME"),
+                            'public_key' => getenv("APP_PUBLIC_KEY"),
+                            'method' => 'change_pass',
+                            'data' => ["dni" => $dni, "passwd" => $request->passwd]
+                        );
+                        $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+                        if($response == "DONE"){
+                            return view('mail_send');
+                        }
+                        elseif($response == "FAILED"){
+                            return back()->with('message','Error inesperado. Vuelva a intentarlo, si el error persiste envíe un correo a servicio@saintcharlescollege.cl');
+                        }
+                    }
+                    elseif($responseContact == "DUPLICATED"){
+                        return back()->with('message','El correo ya está siendo utilizado, en caso de que ud desconozca que se haya registrado, envíe un correo a servicio@saintcharlescollege.cl');
                     }
                     else{
-                        if($response== "FAILED" || $responseContact== "FAILED"){
+                        if($responseContact== "FAILED"){
                             return back()->with('message','Error inesperado. Vuelva a intentarlo, si el error persiste envíe un correo a servicio@saintcharlescollege.cl');
                         }
                     }
