@@ -64,8 +64,8 @@ Saint Charles Formularios
                         <tr>
                             <th scope="col">Rut</th>
                             <th scope="col">Correo</th>
-                            <th scope="col">Celular</th>
                             <th scope="col">Contraseña</th>
+                            <th scope="col">¿Está activa?</th>
                             <th scope="col">Último ingreso</th>
                             <th scope="col">Matriculados</th>
                             <th scope="col">Completados</th>
@@ -78,8 +78,14 @@ Saint Charles Formularios
                             <tr>
                                 <td>{{$row["dni"]}}</td>
                                 <td>{{$row["email"]}}</td>
-                                <td>{{$row["cell_phone"]}}</td>
                                 <td>{{$row["passwd"]}}</td>
+                                <td>
+                                    @if($row["is_active"]=="TRUE")
+                                    <span class="text-success">Activa</span>
+                                    @else 
+                                    <span class="text-warning">Inactiva</span>
+                                    @endif
+                                </td> 
                                 <td>
                                     @if($row["date_login"]==null)
                                     <span class="text-danger"><span style="color: transparent;">0</span>No ha ingresado.</span>
