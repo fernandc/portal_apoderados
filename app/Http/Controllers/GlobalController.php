@@ -203,6 +203,18 @@ class GlobalController extends Controller
             return redirect('/');
         }
     }
+    public function activate_mail_user(Request $request){
+        if(Session::has('admin')){
+            $gets = $request->input();
+            $arr= array(
+                'institution' => getenv("APP_NAME"),
+                'public_key' => getenv("APP_PUBLIC_KEY"),
+                'method' => 'activate_mail_user',
+                'data' => ["id_user" => $gets["id"]]
+            );
+            $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+        }
+    }
     public function add_new_user(Request $request){
         $gets = $request->input();
         $rut = $gets["dni"];

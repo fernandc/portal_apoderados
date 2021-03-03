@@ -37,6 +37,8 @@ Route::get('/disable_user', [GlobalController::class, 'disable_user']);
 
 Route::get('/add_new_user', [GlobalController::class, 'add_new_user']);
 
+Route::get('/activate_mail_user',[GlobalController::class, 'activate_mail_user']);
+
 Route::get('/datos_students', [GlobalController::class, 'datos_students']);
 
 Route::get('/download_pdf', [GlobalController::class, 'download_pdf']);

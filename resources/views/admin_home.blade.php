@@ -65,7 +65,7 @@ Saint Charles Formularios
                             <th scope="col">Rut</th>
                             <th scope="col">Correo</th>
                             <th scope="col">Contraseña</th>
-                            <th scope="col">¿Está activa?</th>
+                            <th scope="col">¿Está verificada?</th>
                             <th scope="col">Último ingreso</th>
                             <th scope="col">Matriculados</th>
                             <th scope="col">Completados</th>
@@ -81,9 +81,30 @@ Saint Charles Formularios
                                 <td>{{$row["passwd"]}}</td>
                                 <td>
                                     @if($row["is_active"]=="TRUE")
-                                    <span class="text-success">Activa</span>
+                                    <span class="text-success">Verificada</span>
                                     @else 
-                                    <span class="text-warning">Inactiva</span>
+                                        @if ($row["email"] != "")
+                                            <button id="btnactivateemail{{$row["id"]}}" class="btn btn-warning btn-sm" >Verificar Manual</button>
+                                            <script>
+                                                $("#btnactivateemail{{$row["id"]}}").click(function(){
+                                                    $.ajax({
+                                                        type: "GET",
+                                                        url: "activate_mail_user",
+                                                        data: "id={{$row["id"]}}", // serializes the form's elements.
+                                                        success: function(data)
+                                                        {
+                                                            
+                                                            $("#btnactivateemail{{$row["id"]}}").removeClass("btn-warning");
+                                                            $("#btnactivateemail{{$row["id"]}}").addClass("btn-success");
+                                                            $("#btnactivateemail{{$row["id"]}}").html("Verificada");
+                                                            $("#btnactivateemail{{$row["id"]}}").removeAttr("id")
+                                                        }
+                                                    });
+                                                });
+                                            </script>
+                                        @else
+                                        <span class="text-warning">No Verificada</span>
+                                        @endif
                                     @endif
                                 </td> 
                                 <td>
@@ -144,9 +165,9 @@ Saint Charles Formularios
                                 
                                 <td>
                                     @if($row["status"]=="ACTIVA")
-                                        <a href="/disable_user?id_user={{$row["id"]}}&method=INACTIVA" class="btn btn-primary btn-sm">Cuenta activada</a>
+                                        <a href="disable_user?id_user={{$row["id"]}}&method=INACTIVA" class="btn btn-primary btn-sm">Cuenta activada</a>
                                     @else
-                                        <a href="/disable_user?id_user={{$row["id"]}}&method=ACTIVA" class="btn btn-secondary btn-sm">Cuenta desactivada</a>
+                                        <a href="disable_user?id_user={{$row["id"]}}&method=ACTIVA" class="btn btn-secondary btn-sm">Cuenta desactivada</a>
                                     @endif
                                 </td>
                             </tr>                
