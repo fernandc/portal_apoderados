@@ -45,7 +45,7 @@ Restablecer Contraseña
                 data: {pass:pass, id:id},
                 success: function(data)
                 {
-                    $("#test").html(data);
+                    //$("#test").html(data);
                     if(data == "DONE"){
                         Swal.fire({
                             icon: 'success',
