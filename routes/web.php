@@ -13,6 +13,13 @@ Route::get('/change_password', [GlobalController::class, 'change_password']);
 Route::get('/new_password', function(){
     return view('new_password');
 });
+Route::get('/forgot_pass', function(){
+    return view('recovery_pass.forgot_pass');
+});
+Route::get('/recovery_pass', function(){
+    return view('recovery_pass.recovery_pass');
+});
+Route::get('/forget_pass', [GlobalController::class, 'forget_pass']);
 
 Route::get('/admin', function(){
     return view('admin');

@@ -10,6 +10,7 @@ use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\activationMail;
 use App\Mail\detailsInscription;
+use App\Mail\forgetPass;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 
@@ -201,6 +202,41 @@ class GlobalController extends Controller
         }
         else{
             return redirect('/');
+        }
+    }
+    public function forget_pass(Request $request){
+        $gets = $request->input();
+        $dni = $gets["dni"];
+        $arr = array(
+            'institution' => getenv("APP_NAME"),
+            'public_key' => getenv("APP_PUBLIC_KEY"),
+            'method' => 'forget_pass',
+            'data' => ["dni" => $dni]
+        );
+        $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+        $data = json_decode($response->body(), true);
+        if($data[2] == "DONE"){
+            $id = $data[1];
+            $newid = urlencode(Hash::make($id));
+            $message = "www.scc.cloupping.com/api-apoderado?method=recovery_pass&id=".$newid;
+            $link = $message;
+            Mail::to($data[0])->send(new forgetPass($link));
+        }
+    }
+    public function updPass(Request $request){
+        $gets = $request->input();
+        $id = $gets["id"];
+        $psw = $gets["pass"];
+        $arr = array(
+            'institution' => getenv("APP_NAME"),
+            'public_key' => getenv("APP_PUBLIC_KEY"),
+            'method' => 'updPass',
+            'data' => ["id" => $id, "password" => $psw]
+        );
+        $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+        $data = json_decode($response->body(), true);
+        if($response == "DONE"){
+            
         }
     }
     public function activate_mail_user(Request $request){
