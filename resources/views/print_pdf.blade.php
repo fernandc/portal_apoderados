@@ -188,7 +188,7 @@
             <div style="page-break-before: always;">
                 <div class="my-3">
                     <p class="text-center" style="font-size: 24px; font-weight:bold">Antecedentes del Apoderado</p>
-                    <p class="text-center" style="font-size:19px; font-weight:bold">Identidad Apoderado: {{$data["proxy"]["kinship"]}} </p>
+                    <p class="text-center" style="font-size:19px; font-weight:bold">Identidad Apoderado: {{$data["student"]["parent_type"]}} </p>
                 </div>
                 <table class="table table-sm table-striped my-3" style="font-size: 10pt;">
                   <tr>
@@ -202,7 +202,7 @@
                     <th>F. de nacimiento: {{$data["proxy"]["born_date"]}} </th>
                   </tr>
                   <tr>
-                    <th colspan="2">Parentesco con el alumno: {{$data["proxy"]["kinship"]}}</th>
+                    <th colspan="2">Parentesco con el alumno: {{$data["student"]["parent_type"]}}</th>
                   </tr>
                   <tr>
                     <th>Dirección: {{$data["proxy"]["address"]}}</th>
