@@ -38,7 +38,7 @@ Restablecer Contraseña
     $("#btnrecov").click(function(){
         var pass = $("#pass").val();
         var passConf = $("#passConfirm").val();
-        var id = {{session('id')}};
+        var id = {{Session('id')}}
         if(pass == passConf){
             $.ajax({
                 type: "GET",
