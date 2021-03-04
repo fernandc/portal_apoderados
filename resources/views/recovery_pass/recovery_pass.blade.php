@@ -9,6 +9,7 @@ Restablecer Contraseña
 @endsection
 
 @section("context")
+
 <div class="row my-3">
     <div class="col-md-4"></div>
     <div class="col-md-4 col-xs-12">
@@ -37,12 +38,12 @@ Restablecer Contraseña
     $("#btnrecov").click(function(){
         var pass = $("#pass").val();
         var passConf = $("#passConfirm").val();
-        var id = {{$id}};
+        var id = {{Session('id')}}
         if(pass == passConf){
             $.ajax({
                 type: "GET",
                 url: "updPass",
-                data: {pass:pass, id:id},
+                data: {pass:pass},
                 success: function(data)
                 {
                     //$("#test").html(data);
