@@ -208,6 +208,8 @@ class GlobalController extends Controller
     public function forget_pass(Request $request){
         $gets = $request->input();
         $dni = $gets["dni"];
+        $dni = str_replace(".","",$dni);
+        $dni = str_replace("-","",$dni);
         $arr = array(
             'institution' => getenv("APP_NAME"),
             'public_key' => getenv("APP_PUBLIC_KEY"),
@@ -219,7 +221,7 @@ class GlobalController extends Controller
         if($data[2] == "DONE"){
             $id = $data[1];
             $newid = urlencode(Hash::make($id));
-            $message = "www.scc.cloupping.com/api-apoderado?method=recovery_pass&id=".$newid;
+            $message = "http://saintcharlescollege.cl/apoderados/recovery_pass?id=".$newid;
             $link = $message;
             Mail::to($data[0])->send(new forgetPass($link));
         }else{
