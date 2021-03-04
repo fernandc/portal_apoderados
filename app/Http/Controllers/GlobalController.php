@@ -16,16 +16,6 @@ use Illuminate\Support\Facades\Log;
 
 class GlobalController extends Controller
 {
-    public function map(Request $request){
-        switch ($request["method"]) {
-            case 'recov_pass':
-                return $this->recov_pass($request->input());
-                break;
-            default:
-                # code...
-                break;
-        }
-    }
     
     public function auth_proxy(Request $request){
         $gets = $request->input();
@@ -236,7 +226,9 @@ class GlobalController extends Controller
             return "FAIL";
         }
     }
-    public function recov_pass($gets){
+    public function recov_pass(Request $request){
+        dd($request);
+        $gets = $request->input();
         $idh = $gets["id"];
         $id = urldecode($idh);
         return view("recovery_pass.recovery_pass",compact("id"));
