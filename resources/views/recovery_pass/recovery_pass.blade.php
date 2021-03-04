@@ -43,7 +43,7 @@ Restablecer Contraseña
             $.ajax({
                 type: "GET",
                 url: "updPass",
-                data: {pass:pass},
+                data: {pass:pass,id:id},
                 success: function(data)
                 {
                     //$("#test").html(data);
