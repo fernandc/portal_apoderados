@@ -237,7 +237,7 @@
             </div>
             @endif
             <div style="page-break-before: always;">
-                <p class="text-center" style="font-size:19px; font-weight:bold">Personas que viven con el estudiante</p>
+                <p class="text-center" style="font-size:19px; font-weight:bold">Personas que viven con el apoderado</p>
 
                 <table class="table table-sm table-striped table-condensed">
                   <tr>
@@ -250,7 +250,7 @@
                     @foreach($data["circle"] as $row)
                     <tr>
                         <th>{{$row["full_name"]}}</th>
-                        <th>{{$row["kinship"]}}</th>
+                        <th>{{$row["kinship"]}} (Del Apoderado)</th>
                         <th>{{$row["same_ins"]}}</th>
                         <th>{{$row["years_old"]}}</th>
                         <th>{{$row["occupation"]}}</th>
