@@ -16,6 +16,17 @@ use Illuminate\Support\Facades\Log;
 
 class GlobalController extends Controller
 {
+    public function map(Request $request){
+        switch ($request["method"]) {
+            case 'recov_pass':
+                return $this->recov_pass($request->input());
+                break;
+            default:
+                # code...
+                break;
+        }
+    }
+    
     public function auth_proxy(Request $request){
         $gets = $request->input();
         $dni = $gets['dni'];
@@ -221,23 +232,29 @@ class GlobalController extends Controller
             $message = "www.scc.cloupping.com/api-apoderado?method=recovery_pass&id=".$newid;
             $link = $message;
             Mail::to($data[0])->send(new forgetPass($link));
+        }else{
+            return "FAIL";
         }
+    }
+    public function recov_pass($gets){
+        $idh = $gets["id"];
+        $id = urldecode($idh);
+        return view("recovery_pass.recovery_pass",compact("id"));
     }
     public function updPass(Request $request){
         $gets = $request->input();
-        $id = $gets["id"];
+        $dni = $gets["dni"];
+        $dni = str_replace(".","",$dni);
+        $dni = str_replace("-","",$dni);
         $psw = $gets["pass"];
         $arr = array(
             'institution' => getenv("APP_NAME"),
             'public_key' => getenv("APP_PUBLIC_KEY"),
             'method' => 'updPass',
-            'data' => ["id" => $id, "password" => $psw]
+            'data' => ["dni" => $dni, "password" => $psw]
         );
         $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
         $data = json_decode($response->body(), true);
-        if($response == "DONE"){
-            
-        }
     }
     public function activate_mail_user(Request $request){
         if(Session::has('admin')){

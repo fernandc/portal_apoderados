@@ -27,13 +27,22 @@ Saint charles
                 data: {dni:dni}, // serializes the form's elements.
                 success: function(data)
                 {
-                    $("#test").html(data);
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Se ha enviado el correo',
-                        showConfirmButton: false,
-                        timer: 1500
-                    })
+                    if(data == "FAIL"){
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'No se ha encontrado un el usuario.',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                    }else{
+                        $("#test").html(data);
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Se ha enviado el correo',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                    }
                 }
             });
         });

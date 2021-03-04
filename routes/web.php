@@ -19,6 +19,9 @@ Route::get('/forgot_pass', function(){
 Route::get('/recovery_pass', function(){
     return view('recovery_pass.recovery_pass');
 });
+
+Route::post('/recov_pass', [GlobalController::class, 'map']);
+
 Route::get('/forget_pass', [GlobalController::class, 'forget_pass']);
 
 Route::get('/admin', function(){
