@@ -228,7 +228,7 @@ class GlobalController extends Controller
     }
     public function recov_pass(Request $request){
         dd($request);
-        $gets = $request->input();
+        $gets = $request->query();
         $idh = $gets["id"];
         $id = urldecode($idh);
         return view("recovery_pass.recovery_pass",compact("id"));
