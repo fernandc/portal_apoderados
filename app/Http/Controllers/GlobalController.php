@@ -243,6 +243,25 @@ class GlobalController extends Controller
             }
         }
     }
+    public function changeOldPass(Request $request){
+        if(Session::has('apoderado')){
+            $gets = $request->input();
+            $id = Session::get('apoderado')["id"];
+            $oldPsw = $gets["oldPass"];
+            $psw = $gets["pass"];
+            $arr = array(
+                'institution' => getenv("APP_NAME"),
+                'public_key' => getenv("APP_PUBLIC_KEY"),
+                'method' => 'changeOldPass',
+                'data' => ["id" => $id, "password" => $psw, "oldPassword" => $oldPsw]
+            );
+            $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+            $data = json_decode($response->body(), true);
+            return $response;
+        }else{
+            return redirect('logout');
+        }
+    }
     public function catchid(){
         $arr = array(
             'institution' => getenv("APP_NAME"),

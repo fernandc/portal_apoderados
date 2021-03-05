@@ -18,6 +18,8 @@ Route::get('/forgot_pass', function(){
 });
 Route::get('/recovery_pass',[GlobalController::class, 'recov_pass']);
 
+Route::get('/changeOldPass',[GlobalController::class, 'changeOldPass']);
+
 Route::get('/updPass',[GlobalController::class, 'updPass']);
 
 Route::get('/forget_pass', [GlobalController::class, 'forget_pass']);

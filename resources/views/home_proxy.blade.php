@@ -48,9 +48,11 @@ Saint Charles Formularios
                 $home = "";
                 $prof = "";
                 $matr = "";
+                $actPass = "";
                 $homeC = "";
                 $profC = "";
                 $matrC = "";
+                $actPassC = "";
                 $circle_data = "";
                 $circle_dataC = "";
                 if (isset($_GET["active"])) {
@@ -85,7 +87,7 @@ Saint Charles Formularios
                     <a class="nav-link {{$home}}" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Mis Datos</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{$prof}}" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Actualizar mi información</a>
+                    <a class="nav-link " id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Actualizar mi información</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {{$circle_data}}" id="circle-tab" data-toggle="tab" href="#circle" role="tab" aria-controls="circle" aria-selected="false">Mi círculo Familiar</a>
@@ -110,7 +112,6 @@ Saint Charles Formularios
                 <div class="tab-pane fade {{$homeC}}" id="home" role="tabpanel" aria-labelledby="home-tab">
                     <div class="card">
                         <div class="card-body">
-                            
                             <p><strong>Nombre:</strong> {{$var["names"]}} {{$var["last_p"]}} {{$var["last_m"]}}</p>
                             <p><strong>Teléfono Celular:</strong> {{$var["cell_phone"]}}</p>
                             <p><strong>Email:</strong> {{$var["email"]}}</p>
