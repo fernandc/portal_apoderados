@@ -30,6 +30,6 @@ class forgetPass extends Mailable
     public function build()
     {
         $data = $this->data;
-        return $this->view('mails.forgetPass',compact('data'));
+        return $this->subject('Reestablecer Contraseña')->view('mails.forgetPass',compact('data'));
     }
 }
