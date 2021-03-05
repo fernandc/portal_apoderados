@@ -234,7 +234,7 @@ class GlobalController extends Controller
         $id = urldecode($idh);
         $ids = $this->catchid();
         foreach($ids as $ida){
-            if(Hash::check($ida->z_mails,$id)){
+            if(Hash::check($ida["z_mails"],$id)){
                 return view("recovery_pass.recovery_pass",compact("id"));
             }
         }
