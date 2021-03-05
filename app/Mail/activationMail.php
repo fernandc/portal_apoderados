@@ -31,6 +31,6 @@ class activationMail extends Mailable
     public function build()
     {
         $data = $this->uno;
-        return $this->view('mails.activation_mail', compact('data'));
+        return $this->subject('Correo de Activación')->view('mails.activation_mail', compact('data'));
     }
 }
