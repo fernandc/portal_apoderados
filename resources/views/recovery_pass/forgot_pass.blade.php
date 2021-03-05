@@ -21,37 +21,45 @@ Saint charles
     <script>
         $("#btnpass").click(function(){
             var dni = $("#rutpass").val();
-            $.ajax({
-                type: "GET",
-                url: "forget_pass",
-                data: {dni:dni}, // serializes the form's elements.
-                success: function(data)
-                {
-                    if(data == "DONE" ){
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Se ha enviado el correo',
-                            showConfirmButton: false,
-                            timer: 1500
-                        })
-                    }else if(data == "FAILED" || data == "NOT FOUND"){
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'No se ha encontrado un usuario.',
-                            showConfirmButton: false,
-                            timer: 1500
-                        })
+            if(dni.length == 0 ){
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Debe rellenar el campo.',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            }else{
+                $.ajax({
+                    type: "GET",
+                    url: "forget_pass",
+                    data: {dni:dni},
+                    success: function(data)
+                    {
+                        if(data == "DONE" ){
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Se ha enviado el correo',
+                                timer: 6000
+                            })
+                        }else if(data == "FAILED" || data == "NOT FOUND"){
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'No se ha encontrado un usuario.',
+                                showConfirmButton: false,
+                                timer: 1500
+                            })
+                        }
+                        else{
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Debe esperar ' + (300-data) + ' segundos para enviar otra solicitud.',
+                                showConfirmButton: false,
+                                timer: 1500
+                            })
+                        }
                     }
-                    else if (data == "EXIST"){
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Debe esperar ' + (300-data) + ' segundos para enviar otra solicitud.',
-                            showConfirmButton: false,
-                            timer: 1500
-                        })
-                    }
-                }
-            });
+                });
+            }
         });
     </script>
 </div>

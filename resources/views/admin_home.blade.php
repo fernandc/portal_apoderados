@@ -206,7 +206,7 @@ Saint Charles Formularios
     @else
         <script>
         $( document ).ready(function() {
-            window.location.href = "https://www.scc.cloupping.com/admin";
+            window.location.href = "https://saintcharlescollege.cl/apoderados/admin";
         });
         </script>
     @endif               

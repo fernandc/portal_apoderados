@@ -89,7 +89,7 @@ Restablecer Contraseña
 @else
 <script>
     $( document ).ready(function() {
-        window.location.href = "https://saintcharlescollege.cl/apoderados/admin";
+        window.location.href = "https://saintcharlescollege.cl/apoderados";
     });
 </script>
 @endif

@@ -37,7 +37,6 @@ Route::get('/fam_circle', function(){
     return view('/home_proxy_frames/fam_circle');
 });
 
-
 Route::get('/logout', [GlobalController::class, 'logout']);
 
 Route::get('/disable_user', [GlobalController::class, 'disable_user']);

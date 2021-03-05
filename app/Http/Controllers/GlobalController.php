@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Crypt;
-use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\activationMail;
 use App\Mail\detailsInscription;
@@ -218,13 +216,17 @@ class GlobalController extends Controller
         );
         $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
         $data = json_decode($response->body(), true);
-        if($data[2] == "DONE"){
-            $id = $data[1];
-            $newid = urlencode(Hash::make($id));
-            $message = "http://saintcharlescollege.cl/apoderados/recovery_pass?id=".$newid;
-            $link = $message;
-            Mail::to($data[0])->send(new forgetPass($link));
-            return $data[2];
+        if(isset($data[2])){
+            if($data[2] == "DONE"){
+                $id = $data[1];
+                $newid = urlencode(Hash::make($id));
+                $message = "http://saintcharlescollege.cl/apoderados/recovery_pass?id=".$newid;
+                $link = $message;
+                Mail::to($data[0])->send(new forgetPass($link));
+                return $data[2];
+            }else{
+                return $response;
+            }
         }else{
             return $response;
         }
