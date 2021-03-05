@@ -226,7 +226,7 @@ class GlobalController extends Controller
             Mail::to($data[0])->send(new forgetPass($link));
             return $data[2];
         }else{
-            return "FAIL";
+            return $response;
         }
     }
     public function recov_pass(Request $request){

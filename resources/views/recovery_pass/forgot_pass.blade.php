@@ -28,7 +28,6 @@ Saint charles
                 success: function(data)
                 {
                     if(data == "DONE" ){
-                        $("#test").html(data);
                         Swal.fire({
                             icon: 'success',
                             title: 'Se ha enviado el correo',
