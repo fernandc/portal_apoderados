@@ -300,7 +300,7 @@
                         timer: 1500
                     })
                 }
-                else if(pass == passConf){
+                else if(pass == passConf && pass.length > 5){
                     $.ajax({
                         type: "GET",
                         url: "changeOldPass",
