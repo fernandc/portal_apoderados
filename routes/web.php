@@ -18,6 +18,8 @@ Route::get('/forgot_pass', function(){
 });
 Route::get('/recovery_pass',[GlobalController::class, 'recov_pass']);
 
+Route::get('/updPass',[GlobalController::class, 'updPass']);
+
 Route::get('/forget_pass', [GlobalController::class, 'forget_pass']);
 
 Route::get('/admin', function(){
@@ -27,7 +29,6 @@ Route::get('/admin', function(){
 Route::post('/auth_admin', [GlobalController::class, 'auth_admin']);
 
 Route::get('/admin_home', [GlobalController::class, 'admin_home'] );
-
 
 Route::get('/confirmation', function(){
     return view('confirmation');
