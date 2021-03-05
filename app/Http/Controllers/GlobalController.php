@@ -224,6 +224,7 @@ class GlobalController extends Controller
             $message = "http://saintcharlescollege.cl/apoderados/recovery_pass?id=".$newid;
             $link = $message;
             Mail::to($data[0])->send(new forgetPass($link));
+            return $data[2];
         }else{
             return "FAIL";
         }
@@ -235,6 +236,7 @@ class GlobalController extends Controller
         $ids = $this->catchid();
         foreach($ids as $ida){
             if(Hash::check($ida["z_mails"],$id)){
+                $id = $ida["z_mails"];
                 return view("recovery_pass.recovery_pass",compact("id"));
             }
         }

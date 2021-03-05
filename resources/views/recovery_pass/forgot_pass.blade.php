@@ -27,18 +27,18 @@ Saint charles
                 data: {dni:dni}, // serializes the form's elements.
                 success: function(data)
                 {
-                    if(data == "FAILED" || data == "NOT FOUND"){
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'No se ha encontrado un usuario.',
-                            showConfirmButton: false,
-                            timer: 1500
-                        })
-                    }else if(data == "DONE"){
+                    if(data == "DONE" ){
                         $("#test").html(data);
                         Swal.fire({
                             icon: 'success',
                             title: 'Se ha enviado el correo',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                    }else if(data == "FAILED" || data == "NOT FOUND"){
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'No se ha encontrado un usuario.',
                             showConfirmButton: false,
                             timer: 1500
                         })
