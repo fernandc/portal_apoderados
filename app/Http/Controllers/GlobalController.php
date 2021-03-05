@@ -229,7 +229,7 @@ class GlobalController extends Controller
         }
     }
     public function recov_pass(Request $request){
-        $gets = $request->query();
+        $gets = $request->input();
         $idh = $gets["id"];
         $id = urldecode($idh);
         $ids = $this->catchid();
