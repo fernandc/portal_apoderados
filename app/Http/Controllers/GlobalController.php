@@ -261,6 +261,7 @@ class GlobalController extends Controller
         );
         $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
         $data = json_decode($response->body(), true);
+        return $response;
     }
     public function activate_mail_user(Request $request){
         if(Session::has('admin')){
