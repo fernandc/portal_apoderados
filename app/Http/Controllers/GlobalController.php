@@ -251,15 +251,13 @@ class GlobalController extends Controller
     }
     public function updPass(Request $request){
         $gets = $request->input();
-        $dni = $gets["dni"];
-        $dni = str_replace(".","",$dni);
-        $dni = str_replace("-","",$dni);
+        $id = $gets["id"];
         $psw = $gets["pass"];
         $arr = array(
             'institution' => getenv("APP_NAME"),
             'public_key' => getenv("APP_PUBLIC_KEY"),
             'method' => 'updPass',
-            'data' => ["dni" => $dni, "password" => $psw]
+            'data' => ["id" => $id, "password" => $psw]
         );
         $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
         $data = json_decode($response->body(), true);

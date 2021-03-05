@@ -30,7 +30,7 @@ Saint charles
                     if(data == "FAILED" || data == "NOT FOUND"){
                         Swal.fire({
                             icon: 'error',
-                            title: 'No se ha encontrado un el usuario.',
+                            title: 'No se ha encontrado un usuario.',
                             showConfirmButton: false,
                             timer: 1500
                         })
@@ -43,7 +43,7 @@ Saint charles
                             timer: 1500
                         })
                     }
-                    else{
+                    else if (data == "EXIST"){
                         Swal.fire({
                             icon: 'error',
                             title: 'Debe esperar ' + (300-data) + ' segundos para enviar otra solicitud.',

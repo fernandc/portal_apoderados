@@ -27,7 +27,7 @@ Restablecer Contraseña
                             <input class="form-control" type="password" name="passConfirm" minlength="6" maxlength="20" id="passConfirm" required>
                         </div>
                         <div class="form-group col-12">
-                            <button class="btn btn-success my-3" type="submit" name="btnrecov" id="btnrecov" style="text-align: center">Guardar</button>
+                            <button class="btn btn-success my-3" type="button" name="btnrecov" id="btnrecov" style="text-align: center">Guardar</button>
                         </div>
                     </div>
                 </div>
@@ -39,8 +39,18 @@ Restablecer Contraseña
     <script>
         $("#btnrecov").click(function(){
             var pass = $("#pass").val();
+            pass = pass.trim();
             var passConf = $("#passConfirm").val();
-            if(pass == passConf){
+            passConf = passConf.trim();
+            if(pass.length == 0 || passConf.length == 0){
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Debe rellenar todos los campos.',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            }
+            else if(pass == passConf){
                 $.ajax({
                     type: "GET",
                     url: "updPass",
