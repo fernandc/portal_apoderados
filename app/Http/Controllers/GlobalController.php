@@ -229,11 +229,25 @@ class GlobalController extends Controller
         }
     }
     public function recov_pass(Request $request){
-        dd($request);
         $gets = $request->query();
         $idh = $gets["id"];
         $id = urldecode($idh);
-        return view("recovery_pass.recovery_pass",compact("id"));
+        $ids = $this->catchid();
+        foreach($ids as $ida){
+            if(Hash::check($ida,$id)){
+                return view("recovery_pass.recovery_pass",compact("id"));
+            }
+        }
+    }
+    public function catchid(){
+        $arr = array(
+            'institution' => getenv("APP_NAME"),
+            'public_key' => getenv("APP_PUBLIC_KEY"),
+            'method' => 'catch_id',
+        );
+        $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+        $data = json_decode($response->body(), true);
+        return $data;
     }
     public function updPass(Request $request){
         $gets = $request->input();
