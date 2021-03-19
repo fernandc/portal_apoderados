@@ -172,11 +172,12 @@
                 <div class="form-group col-md-4">
                     <label for="">Estado Civil Actual (No acorde a lo legal) <span class="text-danger">(Importante)</span></label>
                     <select id="ddlcurrent_civil_status" class="custom-select mr-sm-2" autocomplete="off" name="current_civil_status">
-                        <option disabled="" selected="" value="Sin información">Seleccionar</option>
+                        <option disabled="" selected="" value="Sin Información">Seleccionar</option>
                         <option value="soltero">Soltero/a</option>
-                        <option value="convive">Convive</option>
-                        <option value="separado">Separado/a</option>
+                        <option value="casado">Casado/a</option>
                         <option value="viudo">Viudo/a</option>
+                        <option value="divorciado">Divorciado/a</option>
+                        <option value="separado">Separado/a</option>
                     </select>
                     @if(isset($current_civil_status))
                     <script>
@@ -214,8 +215,10 @@
                         <option value="Básica completa">Básica completa</option>
                         <option value="Media incompleta">Media incompleta</option>
                         <option value="Media completa">Media completa</option>
-                        <option value="Superior incompleta">Superior incompleta</option>
-                        <option value="Superior completa">Superior completa</option>
+                        <option value="Técnico profesional incompleta">Técnico profesional incompleta</option>
+                        <option value="Técnico profesional completa">Técnico profesional completa</option>
+                        <option value="Superior incompleta">Universidad incompleta</option>
+                        <option value="Superior completa">Universidad completa</option>
                     </select>
                 </div>
                 <div class="form-group col-md-6">

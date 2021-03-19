@@ -110,11 +110,20 @@ Saint Charles Formularios
                     </div>
                 @endif
                 <div class="tab-pane fade {{$homeC}}" id="home" role="tabpanel" aria-labelledby="home-tab">
-                    <div class="card">
-                        <div class="card-body">
-                            <p><strong>Nombre:</strong> {{$var["names"]}} {{$var["last_p"]}} {{$var["last_m"]}}</p>
-                            <p><strong>Teléfono Celular:</strong> {{$var["cell_phone"]}}</p>
-                            <p><strong>Email:</strong> {{$var["email"]}}</p>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <p><strong>Nombre:</strong> {{$var["names"]}} {{$var["last_p"]}} {{$var["last_m"]}}</p>
+                                    <p><strong>Teléfono Celular:</strong> {{$var["cell_phone"]}}</p>
+                                    <p><strong>Email:</strong> {{$var["email"]}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <h3>Comunicaciones {{getenv("MATRICULAS_PARA")}}</h3>
+                            <hr>
+                            <iframe src="https://saintcharlescollege.cl/ins/iframe_news" title="Últimas Noticias" style="width: 100%;height: 95vh;" frameborder="0"></iframe>
                         </div>
                     </div>
                 </div>
