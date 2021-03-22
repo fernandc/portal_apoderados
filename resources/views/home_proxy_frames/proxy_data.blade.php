@@ -205,7 +205,7 @@
                 </div>
                 <div class="form-group col-md-4">
                     <label>Email <span class="text-danger">(Importante)</span></label>
-                    <input type="text" class="form-control" name="emailparent" value="{{$emailparent}}" minlength="2" required="">
+                    <input type="email" class="form-control" name="emailparent" value="{{$emailparent}}" minlength="2" required="">
                 </div>
                 <div class="form-group col-md-6">
                     <label>Nivel de estudios <span class="text-danger">(Importante)</span></label>
