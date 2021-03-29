@@ -40,9 +40,7 @@
     <li class="nav-item">
         <a class="nav-link active" id="profile-info-tab" data-toggle="tab" href="#profile-info" role="tab" aria-controls="profile-info" aria-selected="false">Actualizar mis datos</a>
     </li>
-    <li class="nav-item">
-        <a class="nav-link " id="change-pass-tab" data-toggle="tab" href="#change-pass" role="tab" aria-controls="change-pass" aria-selected="false">Cambiar contraseña</a>
-    </li>
+    
 </ul>
 <div class="tab-content" id="myTabContent">
     <div class="tab-pane fade show active" id="profile-info" role="tabpanel" aria-labelledby="profile-info-tab">
@@ -250,104 +248,5 @@
             </div>
         </form>
     </div>
-    <div class="tab-pane fade" id="change-pass" role="tabpanel" aria-labelledby="change-pass-tab">
-        <div class="row my-3">
-            <div class="col-md-3"></div>
-            <div class="col-md-6 col-xs-12">
-                <form method="get">
-                    <div class="card">
-                        <h3 class="text-center my-3" id="test">Reestablecer contraseña</h3>
-                        <div class="form-row mx-3 my-3">
-                            <div class="form-group col-12">
-                                <label for="">Contraseña Actual</label>
-                                <input class="form-control" type="password" name="passOld" id="passOld" minlength="6" maxlength="20" required>
-                            </div>
-                            <div class="form-group col-12">
-                                <label for="">Nueva Contraseña</label>
-                                <input class="form-control" type="password" name="pass" id="pass" minlength="6" maxlength="20" required>
-                                <small id="texth1" class="form-text text-muted">mínimo 6 caracteres</small>
-                            </div>
-                            <div class="form-group col-12">
-                                <label for="">Confirmar contraseña</label>
-                                <input class="form-control" type="password" name="passConfirm" minlength="6" maxlength="20" id="passConfirm" required>
-                            </div>
-                            <div class="form-group col-12">
-                                <button class="btn btn-success my-3" type="button" name="btnrecov" id="btnrecov" style="text-align: center">Guardar</button>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="col-md-3"></div>
-        </div>
-        <script>
-            $("#btnrecov").click(function(){
-                var oldPass = $("#passOld").val();
-                oldPass = oldPass.trim();
-                var pass = $("#pass").val();
-                pass = pass.trim();
-                var passConf = $("#passConfirm").val();
-                passConf = passConf.trim();
-                if(oldPass == pass){
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Las antigua contraseña debe ser distinta a la actual.',
-                        showConfirmButton: false,
-                        timer: 1500
-                    })
-                }
-                else if(pass.length == 0 || passConf.length == 0 || oldPass.length == 0 ){
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Debe rellenar todos los campos.',
-                        showConfirmButton: false,
-                        timer: 1500
-                    })
-                }
-                else if(pass == passConf && pass.length > 5){
-                    $.ajax({
-                        type: "GET",
-                        url: "changeOldPass",
-                        data: {pass:pass,oldPass:oldPass},
-                        success: function(data)
-                        {
-                            $("#test").html(data);
-                            if(data == "DONE"){
-                                Swal.fire({
-                                    icon: 'success',
-                                    title: 'Su contraseña ha sido modificada',
-                                    showConfirmButton: false,
-                                    timer: 1500
-                                })
-                                location.reload();
-                            }else if(data == "SAME"){
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Las antigua contraseña debe ser distinta a la actual.',
-                                    showConfirmButton: false,
-                                    timer: 1500
-                                })
-                            }
-                            else{
-                                $("#test").html(data);
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Se ha producido un error',
-                                    showConfirmButton: false,
-                                    timer: 1500
-                                })
-                            }
-                        }
-                    });
-                }
-                else{
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Las contraseñas deben coincidir',
-                        showConfirmButton: false
-                    })
-                }
-            });
-        </script>
-    </div>
+    
 </div>
