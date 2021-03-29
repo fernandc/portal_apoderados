@@ -63,9 +63,7 @@ class GlobalController extends Controller
         }
     }
     public function home_view(){
-        return "asd";
         if(session::has('apoderado')){
-
             $dni = session::get('apoderado')['dni'];
             $arrMatricula = array(
                 'institution' => getenv("APP_NAME"),
@@ -75,7 +73,6 @@ class GlobalController extends Controller
             );
             $responseMatricula = Http::withBody(json_encode($arrMatricula), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
             $matriculas = json_decode($responseMatricula->body(),true);
-    
             $arrProxy = array(
                 'institution' => getenv("APP_NAME"),
                 'public_key' => getenv("APP_PUBLIC_KEY"),
@@ -84,16 +81,14 @@ class GlobalController extends Controller
             );
             $responseProxy = Http::withBody(json_encode($arrProxy), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
             $dataProxy = json_decode($responseProxy->body(),true);
-            
             $target = array(
                 'institution' => getenv("APP_NAME"),
                 'public_key' => getenv("APP_PUBLIC_KEY"),
                 'method' => 'get_home_circle',
                 'data' => ['id_apo' => session::get('apoderado')["id"],]
             );
-    
             $responseTarget =  Http::withBody(json_encode($target), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
-            $dataHomeCircle = json_decode($responseTarget->body(),true); 
+            $dataHomeCircle = json_decode($responseTarget->body(),true);
             return view('home_proxy',compact('matriculas','dataProxy','dataHomeCircle'));     
         }
         else{
