@@ -173,7 +173,8 @@
                     <label for="">Estado Civil Actual (No acorde a lo legal) <span class="text-danger">(Importante)</span></label>
                     <select id="ddlcurrent_civil_status" class="custom-select mr-sm-2" autocomplete="off" name="current_civil_status">
                         <option disabled="" selected="" value="Sin Información">Seleccionar</option>
-                        <option value="soltero">Soltero/a</option>
+                        <option value="convive">Convive</option>
+						<option value="soltero">Soltero/a</option>
                         <option value="casado">Casado/a</option>
                         <option value="viudo">Viudo/a</option>
                         <option value="divorciado">Divorciado/a</option>
