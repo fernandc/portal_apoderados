@@ -164,7 +164,7 @@
                     @if(isset($legal_civil_status))
                     <script>
                         $( document ).ready(function() {
-                            $('#ddllegal_civil_status option[value={{$legal_civil_status}}').prop('selected', true);
+                            $('#ddllegal_civil_status option[value={{$legal_civil_status}}]').prop('selected', true);
                         });
                     </script>
                     @endif
@@ -183,7 +183,7 @@
                     @if(isset($current_civil_status))
                     <script>
                         $( document ).ready(function() {
-                            $('#ddlcurrent_civil_status option[value={{$current_civil_status}}').prop('selected', true);
+                            $('#ddlcurrent_civil_status option[value={{$current_civil_status}}]').prop('selected', true);
                         });
                     </script>
                     @endif
@@ -224,7 +224,7 @@
                     @if(isset($educational_level))
                     <script>
                         $( document ).ready(function() {
-                            $('#dlleducational_level option[value={{$educational_level}}').prop('selected', true);
+                            $('#dlleducational_level option[value={{$educational_level}}]').prop('selected', true);
                         });
                     </script>
                     @endif
