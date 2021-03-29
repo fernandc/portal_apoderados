@@ -94,7 +94,6 @@ Saint Charles Formularios
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" id="matriculas-tab" data-toggle="tab" href="#matriculas" role="tab" aria-controls="matriculas" aria-selected="false">Mis Alumnos matriculados 2021</a>
-                    
                     <script>
                         @if($dataProxy == NULL)
                             $("#matriculas-tab").remove();
@@ -142,12 +141,10 @@ Saint Charles Formularios
             </div>
             <!--END-->
         </div>
-        @php
-            dd(session::get('apoderado'));
-        @endphp
     @else
         <script>
             $( document ).ready(function() {
+                alert("No hay Session");
                 window.location = "/";
             });
         </script>
