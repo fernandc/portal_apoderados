@@ -2,9 +2,14 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GlobalController;
+use Illuminate\Support\Facades\Session;
 
 Route::get('/', function () {
     return view("index");
+});
+
+Route::get('/status',function(){
+    dd(session::get('apoderado'));
 });
 Route::get('/auth_proxy', [GlobalController::class, 'auth_proxy']);
 Route::get('/home', [GlobalController::class, 'home_view']);
