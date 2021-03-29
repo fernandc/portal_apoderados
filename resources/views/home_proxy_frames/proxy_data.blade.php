@@ -221,6 +221,13 @@
                         <option value="Superior incompleta">Universidad incompleta</option>
                         <option value="Superior completa">Universidad completa</option>
                     </select>
+                    @if(isset($educational_level))
+                    <script>
+                        $( document ).ready(function() {
+                            $('#dlleducational_level option[value={{$educational_level}}').prop('selected', true);
+                        });
+                    </script>
+                    @endif
                 </div>
                 <div class="form-group col-md-6">
                     <label>Trabajo u ocupación <span class="text-danger">(Importante)</span></label>
