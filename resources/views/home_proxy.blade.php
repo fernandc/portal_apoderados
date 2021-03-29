@@ -129,13 +129,13 @@ Saint Charles Formularios
                     </div>
                 </div>
                 <div class="tab-pane fade {{$profC}}" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                    
+                    @include('home_proxy_frames.proxy_data')
                 </div>
                 <div class="tab-pane fade {{$circle_dataC}}" id="circle" role="tabpanel" aria-labelledby="circle-tab">
-                    @include('home_proxy_frames.fam_circle')
+                    
                 </div>
                 <div class="tab-pane fade {{$matrC}}" id="matriculas" role="tabpanel" aria-labelledby="matriculas-tab">
-                    @include('home_proxy_frames.matriculas')
+                    
                 </div>
                 
             </div>
