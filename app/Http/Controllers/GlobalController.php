@@ -96,7 +96,6 @@ class GlobalController extends Controller
             return view('home_proxy',compact('matriculas','dataProxy','dataHomeCircle'));     
         }
         else{
-            return "nan";
             return redirect('logout');
         }
     }
