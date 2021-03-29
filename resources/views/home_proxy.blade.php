@@ -102,7 +102,42 @@ Saint Charles Formularios
                 </li>
             </ul>
             <hr>
-            
+            <div class="tab-content" id="myTabContent">
+                @if($dataProxy == NULL)
+                    <div class="alert alert-danger" role="alert">
+                        Debe completar formulario <a href="/apoderados/home?active=info">Actualizar mi información</a> y <a href="/apoderados/home?active=circle">Mi círculo Familiar</a> para proceder a Ingresar datos de Alumno(s) Año Escolar 2021 <i class="fas fa-exclamation-triangle"></i> 
+                    </div>
+                @endif
+                <div class="tab-pane fade {{$homeC}}" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <!--
+                                    <p><strong>Nombre:</strong> {{$var["names"]}} {{$var["last_p"]}} {{$var["last_m"]}}</p>
+                                    <p><strong>Teléfono Celular:</strong> {{$var["cell_phone"]}}</p>
+                                    <p><strong>Email:</strong> {{$var["email"]}}</p>
+                                    -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <h3>Comunicaciones {{getenv("MATRICULAS_PARA")}}</h3>
+                            <hr>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade {{$profC}}" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                    @include('home_proxy_frames.proxy_data')
+                </div>
+                <div class="tab-pane fade {{$circle_dataC}}" id="circle" role="tabpanel" aria-labelledby="circle-tab">
+                    @include('home_proxy_frames.fam_circle')
+                </div>
+                <div class="tab-pane fade {{$matrC}}" id="matriculas" role="tabpanel" aria-labelledby="matriculas-tab">
+                    @include('home_proxy_frames.matriculas')
+                </div>
+            </div>
             <!--END-->
         </div>
     @else
