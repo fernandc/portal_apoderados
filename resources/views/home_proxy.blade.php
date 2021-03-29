@@ -144,7 +144,6 @@ Saint Charles Formularios
     @else
         <script>
             $( document ).ready(function() {
-                alert("No hay Session");
                 window.location = "/";
             });
         </script>
