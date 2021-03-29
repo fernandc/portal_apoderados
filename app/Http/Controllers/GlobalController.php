@@ -93,7 +93,6 @@ class GlobalController extends Controller
     
             $responseTarget =  Http::withBody(json_encode($target), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
             $dataHomeCircle = json_decode($responseTarget->body(),true); 
-            return "";
             return view('home_proxy',compact('matriculas','dataProxy','dataHomeCircle'));     
         }
         else{

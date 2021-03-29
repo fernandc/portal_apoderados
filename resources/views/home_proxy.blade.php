@@ -142,6 +142,9 @@ Saint Charles Formularios
             </div>
             <!--END-->
         </div>
+        @php
+            dd(session::get('apoderado'));
+        @endphp
     @else
         <script>
             $( document ).ready(function() {
