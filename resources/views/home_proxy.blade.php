@@ -114,9 +114,11 @@ Saint Charles Formularios
                         <div class="col-md-6">
                             <div class="card">
                                 <div class="card-body">
+                                    <!--
                                     <p><strong>Nombre:</strong> {{$var["names"]}} {{$var["last_p"]}} {{$var["last_m"]}}</p>
                                     <p><strong>Teléfono Celular:</strong> {{$var["cell_phone"]}}</p>
                                     <p><strong>Email:</strong> {{$var["email"]}}</p>
+                                    -->
                                 </div>
                             </div>
                         </div>
