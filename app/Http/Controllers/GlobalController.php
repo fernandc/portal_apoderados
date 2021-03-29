@@ -84,7 +84,6 @@ class GlobalController extends Controller
             $responseProxy = Http::withBody(json_encode($arrProxy), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
             $dataProxy = json_decode($responseProxy->body(),true);
             
-    
             $target = array(
                 'institution' => getenv("APP_NAME"),
                 'public_key' => getenv("APP_PUBLIC_KEY"),
@@ -94,6 +93,7 @@ class GlobalController extends Controller
     
             $responseTarget =  Http::withBody(json_encode($target), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
             $dataHomeCircle = json_decode($responseTarget->body(),true); 
+            return "";
             return view('home_proxy',compact('matriculas','dataProxy','dataHomeCircle'));     
         }
         else{
