@@ -224,7 +224,7 @@
                     @if(isset($educational_level))
                     <script>
                         $( document ).ready(function() {
-                            $('#dlleducational_level option[value={{$educational_level}}]').prop('selected', true);
+                            $('#dlleducational_level option[value="{{$educational_level}}"]').prop('selected', true);
                         });
                     </script>
                     @endif
