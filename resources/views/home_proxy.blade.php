@@ -124,7 +124,9 @@ Saint Charles Formularios
                         <div class="col-md-6">
                             <h3>Comunicaciones {{getenv("MATRICULAS_PARA")}}</h3>
                             <hr>
+                            <!--
                             <iframe src="https://saintcharlescollege.cl/ins/iframe_news" title="Últimas Noticias" style="width: 100%;height: 95vh;" frameborder="0"></iframe>
+                            -->
                         </div>
                     </div>
                 </div>
