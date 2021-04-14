@@ -111,22 +111,60 @@ Saint Charles Formularios
                 <div class="tab-pane fade {{$homeC}}" id="home" role="tabpanel" aria-labelledby="home-tab">
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="card">
-                                <div class="card-body">
-                                    <!--
-                                    <p><strong>Nombre:</strong> {{$var["names"]}} {{$var["last_p"]}} {{$var["last_m"]}}</p>
-                                    <p><strong>Teléfono Celular:</strong> {{$var["cell_phone"]}}</p>
-                                    <p><strong>Email:</strong> {{$var["email"]}}</p>
-                                    -->
-                                </div>
+                            <h3>Últimos Correos</h3>
+                            <div>
+                                <span class="badge badge-danger">Importante:</span> Estimado Apoderado, es importante que revise su correo ya que, pueden ir documentos adjuntos que no se mostrarán aquí. Si usted no recibe los correos por favor, valide su correo en <span class="text-primary">Actualizar mi información</span> o puede que los correos lleguen a su bandeja de <span class="text-danger">Spam</span>.
+
                             </div>
+                            @if(isset($correos))
+                                @foreach ($correos as $correo)
+                                <div class="card bg-light mt-2" style="background-color: #f7f2b2 !important;">
+                                    <div class="card-body">
+                                        <h6 class="card-subtitle mb-2 text-muted" style="text-align: right;#f7f2b2 !important">
+                                            @if ($correo["diff"] == 0)
+                                            <span class="badge badge-success">HOY</span>
+                                            @elseif($correo["diff"] == 1)
+                                            <span class="badge badge-primary">AYER</span>
+                                            @else
+                                            <span class="badge badge-info">Hace {{$correo["diff"]}} días</span>
+                                            @endif
+                                            {{$correo["date_in"]}}
+                                        </h6>
+                                        <h5 class="card-title">{{$correo["subject"]}}</h5>
+                                        @php
+                                            $mensaje = str_replace("@Apoderado",($var["names"]." ".$var["last_p"]),$correo["message"]);
+                                        @endphp
+                                        <p class="card-text" style="white-space: pre-wrap;max-height: 190px;overflow-y: auto;">{{$mensaje}}</p>
+                                    </div>
+                                </div>
+                                @endforeach
+                            @endif
                         </div>
                         <div class="col-md-6">
-                            <h3>Comunicaciones {{getenv("MATRICULAS_PARA")}}</h3>
+                            <h3>Últimas Comunicaciones {{getenv("MATRICULAS_PARA")}}</h3>
                             <hr>
-                            <!--
-                            <iframe src="https://saintcharlescollege.cl/ins/iframe_news" title="Últimas Noticias" style="width: 100%;height: 95vh;" frameborder="0"></iframe>
-                            -->
+                            @if(isset($news))
+                                @foreach ($news as $new)
+                                <div class="card bg-light mt-2" >
+                                    <div class="card-body">
+                                        <h6 class="card-subtitle mb-2 text-muted" style="text-align: right;">
+                                            @if ($new["diff"] == 0)
+                                            <span class="badge badge-success">HOY</span>
+                                            @elseif($new["diff"] == 1)
+                                            <span class="badge badge-primary">AYER</span>
+                                            @else
+                                            <span class="badge badge-secondary">Hace {{$new["diff"]}} días</span>
+                                            @endif
+                                            {{$new["date_in"]}}
+                                        </h6>
+                                        <h5 class="card-title">{{$new["title"]}}</h5>
+                                        <h6 class="card-subtitle mb-2 text-muted">{{$new["subtitle"]}}</h6>
+                                        <p class="card-text" style="white-space: pre-wrap;max-height: 190px;overflow-y: auto;">{{$new["body"]}}</p>
+                                        <a href="{{$new["url"]}}" target="_blank" class="card-link">{{$new["text_url"]}}</a>
+                                    </div>
+                                </div>
+                                @endforeach
+                            @endif
                         </div>
                     </div>
                 </div>

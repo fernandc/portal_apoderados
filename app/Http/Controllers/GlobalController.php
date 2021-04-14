@@ -89,11 +89,34 @@ class GlobalController extends Controller
             );
             $responseTarget =  Http::withBody(json_encode($target), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
             $dataHomeCircle = json_decode($responseTarget->body(),true);
-            return view('home_proxy',compact('matriculas','dataProxy','dataHomeCircle'));     
+            $news = $this->listar_noticias();
+            $correos = $this->listar_ultimos_correos(session::get('apoderado')['email']);
+            return view('home_proxy',compact('matriculas','dataProxy','dataHomeCircle','news','correos'));     
         }
         else{
             return redirect('logout');
         }
+    }
+    public function listar_ultimos_correos($email){
+        $arr = array(
+            'institution' => getenv("APP_NAME"),
+            'public_key' => getenv("APP_PUBLIC_KEY"),
+            'method' => 'lista_mails_recibidos_apoderados',
+            'data' => ["email" => $email]
+        );
+        $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+        $data = json_decode($response->body(), true);
+        return $data;
+    }
+    private function listar_noticias(){
+        $arr = array(
+            'institution' => getenv("APP_NAME"),
+            'public_key' => getenv("APP_PUBLIC_KEY"),
+            'method' => 'list_news'
+        );
+        $response = Http::withBody(json_encode($arr), 'application/json')->post("https://cloupping.com/api-ins");
+        $data = json_decode($response->body(), true);
+        return $data;       
     }
     public function auth_admin(Request $request){
         $gets= $request->input();
