@@ -35,8 +35,6 @@ Saint Charles Portal Apoderados
                 </form>
                 <hr>
                 <a href="forgot_pass" >Olvidé mi contraseña</a>
-                <hr>
-                <h6 class="text-primary">Cualquier duda, problema o consulta envíar un correo a: servicio@saintcharlescollege.cl</h6>
                 @if(isset($exc))
                 <hr>
                 <h6 class="text-danger" style="text-align: center">{{$exc}}</h6>
