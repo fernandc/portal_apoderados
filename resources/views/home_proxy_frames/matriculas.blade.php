@@ -2,7 +2,7 @@
     <div class="col-md-6">
         <div class="card bg-primary mb-1" >
             <div class="card-body">
-                <h5 class="card-title text-white">Datos del Alumno Año Escolar 2021</h5>
+                <h5 class="card-title text-white">Datos del Alumno Año Escolar {{getenv("MATRICULAS_PARA")}}</h5>
                 <p class="card-text text-white">Se requiere completar los formularios y aceptar las condiciones mencionadas.</p>
                 <button class="btn btn-light btn-sm" data-toggle="modal" data-target="#staticBackdrop">Crear nuevo registro</button>
                 <!-- Modal -->
@@ -10,7 +10,7 @@
                     <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                        <h5 class="modal-title" id="staticBackdropLabel">Datos del Alumno Año Escolar 2021</h5>
+                        <h5 class="modal-title" id="staticBackdropLabel">Datos del Alumno Año Escolar {{getenv("MATRICULAS_PARA")}}</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -151,7 +151,7 @@
                                         </script>
                                     </div>
                                     <div class="form-group col-md-12">
-                                        <label for="btnapisearch">Curso año 2021</label>
+                                        <label for="btnapisearch">Curso año {{getenv("MATRICULAS_PARA")}}</label>
                                         <select class="custom-select mr-sm-2" autocomplete="off" name="ddlcurso" required="">
                                             <option disabled="" selected="" value="">Seleccionar</option>
                                             <option value="1">Pre-Kinder</option>

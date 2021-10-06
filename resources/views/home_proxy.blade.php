@@ -93,7 +93,7 @@ Saint Charles Formularios
                     <a class="nav-link {{$circle_data}}" id="circle-tab" data-toggle="tab" href="#circle" role="tab" aria-controls="circle" aria-selected="false">Mi círculo Familiar</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="matriculas-tab" data-toggle="tab" href="#matriculas" role="tab" aria-controls="matriculas" aria-selected="false">Mis Alumnos matriculados 2021</a>
+                    <a class="nav-link" id="matriculas-tab" data-toggle="tab" href="#matriculas" role="tab" aria-controls="matriculas" aria-selected="false">Mis Alumnos matriculados {{getenv("MATRICULAS_PARA")}}</a>
                     <script>
                         @if($dataProxy == NULL)
                             $("#matriculas-tab").remove();
@@ -105,7 +105,7 @@ Saint Charles Formularios
             <div class="tab-content" id="myTabContent">
                 @if($dataProxy == NULL)
                     <div class="alert alert-danger" role="alert">
-                        Debe completar formulario <a href="/apoderados/home?active=info">Actualizar mi información</a> y <a href="/apoderados/home?active=circle">Mi círculo Familiar</a> para proceder a Ingresar datos de Alumno(s) Año Escolar 2021 <i class="fas fa-exclamation-triangle"></i> 
+                        Debe completar formulario <a href="/apoderados/home?active=info">Actualizar mi información</a> y <a href="/apoderados/home?active=circle">Mi círculo Familiar</a> para proceder a Ingresar datos de Alumno(s) Año Escolar {{getenv("MATRICULAS_PARA")}} <i class="fas fa-exclamation-triangle"></i> 
                     </div>
                 @endif
                 <div class="tab-pane fade {{$homeC}}" id="home" role="tabpanel" aria-labelledby="home-tab">

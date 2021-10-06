@@ -63,8 +63,8 @@
                     </tr>
                     <tr>
                       <th>Año Ingreso al establecimiento: {{$data["student_background"]["school_origin_year_in"]}} </th>
-                      <th>Pertenece a PIE 2020: @if($data["student_background"]["has_pie"]=="true") Si @else No @endif</th>
-                      <th>Postula a PIE 2021: @if($data["student_background"]["apply_pie_next_year"]=="true") Si @else no @endif</th>
+                      <th>Pertenece a PIE {{getenv("MATRICULAS_PARA") - 1}}: @if($data["student_background"]["has_pie"]=="true") Si @else No @endif</th>
+                      <th>Postula a PIE {{getenv("MATRICULAS_PARA")}}: @if($data["student_background"]["apply_pie_next_year"]=="true") Si @else no @endif</th>
                     </tr>
                     <tr>
                       <th colspan="3">Enfermedad de riesgo del estudiante: {{$data["student_background"]["risk_disease"]}}</th>
