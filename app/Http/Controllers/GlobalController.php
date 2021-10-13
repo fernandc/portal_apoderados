@@ -93,8 +93,10 @@ class GlobalController extends Controller
             $correos = $this->listar_ultimos_correos(session::get('apoderado')['email']);
             $formsStatus = $this->verificate_state_forms();
             $formsStatus = $formsStatus == 'enabled' ? true : false;
-            // dd($formsStatus);
-            return view('home_proxy',compact('matriculas','dataProxy','dataHomeCircle','news','correos','formsStatus'));     
+            $stateProcess = $this->verificate_matri_process();
+            $stateProcess = $stateProcess == 'enabled' ? true : false;
+            // dd($stateProcess);
+            return view('home_proxy',compact('matriculas','dataProxy','dataHomeCircle','news','correos','formsStatus','stateProcess'));     
         }
         else{
             return redirect('logout');
@@ -152,9 +154,12 @@ class GlobalController extends Controller
 
             $state = $this->verificate_state_forms();
             $state = $state == 'enabled' ? true : false;
+            $stateProcess = $this->verificate_matri_process();
+            $stateProcess = $stateProcess == 'enabled' ? true : false;
             // dd($state);
+            // dd($stateProcess);
             if($response != "FAILED"){
-                return view('admin_home',compact('emails'))->with('state', $state);
+                return view('admin_home',compact('emails'))->with('state', $state)->with('stateProcess',$stateProcess);
             }
         }
         else{
@@ -204,9 +209,24 @@ class GlobalController extends Controller
         }
     }
     // 
-    public function check_matri_process(){
+    public function check_matri_process(Request $request){
         if(Session::has('admin')){
             //Cambia estado de proceso de matricula
+            $gets = $request->input();            
+            $data = $gets["stateProcess"];
+            if($data == 'false'){
+                $data = false;
+            }else if ($data == 'true'){
+                $data = true;
+            }
+            $arr = array(
+                'institution' => getenv("APP_NAME"),
+                'public_key' => getenv("APP_PUBLIC_KEY"),
+                'method' => 'inscription_students_change_enabled',
+                'data' => [ "enabled" => $data]
+            );
+            $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+            return $response->status(); 
         }
         else{
             return redirect('logout');
@@ -215,6 +235,14 @@ class GlobalController extends Controller
     public function verificate_matri_process(){
         if(Session::has('admin')){
             //Cambia estado de proceso de matricula
+            $arr = array(
+                'institution' => getenv("APP_NAME"),
+                'public_key' => getenv("APP_PUBLIC_KEY"),
+                'method' => 'get_inscription_students_change_enabled',                
+            );
+            $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+            // dd($response);
+            return $response->json()[0]['val'];
         }
         else{
             return redirect('logout');

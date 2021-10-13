@@ -9,6 +9,7 @@ Saint Charles Formularios
     <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
     <script>
         var flag = 0;  
+        var flag2 = 0;  
     </script>
 @endsection
 
@@ -56,6 +57,19 @@ Saint Charles Formularios
                 </div>
             </div>
             <hr>
+            <input type="checkbox" id="switch_proceso_matri" checked data-toggle="toggle" data-on="Activado" data-off="Desactivado" data-onstyle="success" data-offstyle="danger"><b>  Activar/Desactivar proceso de inscripción de alumnos (matrículas)</b>
+            @if(isset($stateProcess))
+                @if($stateProcess == true)
+                    <script>
+                        $('#switch_proceso_matri').bootstrapToggle('on');
+                    </script>
+                @else
+                    <script>
+                        $('#switch_proceso_matri').bootstrapToggle('off');
+                    </script>
+                @endif
+            @endif
+            <hr>
             <input type="checkbox" id="switchEdit" checked data-toggle="toggle" data-on="Activado" data-off="Desactivado" data-onstyle="success" data-offstyle="danger"><b>  Activar/Desactivar edición de formularios</b>
             @if(isset($state))
                 @if($state == true)
@@ -69,52 +83,92 @@ Saint Charles Formularios
                 @endif
             @endif
             <script>
-                $(function() {
-                    $('#switchEdit').change(function() {
-                        var state = document.getElementById('switchEdit').checked;
-                        console.log("state :" + state);
-                        if(flag == 0){
-                            Swal.fire({
-                            title: 'Estás seguro de realizar este cambio? ',                        
-                            icon: 'warning',
-                            showCancelButton: true,
-                            confirmButtonColor: '#3085d6',
-                            cancelButtonColor: '#d33',
-                            confirmButtonText: 'Si, cambiar!'
-                            }).then((result) => {
-                                if (result.isConfirmed) {
-                                    $.ajax({
-                                        type: "GET",
-                                        url: "check_edit_forms",
-                                        data: {state},                        
-                                        success: function(data)
-                                        {
-                                            console.log(data);
-                                            if(data != 200){
-                                                Swal.fire(
-                                                    'Error!',
-                                                    'Se ha producido un error, intente nuevamente y si el error persiste contáctese con soporte.',
-                                                    'error'
-                                                )     
-                                            }
+                $('#switchEdit').change(function() {
+                    var state = document.getElementById('switchEdit').checked;
+                    console.log("state :" + state);
+                    if(flag == 0){
+                        Swal.fire({
+                        title: 'Estás seguro de realizar este cambio? ',                        
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Si, cambiar!'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                $.ajax({
+                                    type: "GET",
+                                    url: "check_edit_forms",
+                                    data: {state},                        
+                                    success: function(data)
+                                    {
+                                        console.log(data);
+                                        if(data != 200){
+                                            Swal.fire(
+                                                'Error!',
+                                                'Se ha producido un error, intente nuevamente y si el error persiste contáctese con soporte.',
+                                                'error'
+                                            )     
                                         }
-                                    });
-                                    Swal.fire(
-                                    'Cambiado!',
-                                    'Se ha activado/desactivado la edición de los formularios',
-                                    'success'
-                                    )                              
-                                }else if(result.isConfirmed == false){
-                                    flag++;
-                                    $('#switchEdit').bootstrapToggle('off');
-                                }
-                            })
-                        }else{
-                            flag = 0;
-                        }   
-                    });
-                })
-
+                                    }
+                                });
+                                Swal.fire(
+                                'Cambiado!',
+                                'Se ha activado/desactivado la edición de los formularios',
+                                'success'
+                                )                              
+                            }else if(result.isConfirmed == false){
+                                flag++;
+                                $('#switchEdit').bootstrapToggle('off');
+                            }
+                        })
+                    }else{
+                        flag = 0;
+                    }   
+                });
+                $('#switch_proceso_matri').change(function() {
+                    var stateProcess = document.getElementById('switch_proceso_matri').checked;
+                    console.log("stateprocess :" + stateProcess);
+                    if(flag2 == 0){
+                        Swal.fire({
+                        title: 'Estás seguro de realizar este cambio? ',                        
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Si, cambiar!'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                $.ajax({
+                                    type: "GET",
+                                    url: "check_matri_process",
+                                    data: {stateProcess},                        
+                                    success: function(data)
+                                    {
+                                        console.log(data);
+                                        if(data != 200){
+                                            Swal.fire(
+                                                'Error!',
+                                                'Se ha producido un error, intente nuevamente y si el error persiste contáctese con soporte.',
+                                                'error'
+                                            )     
+                                        }
+                                    }
+                                });
+                                Swal.fire(
+                                'Cambiado!',
+                                'Se ha activado/desactivado el proceso de inscripción de alumnos.',
+                                'success'
+                                )                              
+                            }else if(result.isConfirmed == false){
+                                flag2++;
+                                $('#switch_proceso_matri').bootstrapToggle('off');
+                            }
+                        })
+                    }else{
+                        flag2 = 0;
+                    }   
+                });                
             </script>
             <hr>
             @if ( session('message') )
