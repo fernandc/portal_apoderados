@@ -37,6 +37,14 @@ Route::post('/auth_admin', [GlobalController::class, 'auth_admin']);
 
 Route::get('/admin_home', [GlobalController::class, 'admin_home'] );
 
+Route::get('/check_edit_forms', [GlobalController::class, 'check_edit_forms'] );
+
+Route::get('/verificate_state_forms', [GlobalController::class, 'verificate_state_forms'] );
+
+Route::get('/check_matri_process', [GlobalController::class, 'check_matri_process'] );
+
+Route::get('/verificate_matri_process', [GlobalController::class, 'verificate_matri_process'] );
+
 Route::get('/confirmation', function(){
     return view('confirmation');
 });

@@ -133,27 +133,28 @@
                     });
                     </script>
                 </div>
+                
                 <div class="form-group col-md-4">
                     <label for="">Nombres <span class="text-danger">(Importante)</span></label>
-                    <input id="nombresparent" type="text" class="form-control" name="nombresparent" value="{{$nombresparent}}" placeholder="Nombres" minlength="2" required="">
+                    <input readonly id="nombresparent" type="text" class="form-control" name="nombresparent" value="{{$nombresparent}}" placeholder="Nombres" minlength="2" required="">
                 </div>
                 <div class="form-group col-md-4">
                     <label for="">Apellido Paterno <span class="text-danger">(Importante)</span></label>
-                    <input id="apellido_pparent" type="text" class="form-control" name="apellido_pparent" value="{{$apellido_pparent}}" placeholder="Apellido paterno" minlength="2" required="">
+                    <input readonly id="apellido_pparent" type="text" class="form-control" name="apellido_pparent" value="{{$apellido_pparent}}" placeholder="Apellido paterno" minlength="2" required="">
                 </div>
                 <div class="form-group col-md-4">
                     <label for="">Apellido Materno <span class="text-danger">(Importante)</span></label>
-                    <input id="apellido_mparent" type="text" class="form-control" name="apellido_mparent" value="{{$apellido_mparent}}" placeholder="Apellido materno" minlength="2" required="">
+                    <input readonly id="apellido_mparent" type="text" class="form-control" name="apellido_mparent" value="{{$apellido_mparent}}" placeholder="Apellido materno" minlength="2" required="">
                 </div>
                 <div class="form-group col-md-4">
                     <label for="">Fecha de Nacimiento <span class="text-danger">(Importante)</span></label>
-                    <input class="form-control" type="date" name="fecha_nacparent" value="{{$born_date}}">
+                    <input readonly id="fecha_nacparent" class="form-control" type="date" name="fecha_nacparent" value="{{$born_date}}">
                 </div>
-                <input type="text" class="form-control" name="ddllive_with" value="Si" hidden="">
-                <input type="text" class="form-control" name="visits_per_months" value="0" hidden="">
+                <input id="ddllive_with" type="text" class="form-control" name="ddllive_with" value="Si" hidden="">
+                <input id="visits_per_months" type="text" class="form-control" name="visits_per_months" value="0" hidden="">
                 <div class="form-group col-md-4">
                     <label for="">Estado Civil Legal <span class="text-danger">(Importante)</span></label>
-                    <select id="ddllegal_civil_status" class="custom-select mr-sm-2" autocomplete="off" name="legal_civil_status">
+                    <select disabled id="ddllegal_civil_status" class="custom-select mr-sm-2" autocomplete="off" name="legal_civil_status">
                         <option disabled="" selected="" value="Sin Información">Seleccionar</option>
                         <option value="soltero">Soltero/a</option>
                         <option value="casado">Casado/a</option>
@@ -171,7 +172,7 @@
                 </div>
                 <div class="form-group col-md-4">
                     <label for="">Estado Civil Actual (No acorde a lo legal) <span class="text-danger">(Importante)</span></label>
-                    <select id="ddlcurrent_civil_status" class="custom-select mr-sm-2" autocomplete="off" name="current_civil_status">
+                    <select disabled id="ddlcurrent_civil_status" class="custom-select mr-sm-2" autocomplete="off" name="current_civil_status">
                         <option disabled="" selected="" value="Sin Información">Seleccionar</option>
                         <option value="convive">Convive</option>
 						<option value="soltero">Soltero/a</option>
@@ -190,11 +191,11 @@
                 </div>
                 <div class="form-group col-md-6">
                     <label>Comuna <span class="text-danger">(Importante)</span></label>
-                    <input id="districtparent" type="text" class="form-control" name="districtparent" value="{{$districtparent}}" placeholder="Ej: La Florida" minlength="2" required="">
+                    <input readonly id="districtparent" type="text" class="form-control" name="districtparent" value="{{$districtparent}}" placeholder="Ej: La Florida" minlength="2" required="">
                 </div>
                 <div class="form-group col-md-6">
                     <label>Dirección <span class="text-danger">(Importante)</span></label>
-                    <input id="addressparent" type="text" class="form-control" name="addressparent" value="{{$addressparent}}" placeholder="Calle #" minlength="2" required="">
+                    <input readonly id="addressparent" type="text" class="form-control" name="addressparent" value="{{$addressparent}}" placeholder="Calle #" minlength="2" required="">
                 </div>
                 <div class="form-group col-md-4">
                     <label>Teléfono Casa <span class="text-danger">(Importante)</span></label>
@@ -210,7 +211,7 @@
                 </div>
                 <div class="form-group col-md-6">
                     <label>Nivel de estudios <span class="text-danger">(Importante)</span></label>
-                    <select id="dlleducational_level" class="custom-select mr-sm-2" autocomplete="off" name="educational_level">
+                    <select disabled id="dlleducational_level" class="custom-select mr-sm-2" autocomplete="off" name="educational_level">
                         <option disabled="" selected="{{$educational_level}}" value="Sin Información">Seleccionar</option>
                         <option value="Básica incompleta">Básica incompleta</option>
                         <option value="Básica completa">Básica completa</option>
@@ -231,15 +232,15 @@
                 </div>
                 <div class="form-group col-md-6">
                     <label>Trabajo u ocupación <span class="text-danger">(Importante)</span></label>
-                    <input type="text" class="form-control" name="work" value="{{$work}}" minlength="2" required="">
+                    <input  id="workParent" type="text" class="form-control" name="work" value="{{$work}}" minlength="2" required="">
                 </div>
                 <div class="form-group col-md-4">
                     <label>Dirección Completa del trabajo </label>
-                    <input type="text" class="form-control" name="work_address" value="{{$work_address}}" minlength="2" >
+                    <input  id="work_address" type="text" class="form-control" name="work_address" value="{{$work_address}}" minlength="2" >
                 </div>
                 <div class="form-group col-md-4">
                     <label>Teléfono del trabajo </label>
-                    <input type="text" class="form-control" name="work_phone" value="{{$work_phone}}" minlength="2" >
+                    <input  id="work_phone" type="text" class="form-control" name="work_phone" value="{{$work_phone}}" minlength="2" >
                 </div>
                 <div class="form-group col-md-4">
                     <label>Guardar los cambios</label>
@@ -255,6 +256,22 @@
                     </script>
                 </div>
             </div>
+            @if(isset($formsStatus))
+                @if($formsStatus == true)
+                    <script>
+                        // Activos Telefono & Correo 
+                        $('#nombresparent').attr("readonly",false);
+                        $('#apellido_pparent').attr("readonly",false);
+                        $('#apellido_mparent').attr("readonly",false);
+                        $('#fecha_nacparent').attr("readonly",false);
+                        $('#ddllegal_civil_status').attr("disabled",false);
+                        $('#ddlcurrent_civil_status').attr("disabled",false);
+                        $('#districtparent').attr("readonly",false);
+                        $('#addressparent').attr("readonly",false);
+                        $('#dlleducational_level').attr("disabled",false);
+                    </script>
+                @endif
+            @endif
         </form>
     </div>
     <div class="tab-pane fade" id="change-pass" role="tabpanel" aria-labelledby="change-pass-tab">

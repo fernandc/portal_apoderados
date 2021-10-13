@@ -91,7 +91,10 @@ class GlobalController extends Controller
             $dataHomeCircle = json_decode($responseTarget->body(),true);
             $news = $this->listar_noticias();
             $correos = $this->listar_ultimos_correos(session::get('apoderado')['email']);
-            return view('home_proxy',compact('matriculas','dataProxy','dataHomeCircle','news','correos'));     
+            $formsStatus = $this->verificate_state_forms();
+            $formsStatus = $formsStatus == 'enabled' ? true : false;
+            // dd($formsStatus);
+            return view('home_proxy',compact('matriculas','dataProxy','dataHomeCircle','news','correos','formsStatus'));     
         }
         else{
             return redirect('logout');
@@ -146,14 +149,78 @@ class GlobalController extends Controller
             );
             $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
             $emails = json_decode($response->body(),true);
+
+            $state = $this->verificate_state_forms();
+            $state = $state == 'enabled' ? true : false;
+            // dd($state);
             if($response != "FAILED"){
-                return view('admin_home',compact('emails'));
+                return view('admin_home',compact('emails'))->with('state', $state);
             }
         }
         else{
             return redirect('logout');
         }
     }
+    public function verificate_state_forms(){
+        if(Session::has('admin')){
+            $arr = array(
+                'institution' => getenv("APP_NAME"),
+                'public_key' => getenv("APP_PUBLIC_KEY"),
+                'method' => 'get_proxy_data_change_enabled',                
+            );
+            $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+            // $response = true;
+            // dd($response);
+            return $response->json()[0]['val'];
+        }else{
+            return redirect('logout');
+        }
+    }
+    public function check_edit_forms(Request $request){
+
+        if(Session::has('admin')){
+            //cambiar estado 
+            $gets = $request->input();            
+            $data = $gets["state"];
+            if($data == 'false'){
+                $data = false;
+            }else if ($data == 'true'){
+                $data = true;
+            }
+            $arr = array(
+                'institution' => getenv("APP_NAME"),
+                'public_key' => getenv("APP_PUBLIC_KEY"),
+                'method' => 'proxy_data_change_enabled',
+                'data' => [ "enabled" => $data]
+            );
+            $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+            // $response = false;
+            //dd($response);
+            // return $arr;
+            return $response->status();                         
+        }
+        else{
+            return redirect('logout');
+        }
+    }
+    // 
+    public function check_matri_process(){
+        if(Session::has('admin')){
+            //Cambia estado de proceso de matricula
+        }
+        else{
+            return redirect('logout');
+        }
+    }
+    public function verificate_matri_process(){
+        if(Session::has('admin')){
+            //Cambia estado de proceso de matricula
+        }
+        else{
+            return redirect('logout');
+        }
+    }
+    // 
     public function change_password(Request $request){
         if(Session::has('apoderado')){
             $oldPassword=Session::get('apoderado')["passwd"];
@@ -603,49 +670,71 @@ class GlobalController extends Controller
     }
     public function add_proxy_data(Request $request){
         if(session::has('apoderado')){
+
             $gets = $request->input();
+            $formsStatus = $this->verificate_state_forms();
+            $formsStatus = $formsStatus == 'enabled' ? true : false;
             $dni = str_replace("-","",$gets["rut"]);
-            if(!isset($gets["ddlproxy"]) && !isset($gets["kinship"])){
-                $gets["ddlproxy"] = NULL;
-                $gets["kinship"] = NULL;
+            if($formsStatus){
+                if(!isset($gets["ddlproxy"]) && !isset($gets["kinship"])){
+                    $gets["ddlproxy"] = NULL;
+                    $gets["kinship"] = NULL;
+                }
+                if(!isset($gets["current_civil_status"])){
+                    $gets["current_civil_status"] = NULL;
+                }
+                if(!isset($gets["legal_civil_status"])){
+                    $gets["legal_civil_status"] = NULL;
+                }
+                if(!isset($gets["educational_level"])){
+                    $gets["educational_level"] = NULL;
+                }
+                $arr = array(
+                    'institution' => getenv("APP_NAME"),
+                    'public_key' => getenv("APP_PUBLIC_KEY"),
+                    'method' => 'proxys_data',
+                    'data' => [ "rut" => $dni,
+                                "nombresparent" => $gets["nombresparent"],
+                                "apellido_pparent" => $gets["apellido_pparent"],
+                                "apellido_mparent" => $gets["apellido_mparent"],
+                                "fecha_nacparent" => $gets["fecha_nacparent"],
+                                "legal_civil_status" => $gets["legal_civil_status"],
+                                "current_civil_status" => $gets["current_civil_status"],
+                                "districtparent" => $gets["districtparent"],
+                                "addressparent" => $gets["addressparent"],
+                                "phoneparent" => $gets["phoneparent"],
+                                "cellphoneparent" => $gets["cellphoneparent"],
+                                "emailparent" => $gets["emailparent"],
+                                "educational_level" => $gets["educational_level"],
+                                "work" => $gets["work"],
+                                "work_address" => $gets["work_address"],
+                                "work_phone" => $gets["work_phone"],
+                                "id_apo" => Session::get('apoderado')["id"],
+                                "matricula" => getenv("MATRICULAS_PARA"),
+                                "kinship" => $gets["kinship"],
+                    ]
+                );
+                
+                $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+                $data = json_decode($response->body(),true);
+            }else{
+                $arr = array(
+                    'institution' => getenv("APP_NAME"),
+                    'public_key' => getenv("APP_PUBLIC_KEY"),
+                    'method' => 'update_proxy_contact',
+                    'data' => [
+                        "rut" => $dni,
+                        "phoneparent" => $gets["phoneparent"],
+                        "cellphoneparent" => $gets["cellphoneparent"],
+                        "emailparent" => $gets["emailparent"],
+                        "work" => $gets["work"],
+                        "work_address" => $gets["work_address"],
+                        "work_phone" => $gets["work_phone"],
+                    ]
+                );
+                $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+                $data = json_decode($response->body(),true);
             }
-            if(!isset($gets["current_civil_status"])){
-                $gets["current_civil_status"] = NULL;
-            }
-            if(!isset($gets["legal_civil_status"])){
-                $gets["legal_civil_status"] = NULL;
-            }
-            if(!isset($gets["educational_level"])){
-                $gets["educational_level"] = NULL;
-            }
-            $arr = array(
-                'institution' => getenv("APP_NAME"),
-                'public_key' => getenv("APP_PUBLIC_KEY"),
-                'method' => 'proxys_data',
-                'data' => [ "rut" => $dni,
-                            "nombresparent" => $gets["nombresparent"],
-                            "apellido_pparent" => $gets["apellido_pparent"],
-                            "apellido_mparent" => $gets["apellido_mparent"],
-                            "fecha_nacparent" => $gets["fecha_nacparent"],
-                            "legal_civil_status" => $gets["legal_civil_status"],
-                            "current_civil_status" => $gets["current_civil_status"],
-                            "districtparent" => $gets["districtparent"],
-                            "addressparent" => $gets["addressparent"],
-                            "phoneparent" => $gets["phoneparent"],
-                            "cellphoneparent" => $gets["cellphoneparent"],
-                            "emailparent" => $gets["emailparent"],
-                            "educational_level" => $gets["educational_level"],
-                            "work" => $gets["work"],
-                            "work_address" => $gets["work_address"],
-                            "work_phone" => $gets["work_phone"],
-                            "id_apo" => Session::get('apoderado')["id"],
-                            "matricula" => getenv("MATRICULAS_PARA"),
-                            "kinship" => $gets["kinship"],
-                ]
-            );
-            
-            $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
-            $data = json_decode($response->body(),true);
             return redirect('/home?active=info');
         }
         else{

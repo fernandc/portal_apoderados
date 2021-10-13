@@ -5,18 +5,23 @@ Saint Charles Formularios
 @endsection
 
 @section("headex")
-
+    <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
+    <script>
+        var flag = 0;  
+    </script>
 @endsection
 
 @section("context")
     @if(Session::has('admin'))
     <div class="container-fluid">
         <div class="container-fluid">            
-            <h4 class="mt-3">Bienvenido al panel de administración.</h4>
+            <h4 class="mt-3" id="test">Bienvenido al panel de administración.</h4>
             <hr>
             <button class="btn btn-success " type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                 Agregar nuevo apoderado
             </button>
+
             <a class="btn btn-outline-danger text-danger" href="logout">Salir</a>
             <?php
             if(isset($_GET['error'])){
@@ -50,6 +55,67 @@ Saint Charles Formularios
                     </form>
                 </div>
             </div>
+            <hr>
+            <input type="checkbox" id="switchEdit" checked data-toggle="toggle" data-on="Activado" data-off="Desactivado" data-onstyle="success" data-offstyle="danger"><b>  Activar/Desactivar edición de formularios</b>
+            @if(isset($state))
+                @if($state == true)
+                    <script>
+                        $('#switchEdit').bootstrapToggle('on');
+                    </script>
+                @else
+                    <script>
+                        $('#switchEdit').bootstrapToggle('off');
+                    </script>
+                @endif
+            @endif
+            <script>
+                $(function() {
+                    $('#switchEdit').change(function() {
+                        var state = document.getElementById('switchEdit').checked;
+                        console.log("state :" + state);
+                        if(flag == 0){
+                            Swal.fire({
+                            title: 'Estás seguro de realizar este cambio? ',                        
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Si, cambiar!'
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    $.ajax({
+                                        type: "GET",
+                                        url: "check_edit_forms",
+                                        data: {state},                        
+                                        success: function(data)
+                                        {
+                                            console.log(data);
+                                            if(data != 200){
+                                                Swal.fire(
+                                                    'Error!',
+                                                    'Se ha producido un error, intente nuevamente y si el error persiste contáctese con soporte.',
+                                                    'error'
+                                                )     
+                                            }
+                                        }
+                                    });
+                                    Swal.fire(
+                                    'Cambiado!',
+                                    'Se ha activado/desactivado la edición de los formularios',
+                                    'success'
+                                    )                              
+                                }else if(result.isConfirmed == false){
+                                    flag++;
+                                    $('#switchEdit').bootstrapToggle('off');
+                                }
+                            })
+                        }else{
+                            flag = 0;
+                        }   
+                    });
+                })
+
+            </script>
             <hr>
             @if ( session('message') )
                 <div class="alert alert-success">{{ session('message') }}</div>
