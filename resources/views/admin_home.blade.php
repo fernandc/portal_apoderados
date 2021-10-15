@@ -91,6 +91,7 @@ Saint Charles Formularios
                         title: 'Estás seguro de realizar este cambio? ',                        
                         icon: 'warning',
                         showCancelButton: true,
+                        allowOutsideClick: false,
                         confirmButtonColor: '#3085d6',
                         cancelButtonColor: '#d33',
                         confirmButtonText: 'Si, cambiar!'
@@ -134,6 +135,7 @@ Saint Charles Formularios
                         title: 'Estás seguro de realizar este cambio? ',                        
                         icon: 'warning',
                         showCancelButton: true,
+                        allowOutsideClick: false,
                         confirmButtonColor: '#3085d6',
                         cancelButtonColor: '#d33',
                         confirmButtonText: 'Si, cambiar!'

@@ -208,7 +208,6 @@ class GlobalController extends Controller
             return redirect('logout');
         }
     }
-    // 
     public function check_matri_process(Request $request){
         if(Session::has('admin')){
             //Cambia estado de proceso de matricula
@@ -248,7 +247,6 @@ class GlobalController extends Controller
             return redirect('logout');
         }
     }
-    // 
     public function change_password(Request $request){
         if(Session::has('apoderado')){
             $oldPassword=Session::get('apoderado')["passwd"];
