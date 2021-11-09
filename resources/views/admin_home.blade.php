@@ -70,7 +70,7 @@ Saint Charles Formularios
                 @endif
             @endif
             <hr>
-            <input type="checkbox" id="switchEdit" checked data-toggle="toggle" data-on="Activado" data-off="Desactivado" data-onstyle="success" data-offstyle="danger"><b>  Activar/Desactivar edición de formularios</b>
+            <input type="checkbox" id="switchEdit" checked data-toggle="toggle" data-on="Activado" data-off="Desactivado" data-onstyle="success" data-offstyle="danger" ><b>  Activar/Desactivar edición de formularios</b>
             @if(isset($state))
                 @if($state == true)
                     <script>
@@ -85,7 +85,7 @@ Saint Charles Formularios
             <script>
                 $('#switchEdit').change(function() {
                     var state = document.getElementById('switchEdit').checked;
-                    console.log("state :" + state);
+                    // console.log("state :" + state);
                     if(flag == 0){
                         Swal.fire({
                         title: 'Estás seguro de realizar este cambio? ',                        
@@ -96,6 +96,7 @@ Saint Charles Formularios
                         cancelButtonColor: '#d33',
                         confirmButtonText: 'Si, cambiar!'
                         }).then((result) => {
+                            // console.log("ResultEDIT: " + result.isConfirmed);
                             if (result.isConfirmed) {
                                 $.ajax({
                                     type: "GET",
@@ -103,7 +104,7 @@ Saint Charles Formularios
                                     data: {state},                        
                                     success: function(data)
                                     {
-                                        console.log(data);
+                                        // console.log(data);
                                         if(data != 200){
                                             Swal.fire(
                                                 'Error!',
@@ -117,10 +118,16 @@ Saint Charles Formularios
                                 'Cambiado!',
                                 'Se ha activado/desactivado la edición de los formularios',
                                 'success'
-                                )                              
+                                )
+                                                         
                             }else if(result.isConfirmed == false){
+                                
                                 flag++;
-                                $('#switchEdit').bootstrapToggle('off');
+                                if( state == true ){
+                                    $('#switchEdit').bootstrapToggle('off');
+                                }else{
+                                    $('#switchEdit').bootstrapToggle('on');
+                                }
                             }
                         })
                     }else{
@@ -129,7 +136,7 @@ Saint Charles Formularios
                 });
                 $('#switch_proceso_matri').change(function() {
                     var stateProcess = document.getElementById('switch_proceso_matri').checked;
-                    console.log("stateprocess :" + stateProcess);
+                    // console.log("stateprocess :" + stateProcess);
                     if(flag2 == 0){
                         Swal.fire({
                         title: 'Estás seguro de realizar este cambio? ',                        
@@ -140,6 +147,7 @@ Saint Charles Formularios
                         cancelButtonColor: '#d33',
                         confirmButtonText: 'Si, cambiar!'
                         }).then((result) => {
+                            // console.log("ResultMATRI: " + result.isConfirmed);
                             if (result.isConfirmed) {
                                 $.ajax({
                                     type: "GET",
@@ -147,7 +155,7 @@ Saint Charles Formularios
                                     data: {stateProcess},                        
                                     success: function(data)
                                     {
-                                        console.log(data);
+                                        // console.log(data);
                                         if(data != 200){
                                             Swal.fire(
                                                 'Error!',
@@ -164,7 +172,11 @@ Saint Charles Formularios
                                 )                              
                             }else if(result.isConfirmed == false){
                                 flag2++;
-                                $('#switch_proceso_matri').bootstrapToggle('off');
+                                if( stateProcess == true ){
+                                    $('#switch_proceso_matri').bootstrapToggle('off');
+                                }else{
+                                    $('#switch_proceso_matri').bootstrapToggle('on');
+                                }
                             }
                         })
                     }else{
