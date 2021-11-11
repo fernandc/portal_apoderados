@@ -209,8 +209,26 @@
                     <span class="badge badge-success">Completada</span>
                     @endif
                     
+                    <!--Vacunas  -->
+                    <br>
                     <hr class="mrnull">
                     @if($row["antecedentes"] == 0)
+                        <span class="text-secondary" >Vacunas del estudiante</span>
+                    @else
+                        <a class="triggmodal{{$row["id_stu"]}}" data="vaccines" href="#">Vacunas del estudiante</a>
+                    @endif
+                    
+                    <!-- <span class="text-secondary" >Vacunas del/la estudiante</span>                        -->
+                    @if($row["vacunas"] == 0 || $row["vacunas"] == null)
+                    <span class="badge badge-warning">Pendiente</span> 
+                    @else
+                    <span class="badge badge-success">Completada</span>
+                    @endif                                
+                    <br>
+                    <!-- End Vacunas -->
+                    
+                    <hr class="mrnull">
+                    @if($row["vacunas"] == 0 || $row["vacunas"] == null)
                         <span class="text-secondary" >Antecedentes de la Madre </span>
                     @else
                         <a class="triggmodal{{$row["id_stu"]}}" data="proxys&parent=m" href="#">Antecedentes de la Madre </a>
@@ -220,7 +238,6 @@
                     @else
                     <span class="badge badge-success">Completada</span>
                     @endif
-
                     <br>
                     @if($row["a_madre"] == 0)
                         <span class="text-secondary" >Antecedentes del Padre </span>
@@ -261,45 +278,8 @@
                     <span class="badge badge-success">Completada</span>
                     @endif
                     <hr>
-                    <button id="del{{$row["id_stu"]}}" class="btn btn-outline-danger rounded float-right"><i class="fas fa-trash-alt"></i></button>
                     <script>
-                        $("#del{{$row["id_stu"]}}").click(function(){
-                            Swal.fire({
-                                title: '¿Quieres eliminar a {{$row["nombre_stu"]}}?',
-                                showDenyButton: true,
-                                showCancelButton: true,
-                                confirmButtonText: `Eliminar`,
-                                confirmButtonColor: '#d33',
-                                denyButtonText: `Cancelar`,
-                                }).then((result) => {
-                                /* Read more about isConfirmed, isDenied below */
-                                    if (result.isConfirmed) {                                     
-                                        $.ajax({
-                                            type: "GET",
-                                            url: "del_inscription/",
-                                            data: "stu={{$row["id_stu"]}}",     
-                                            success: function(data)
-                                            {
-                                                if(data == "OK"){
-                                                    $("#card{{$row["id_stu"]}}").remove();
-                                                    Swal.fire({
-                                                        icon: 'success',
-                                                        title: 'Matricula Eliminada',
-                                                        text: 'La matricula ha sido eliminada pero los datos han sido guardados'
-                                                    });
-                                                }else{
-                                                    Swal.fire('Error! A', data, 'error')
-                                                }
-                                            },
-                                            error: function(data2){
-                                                Swal.fire('Error! B', '', 'error')
-                                            }
-                                        });
-                                    } else if (result.isDenied) {
-                                        Swal.fire('No se realizaron cambios.', '', 'info')
-                                    }
-                                })
-                        });
+
                         $("#send{{$row["id_stu"]}}").click(function (){
                             Swal.fire({
                                 title: '¿Quieres enviar los datos de {{$row["nombre_stu"]}}?',

@@ -257,11 +257,13 @@
                     <option value="false">No</option>
                     <option value="true">Si</option>
                   </select>
-                  <script>
-                        $( document ).ready(function() {
-                            $('#ddldkst option[value={{$does_keep_st}}').prop('selected', true)
-                        });
-                  </script>
+                  @if(isset($does_keep_st))
+                    <script>
+                            $( document ).ready(function() {
+                                $('#ddldkst option[value={{$does_keep_st}}').prop('selected', true)
+                            });
+                    </script>
+                  @endif
               </div>
               <div class="form-group col-md-12">
                   <label>Motivo de la Continuidad del tratamiento <span class="text-danger">(Importante)</span></label>
@@ -715,4 +717,140 @@ if ($misc != null){
         
     </div>
 </form>
+
+<!-- VACUNAS -->
+@elseif($form == "vaccines")
+<?php
+$vaccines_opt_upd=null;
+if($vaccines_opt != null ){
+    $vaccines_opt_upd = $vaccines_opt;
+}
+?>
+<div class="modal-header">
+    <h5 class="modal-title" id="staticBackdropLabel">Vacunas del estudiante</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<form action="vaccine_info" id="vaccines_info" class="was-validated" method="POST" enctype="multipart/form-data">
+    @csrf
+    <input id="idstu" class="form-control is-invalid" value="{{$id_stu}}" name="student" hidden="">
+    <div class="modal-body">
+
+        <div class="form-group">
+            <select class="custom-select" id="vaccines_opt" name="vaccines_opt">
+                <option selected value="0">sin vacunas</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+            </select>
+            @if($vaccines_opt_upd != null && $file_path_vaccines!=null)
+            <!-- si el dato ya fue editado se muestra -->
+            <script>
+                $( document ).ready(function() {
+                    $('#vaccines_opt option[value="{{$vaccines_opt_upd}}"').prop('selected', true);
+                    $("#vaccine_file").attr("hidden",false);
+                    $("#vaccine_file").attr("required",true);
+                    $("#label_vac_file").attr("hidden",false);
+                    $("#vaccineAdvice").attr("hidden",false);
+                    // intento de mostrar la imagen 
+                    $.ajax({
+                        type: "GET",
+                        url: "storage/{{$file_path_vaccines}}",
+                        
+                        success: function(data){
+                            console.log('someweaita');
+                            console.log(data);
+                            // $("#output").html(data);
+                            document.getElementById('output').setAttribute('value',data);
+                        }
+                    });
+                });
+                
+
+            </script>
+            @endif
+        </div>
+        <div class="form-group">
+            <h6 id="vaccineAdvice" hidden="">Sí el estudiante posee una o más vacunas, adjunte evidencia (imagen o pdf)</h6>  
+            <div class="custom-file" style="width:100%" >
+                <label id="label_vac_file" for="vaccine_file" class="custom-file-label"  hidden="">
+                    <i class="fa fa-cloud-upload"></i>Subir archivo...
+                </label>
+                <input type="file" class="custom-file-input"  accept=".pdf,image/*" autocomplete="off" id="vaccine_file" name="vaccinefile" hidden="" onchange="loadFile(event)" required >
+                <hr>
+                <div class="text-center">
+                    <img id="output" style="height: 200px"/>
+                </div>
+                <br>
+                <script>
+                var loadFile = function(event) {
+                    var output = document.getElementById('output');
+                    output.src = URL.createObjectURL(event.target.files[0]);
+                    output.onload = function() {
+                    URL.revokeObjectURL(output.src) // free memory
+                    }
+                };
+                </script>
+            </div>
+        </div>
+        <script>
+            // Select vaccine option
+            var vac_opt = $('#vaccines_opt').val();
+            if(vac_opt=='0'){
+                $("#vaccine_file").attr("required",false);
+                $("#saveVaccines").attr("disabled",false);
+            }
+            $('#vaccines_opt').change(function(){
+                var vac_opt = $('#vaccines_opt').val();
+                console.log('vac_opt' + vac_opt);
+                if(vac_opt != '0'){
+                    $("#vaccine_file").attr("hidden",false);
+                    $("#vaccine_file").attr("required",true);
+                    $("#label_vac_file").attr("hidden",false);
+                    $("#vaccineAdvice").attr("hidden",false);
+                }else if(vac_opt == '0' ){
+                    $("#vaccine_file").attr("hidden",true);
+                    $("#vaccine_file").attr("required",false);
+                    $("#label_vac_file").attr("hidden",true);
+                    $("#saveVaccines").attr("disabled",false);
+                    $("#vaccineAdvice").attr("hidden",true);
+                    $('#vaccine_file').val("");
+                }
+            });
+            // Send vaccine file
+            function file_extension(filename){
+                return (/[.]/.exec(filename)) ? /[^.]+$/.exec(filename)[0] : undefined;
+            }
+            $('#vaccine_file').change(function() {
+                var i = $(this).prev('label').clone();
+                var file = $('#vaccine_file')[0].files[0].name;
+                var extension = file_extension(file);
+                if(extension == "pdf" || extension == "jpg" || extension == "png" || extension == "jpeg"){
+                    if(extension == "pdf"){
+                        $("#output").hide();
+                    }else{
+                        $("#output").show();
+                    }
+                    $("#saveVaccines").attr("disabled",false);
+                }else{
+                    Swal.fire('Error!', 'el archivo no es válido.', 'error');
+                    $("#saveVaccines").attr("disabled",true);
+                    file = null;
+                }
+                $(this).prev('label').text(file);
+                console.log(extension);
+                
+            });
+        </script>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="submit" class="btn btn-success" id="saveVaccines" disabled>Guardar</button>
+    </div>
+    
+</form>
+<!-- END VACUNAS -->
 @endif
+
+

@@ -35,6 +35,8 @@ Route::get('/admin', function(){
 
 Route::post('/auth_admin', [GlobalController::class, 'auth_admin']);
 
+Route::post('/vaccine_info', [GlobalController::class, 'vaccineInfo']);
+
 Route::get('/admin_home', [GlobalController::class, 'admin_home'] );
 
 Route::get('/check_edit_forms', [GlobalController::class, 'check_edit_forms'] );
@@ -87,4 +89,6 @@ Route::get('/home_circle',[GlobalController::class, 'home_circle']);
 Route::get('/del_inscription', [GlobalController::class, 'del_inscription']);
 
 Route:: get('/sendInscription', [GlobalController::class, 'sendDetailsInscription']);
+
+Route:: get('/storage/{path}', [GlobalController::class, 'getImage']);
 

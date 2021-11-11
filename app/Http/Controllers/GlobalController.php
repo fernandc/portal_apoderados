@@ -11,6 +11,10 @@ use App\Mail\detailsInscription;
 use App\Mail\forgetPass;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Response;
+
 
 class GlobalController extends Controller
 {
@@ -527,6 +531,25 @@ class GlobalController extends Controller
         
                 $data= json_decode($response->body(),true);
                 return view("/froms")->with("form",$data[0])->with("parent",$data[1])->with("id_stu",$data[2])->with("parent_data",$data[3])->with("c_apo",$data[4]);
+            }else if($gets["data"] == "vaccines"){
+                $arr = array(
+                    'institution' => getenv("APP_NAME"),
+                    'public_key' => getenv("APP_PUBLIC_KEY"),
+                    'method' => 'modal_data',
+                    'data' => ["stu" => $gets["stu"], "data" => $gets["data"],"id_apo" => $gets["id_apo"], "matricula" => getenv("MATRICULAS_PARA")]
+                );
+                // dd($arr);
+                $response= Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+                $data= json_decode($response->body(),true);
+                // dd($data);
+                $date = $data[2]["update_data"];
+                $opt = $data[2]["vaccines"];
+                $path = $data[2]["file_path_vaccines"];
+                $path = str_replace("/","-",$path);
+                
+                $dataV = [$data[0],$opt,$date,$data[1],$path];
+                // dd($dataV);
+                return view("/froms")->with("form",$dataV[0])->with("vaccines_opt",$dataV[1])->with("date_vaccine",$dataV[2])->with("id_stu",$dataV[3])->with("file_path_vaccines",$path);
             }else{
                 $arr= array(
                     'institution' => getenv("APP_NAME"),
@@ -538,6 +561,7 @@ class GlobalController extends Controller
                 $response= Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
         
                 $data= json_decode($response->body(),true);
+                
                 return view("/froms")->with("form",$data[0])->with("id_stu",$data[1])->with("misc",$data[2])->with("cantidad",$data[3])->with("circle",$data[4]);
             }
         }
@@ -979,5 +1003,52 @@ class GlobalController extends Controller
                 return redirect('/');
             }
         }
+    }
+    public function vaccineInfo(Request $request){
+        if(session::has('apoderado')){
+            $gets = $request->input();
+            $file = $request->file();
+            $idStu = $gets["student"];
+            $date = date('Ymd_His');
+            $path ="";
+            // store file in laravel storage
+            if(isset($file)){
+                foreach ($file as $fil) {
+                    $extension = $fil->extension();
+                    $name = "documento_vacunas.$extension";
+                    $dateTempo = $date; 
+                    $path = $fil->storeAs("public/vacunas/$idStu/$date", $name);
+                }
+            }
+            $arr= array(
+                'institution' => getenv("APP_NAME"),
+                'public_key' => getenv("APP_PUBLIC_KEY"),
+                'method' => 'update_vaccines',
+                'data' => ["stu" => $idStu,
+                        "numberVaccines" => $gets["vaccines_opt"], 
+                        "date" => $date,
+                        "path" => $path,
+                        "id_apo" => Session::get('apoderado')["id"],
+                        "matricula" => getenv("MATRICULAS_PARA")]
+            );
+            $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+            return back();
+        }
+        else{
+            return redirect('logout');
+        }
+    }
+    // Pendiente mostrar imagen en storage
+    public function getImage($path){
+        $path = str_replace("-","\\",$path); 
+        $ruta = storage_path("app\\".$path);
+        if(!File::exists($ruta)){
+            abort(404);
+        }
+        $file = File::get($ruta);
+        $type = File::mimeType($ruta);
+        $response = Response::make($file,200);
+        $response->header("Content-Type",$type);
+        return $response;
     }
 }
