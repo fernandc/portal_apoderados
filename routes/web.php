@@ -47,6 +47,10 @@ Route::get('/check_matri_process', [GlobalController::class, 'check_matri_proces
 
 Route::get('/verificate_matri_process', [GlobalController::class, 'verificate_matri_process'] );
 
+Route::get('/check_student_forms', [GlobalController::class, 'check_student_forms'] );
+
+Route::get('/verificate_student_forms', [GlobalController::class, 'verificate_student_forms'] );
+
 Route::get('/confirmation', function(){
     return view('confirmation');
 });

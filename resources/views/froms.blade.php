@@ -1,3 +1,15 @@
+
+@if(!$stateStudentForms)
+    <script>
+        $( document ).ready(function() {
+            $("input").attr("disabled",true);
+            $("option").attr("disabled",true);
+            $("textarea").attr("disabled",true);
+            $("button.btn-success").remove();
+        });
+    </script>
+@endif
+
 @if($form == "stuinfo")
 <div class="modal-header">
     <h5 class="modal-title" id="staticBackdropLabel">Datos del alumno y curso</h5>
@@ -722,6 +734,7 @@ if ($misc != null){
 @elseif($form == "vaccines")
 <?php
 $vaccines_opt_upd=null;
+
 if($vaccines_opt != null ){
     $vaccines_opt_upd = $vaccines_opt;
 }
@@ -753,18 +766,6 @@ if($vaccines_opt != null ){
                     $("#vaccine_file").attr("required",true);
                     $("#label_vac_file").attr("hidden",false);
                     $("#vaccineAdvice").attr("hidden",false);
-                    // intento de mostrar la imagen 
-                    $.ajax({
-                        type: "GET",
-                        url: "storage/{{$file_path_vaccines}}",
-                        
-                        success: function(data){
-                            console.log('someweaita');
-                            console.log(data);
-                            // $("#output").html(data);
-                            document.getElementById('output').setAttribute('value',data);
-                        }
-                    });
                 });
                 
 
@@ -780,17 +781,29 @@ if($vaccines_opt != null ){
                 <input type="file" class="custom-file-input"  accept=".pdf,image/*" autocomplete="off" id="vaccine_file" name="vaccinefile" hidden="" onchange="loadFile(event)" required >
                 <hr>
                 <div class="text-center">
+                @if($file_path_vaccines != "" || $file_path_vaccines!=null)
+                    @if(pathinfo($file_path_vaccines)['extension'] != 'pdf')
+                        <img id="output" style="height: 200px" src="storage/{{$file_path_vaccines}}"/>
+                    @else
+                        <img id="output" style="height: 100px" style="display:none"/>
+                        <div id=pdfInfo>
+                            <i class="fas fa-file-pdf fa-3x text-danger" style=""></i>
+                            <p>Archivo pdf cargado.</p>
+                        </div>
+                    @endif
+                @else
                     <img id="output" style="height: 200px"/>
+                @endif
                 </div>
                 <br>
                 <script>
-                var loadFile = function(event) {
-                    var output = document.getElementById('output');
-                    output.src = URL.createObjectURL(event.target.files[0]);
-                    output.onload = function() {
-                    URL.revokeObjectURL(output.src) // free memory
-                    }
-                };
+                    var loadFile = function(event) {
+                        var output = document.getElementById('output');
+                        output.src = URL.createObjectURL(event.target.files[0]);
+                        output.onload = function() {
+                        URL.revokeObjectURL(output.src) // free memory
+                        }
+                    };
                 </script>
             </div>
         </div>
@@ -829,8 +842,10 @@ if($vaccines_opt != null ){
                 if(extension == "pdf" || extension == "jpg" || extension == "png" || extension == "jpeg"){
                     if(extension == "pdf"){
                         $("#output").hide();
+                        $("#pdfInfo").show();
                     }else{
                         $("#output").show();
+                        $("#pdfInfo").hide();
                     }
                     $("#saveVaccines").attr("disabled",false);
                 }else{

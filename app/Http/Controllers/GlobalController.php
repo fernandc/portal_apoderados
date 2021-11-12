@@ -99,6 +99,7 @@ class GlobalController extends Controller
             $formsStatus = $formsStatus == 'enabled' ? true : false;
             $stateProcess = $this->verificate_matri_process();
             $stateProcess = $stateProcess == 'enabled' ? true : false;
+
             // dd($stateProcess);
             return view('home_proxy',compact('matriculas','dataProxy','dataHomeCircle','news','correos','formsStatus','stateProcess'));     
         }
@@ -160,10 +161,12 @@ class GlobalController extends Controller
             $state = $state == 'enabled' ? true : false;
             $stateProcess = $this->verificate_matri_process();
             $stateProcess = $stateProcess == 'enabled' ? true : false;
+            $stateStudentForms = $this->verificate_student_forms();
+            $stateStudentForms = $stateStudentForms == 'enabled' ? true : false;
             // dd($state);
             // dd($stateProcess);
             if($response != "FAILED"){
-                return view('admin_home',compact('emails'))->with('state', $state)->with('stateProcess',$stateProcess);
+                return view('admin_home',compact('emails'))->with('state', $state)->with('stateProcess',$stateProcess)->with('stateStudentForms',$stateStudentForms);
             }
         }
         else{
@@ -242,6 +245,46 @@ class GlobalController extends Controller
                 'institution' => getenv("APP_NAME"),
                 'public_key' => getenv("APP_PUBLIC_KEY"),
                 'method' => 'get_inscription_students_change_enabled',                
+            );
+            $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+            // dd($response);
+            return $response->json()[0]['val'];
+        }
+        else{
+            return redirect('logout');
+        }
+    }
+    public function check_student_forms(Request $request){
+        if(Session::has('admin')){
+            //Cambia estado de proceso de matricula
+            $gets = $request->input();            
+            $data = $gets["stateStudentForm"];
+            if($data == 'false'){
+                $data = false;
+            }else if ($data == 'true'){
+                $data = true;
+            }
+            $arr = array(
+                'institution' => getenv("APP_NAME"),
+                'public_key' => getenv("APP_PUBLIC_KEY"),
+                'method' => 'student_forms_change_enabled',
+                'data' => [ "enabled" => $data]
+            );
+            // dd($arr);
+            $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+            return $response->status(); 
+        }
+        else{
+            return redirect('logout');
+        }
+    }
+    public function verificate_student_forms(){
+        if(Session::has('admin')){
+            //Cambia estado de proceso de matricula
+            $arr = array(
+                'institution' => getenv("APP_NAME"),
+                'public_key' => getenv("APP_PUBLIC_KEY"),
+                'method' => 'get_student_forms_change_enabled',                
             );
             $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
             // dd($response);
@@ -493,7 +536,8 @@ class GlobalController extends Controller
     public function modal_data(Request $request){
         if(session::has('apoderado')){
             $gets = $request->input();
-    
+            $stateStudentForms = $this->verificate_student_forms();
+            $stateStudentForms = $stateStudentForms == 'enabled' ? true : false;
             if($gets["data"] == "stuinfo"){
                 $arr= array(
                     'institution' => getenv("APP_NAME"),
@@ -506,7 +550,7 @@ class GlobalController extends Controller
         
                 $data= json_decode($response->body(),true);
                 //dd($data);
-                return view("/froms")->with("form",$data[0])->with("student",$data[1])->with("inscription",$data[2]);
+                return view("/froms")->with("form",$data[0])->with("student",$data[1])->with("inscription",$data[2])->with("stateStudentForms",$stateStudentForms);
             }else if($gets["data"] == "stuback"){
                 $arr= array(
                     'institution' => getenv("APP_NAME"),
@@ -518,7 +562,7 @@ class GlobalController extends Controller
                 $response= Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
         
                 $data= json_decode($response->body(),true);
-                return view("/froms")->with("form",$data[0])->with("id_stu",$data[1])->with("background",$data[2]);
+                return view("/froms")->with("form",$data[0])->with("id_stu",$data[1])->with("background",$data[2])->with("stateStudentForms",$stateStudentForms);
             }else if($gets["data"] == "proxys"){
                 $arr= array(
                     'institution' => getenv("APP_NAME"),
@@ -530,7 +574,7 @@ class GlobalController extends Controller
                 $response= Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
         
                 $data= json_decode($response->body(),true);
-                return view("/froms")->with("form",$data[0])->with("parent",$data[1])->with("id_stu",$data[2])->with("parent_data",$data[3])->with("c_apo",$data[4]);
+                return view("/froms")->with("form",$data[0])->with("parent",$data[1])->with("id_stu",$data[2])->with("parent_data",$data[3])->with("c_apo",$data[4])->with("stateStudentForms",$stateStudentForms);
             }else if($gets["data"] == "vaccines"){
                 $arr = array(
                     'institution' => getenv("APP_NAME"),
@@ -549,7 +593,7 @@ class GlobalController extends Controller
                 
                 $dataV = [$data[0],$opt,$date,$data[1],$path];
                 // dd($dataV);
-                return view("/froms")->with("form",$dataV[0])->with("vaccines_opt",$dataV[1])->with("date_vaccine",$dataV[2])->with("id_stu",$dataV[3])->with("file_path_vaccines",$path);
+                return view("/froms")->with("form",$dataV[0])->with("vaccines_opt",$dataV[1])->with("date_vaccine",$dataV[2])->with("id_stu",$dataV[3])->with("file_path_vaccines",$path)->with("stateStudentForms",$stateStudentForms);
             }else{
                 $arr= array(
                     'institution' => getenv("APP_NAME"),
@@ -562,7 +606,7 @@ class GlobalController extends Controller
         
                 $data= json_decode($response->body(),true);
                 
-                return view("/froms")->with("form",$data[0])->with("id_stu",$data[1])->with("misc",$data[2])->with("cantidad",$data[3])->with("circle",$data[4]);
+                return view("/froms")->with("form",$data[0])->with("id_stu",$data[1])->with("misc",$data[2])->with("cantidad",$data[3])->with("circle",$data[4])->with("stateStudentForms",$stateStudentForms);
             }
         }
         else{
@@ -1032,13 +1076,13 @@ class GlobalController extends Controller
                         "matricula" => getenv("MATRICULAS_PARA")]
             );
             $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
-            return back();
+            return redirect('home?active=matricula');
         }
         else{
             return redirect('logout');
         }
     }
-    // Pendiente mostrar imagen en storage
+    // mostrar imagen en storage
     public function getImage($path){
         $path = str_replace("-","\\",$path); 
         $ruta = storage_path("app\\".$path);
@@ -1049,6 +1093,8 @@ class GlobalController extends Controller
         $type = File::mimeType($ruta);
         $response = Response::make($file,200);
         $response->header("Content-Type",$type);
+        // dd(gettype($response));
         return $response;
     }
+
 }

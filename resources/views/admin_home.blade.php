@@ -10,6 +10,7 @@ Saint Charles Formularios
     <script>
         var flag = 0;  
         var flag2 = 0;  
+        var flag3 = 0;  
     </script>
 @endsection
 
@@ -57,7 +58,7 @@ Saint Charles Formularios
                 </div>
             </div>
             <hr>
-            <input type="checkbox" id="switch_proceso_matri" checked data-toggle="toggle" data-on="Activado" data-off="Desactivado" data-onstyle="success" data-offstyle="danger"><b>  Activar/Desactivar proceso de inscripción de alumnos (matrículas)</b>
+            <input type="checkbox" id="switch_proceso_matri" checked data-toggle="toggle" data-on="Activado" data-off="Desactivado" data-onstyle="success" data-offstyle="danger"><b>  Activar/Desactivar proceso de inscripción de alumnos (matrículas).</b>
             @if(isset($stateProcess))
                 @if($stateProcess == true)
                     <script>
@@ -70,7 +71,7 @@ Saint Charles Formularios
                 @endif
             @endif
             <hr>
-            <input type="checkbox" id="switchEdit" checked data-toggle="toggle" data-on="Activado" data-off="Desactivado" data-onstyle="success" data-offstyle="danger" ><b>  Activar/Desactivar edición de formularios</b>
+            <input type="checkbox" id="switchEdit" checked data-toggle="toggle" data-on="Activado" data-off="Desactivado" data-onstyle="success" data-offstyle="danger" ><b>  Activar/Desactivar edición de formularios antecedentes de apoderados.</b>
             @if(isset($state))
                 @if($state == true)
                     <script>
@@ -79,6 +80,19 @@ Saint Charles Formularios
                 @else
                     <script>
                         $('#switchEdit').bootstrapToggle('off');
+                    </script>
+                @endif
+            @endif
+            <hr>
+            <input type="checkbox" id="switch_student_forms" checked data-toggle="toggle" data-on="Activado" data-off="Desactivado" data-onstyle="success" data-offstyle="danger" ><b>  Activar/Desactivar formularios de datos de estudiantes.</b>
+            @if(isset($stateStudentForms))
+                @if($stateStudentForms == true)
+                    <script>
+                        $('#switch_student_forms').bootstrapToggle('on');
+                    </script>
+                @else
+                    <script>
+                        $('#switch_student_forms').bootstrapToggle('off');
                     </script>
                 @endif
             @endif
@@ -182,7 +196,58 @@ Saint Charles Formularios
                     }else{
                         flag2 = 0;
                     }   
-                });                
+                });      
+                $('#switch_student_forms').change(function() {
+                    var stateStudentForm = document.getElementById('switch_student_forms').checked;
+                    // console.log("state :" + state);
+                    if(flag3 == 0){
+                        Swal.fire({
+                        title: 'Estás seguro de realizar este cambio? ',                        
+                        icon: 'warning',
+                        showCancelButton: true,
+                        allowOutsideClick: false,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Si, cambiar!'
+                        }).then((result) => {
+                            // console.log("ResultEDIT: " + result.isConfirmed);
+                            if (result.isConfirmed) {
+                                $.ajax({
+                                    type: "GET",
+                                    url: "check_student_forms",
+                                    data: {stateStudentForm},                        
+                                    success: function(data)
+                                    {
+                                        console.log(data);
+                                        if(data != 200){
+                                            Swal.fire(
+                                                'Error!',
+                                                'Se ha producido un error, intente nuevamente y si el error persiste contáctese con soporte.',
+                                                'error'
+                                            )     
+                                        }
+                                    }
+                                });
+                                Swal.fire(
+                                'Cambiado!',
+                                'Se ha activado/desactivado la edición de los formularios',
+                                'success'
+                                )
+                                                         
+                            }else if(result.isConfirmed == false){
+                                
+                                flag3++;
+                                if( stateStudentForm == true ){
+                                    $('#switch_student_forms').bootstrapToggle('off');
+                                }else{
+                                    $('#switch_student_forms').bootstrapToggle('on');
+                                }
+                            }
+                        })
+                    }else{
+                        flag3 = 0;
+                    }   
+                });          
             </script>
             <hr>
             @if ( session('message') )
