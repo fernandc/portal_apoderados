@@ -373,7 +373,7 @@
             @elseif($parent == "p")
             <div class="form-group col-md-3">
                 <label>Parentezco</label>
-                <input id="kinship" class="form-control" value="" name="kinship" type="text" minlength="3" required="" >
+                <input id="kinship" class="form-control" value="{{$student_data["parent_type"]}}" name="kinship" type="text" minlength="3" required="" >
             </div>
             <div class="form-group col-md-6">
                 <label class="text-primary">Declara que el apoderado vive con el estudiante</label>
@@ -650,7 +650,7 @@ if ($misc != null){
     <div class="modal-body">
         <div class="form-row">
             <div class="form-group col-md-4">
-                <label>Tiempo de traslado (casa/colegio) en minutos</label>
+                <label>Tiempo de traslado (de casa a colegio) en minutos</label>
                 <input id="time_from_to" class="form-control" name="time_from_to" value="{{$time_from_to}}" type="number" min="2" max="520" required="" >
             </div>
             <div class="form-group col-md-4">

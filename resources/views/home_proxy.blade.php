@@ -141,7 +141,7 @@ Saint Charles Formularios
                             @endif
                         </div>
                         <div class="col-md-6">
-                            <h3>Últimas Comunicaciones {{getenv("MATRICULAS_PARA")}}</h3>
+                            <h3>Últimas Comunicaciones</h3>
                             <hr>
                             @if(isset($news))
                                 @foreach ($news as $new)

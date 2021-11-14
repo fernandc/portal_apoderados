@@ -33,7 +33,7 @@ if(isset($dataHomeCircle)){
 }
 ?>
 <div class="container text-center">
-    <h4 class="my-3" id="test">Informacion de personas que viven en su hogar</h4>
+    <h4 class="my-3" id="test">Información de personas que viven en su hogar</h4>
     <span class="badge badge-info">Solicitamos esta infomación para saber el circulo de hogar (de los/del) estudiante(s)</span>
     <form action="" id="form0">
         <div class="card">

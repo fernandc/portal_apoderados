@@ -574,7 +574,7 @@ class GlobalController extends Controller
                 $response= Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
         
                 $data= json_decode($response->body(),true);
-                return view("/froms")->with("form",$data[0])->with("parent",$data[1])->with("id_stu",$data[2])->with("parent_data",$data[3])->with("c_apo",$data[4])->with("stateStudentForms",$stateStudentForms);
+                return view("/froms")->with("form",$data[0])->with("parent",$data[1])->with("id_stu",$data[2])->with("parent_data",$data[3])->with("c_apo",$data[4])->with("student_data",$data[5])->with("stateStudentForms",$stateStudentForms);
             }else if($gets["data"] == "vaccines"){
                 $arr = array(
                     'institution' => getenv("APP_NAME"),
