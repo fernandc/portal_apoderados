@@ -174,7 +174,7 @@ class GlobalController extends Controller
         }
     }
     public function verificate_state_forms(){
-        if(Session::has('admin')){
+        if(Session::has('admin') || Session::has('apoderado')){
             $arr = array(
                 'institution' => getenv("APP_NAME"),
                 'public_key' => getenv("APP_PUBLIC_KEY"),
@@ -239,7 +239,7 @@ class GlobalController extends Controller
         }
     }
     public function verificate_matri_process(){
-        if(Session::has('admin')){
+        if(Session::has('admin') || Session::has('apoderado')){
             //Cambia estado de proceso de matricula
             $arr = array(
                 'institution' => getenv("APP_NAME"),
@@ -279,7 +279,7 @@ class GlobalController extends Controller
         }
     }
     public function verificate_student_forms(){
-        if(Session::has('admin')){
+        if(Session::has('admin') || Session::has('apoderado')){
             //Cambia estado de proceso de matricula
             $arr = array(
                 'institution' => getenv("APP_NAME"),
