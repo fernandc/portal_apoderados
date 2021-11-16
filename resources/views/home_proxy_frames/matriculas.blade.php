@@ -213,7 +213,7 @@
                     <br>
                     <hr class="mrnull">
                     @if($row["antecedentes"] == 0)
-                        <span class="text-secondary" >Vacunas del estudiante</span>
+                        <span class="text-secondary" >Vacunas Covid del estudiante</span>
                     @else
                         <a class="triggmodal{{$row["id_stu"]}}" data="vaccines" href="#">Vacunas del estudiante</a>
                     @endif
