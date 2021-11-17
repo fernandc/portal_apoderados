@@ -1088,7 +1088,6 @@ class GlobalController extends Controller
         Log::debug($path);
         $ruta = storage_path("app/".$path);
         Log::debug($ruta);
-        return $ruta;
         if(!File::exists($ruta)){
             abort(404);
         }
