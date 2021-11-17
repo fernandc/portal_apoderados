@@ -1083,11 +1083,8 @@ class GlobalController extends Controller
     }
     // mostrar imagen en storage
     public function getImage($path){
-        Log::debug($path);
         $path = str_replace("-","/",$path);
-        Log::debug($path);
         $ruta = storage_path("app/".$path);
-        Log::debug($ruta);
         if(!File::exists($ruta)){
             abort(404);
         }
