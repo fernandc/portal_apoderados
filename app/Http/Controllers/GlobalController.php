@@ -100,7 +100,6 @@ class GlobalController extends Controller
             $stateProcess = $this->verificate_matri_process();
             $stateProcess = $stateProcess == 'enabled' ? true : false;
 
-            // dd($stateProcess);
             return view('home_proxy',compact('matriculas','dataProxy','dataHomeCircle','news','correos','formsStatus','stateProcess'));     
         }
         else{
@@ -1084,8 +1083,12 @@ class GlobalController extends Controller
     }
     // mostrar imagen en storage
     public function getImage($path){
-        $path = str_replace("-","\\",$path); 
+        Log::debug($path);
+        $path = str_replace("-","\\",$path);
+        Log::debug($path);
         $ruta = storage_path("app\\".$path);
+        Log::debug($ruta);
+        return $ruta;
         if(!File::exists($ruta)){
             abort(404);
         }
