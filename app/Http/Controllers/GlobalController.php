@@ -885,7 +885,7 @@ class GlobalController extends Controller
                 $arr = array(
                     'institution' => getenv("APP_NAME"),
                     'public_key' => getenv("APP_PUBLIC_KEY"),
-                    'method' => 'add_proxy_background',
+                    'method' => 'upsert_students_parents',
                     'data' => [ "student" => $gets["student"],
                                 "rut" => $gets["rut"],
                                 "parent_type" => $gets["parent_type"],
