@@ -775,17 +775,17 @@ if($vaccines_opt != null ){
         <div class="form-group">
             <h6 id="vaccineAdvice" hidden="">Sí el estudiante posee una o más vacunas, adjunte evidencia (imagen o pdf)</h6>  
             <div class="custom-file" style="width:100%" >
+                <input type="file" class="custom-file-input" accept=".pdf,image/*" autocomplete="off" id="vaccine_file" name="vaccinefile" hidden="" onchange="loadFile(event)" required="" lang="es">
                 <label id="label_vac_file" for="vaccine_file" class="custom-file-label"  hidden="">
                     <i class="fa fa-cloud-upload"></i>Subir archivo...
                 </label>
-                <input type="file" class="custom-file-input"  accept=".pdf,image/*" autocomplete="off" id="vaccine_file" name="vaccinefile" hidden="" onchange="loadFile(event)" required >
                 <hr>
                 <div class="text-center">
                 @if($file_path_vaccines != "" || $file_path_vaccines!=null)
                     @if(pathinfo($file_path_vaccines)['extension'] != 'pdf')
-                        <img id="output" style="height: 200px" src="storage/{{$file_path_vaccines}}"/>
+                        <img id="output" style="height: 300px" src="storage/{{$file_path_vaccines}}"/>
                     @else
-                        <img id="output" style="height: 100px" style="display:none"/>
+                        <img id="output" style="height: 300px" style="display:none"/>
                         <div id=pdfInfo>
                             <i class="fas fa-file-pdf fa-3x text-danger" style=""></i>
                             <p>Archivo pdf cargado.</p>
