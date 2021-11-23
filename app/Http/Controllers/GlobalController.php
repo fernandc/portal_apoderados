@@ -934,6 +934,7 @@ class GlobalController extends Controller
                         "meth_go" => $gets["meth_go"],
                         "meth_back" => $gets["meth_back"],
                         "auth_quit" => $gets["auth_quit"],
+                        "matricula" => getenv("MATRICULAS_PARA")
                     ]
         );
         $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
@@ -954,7 +955,8 @@ class GlobalController extends Controller
                             "years_olds" => $gets["edad"],
                             "occupations" => $gets["ocupation"],
                             "idgroup" => $gets["idgrp"],
-                            "id_apo" => Session::get('apoderado')["id"]
+                            "id_apo" => Session::get('apoderado')["id"],
+                            "matricula" => getenv("MATRICULAS_PARA")
                         ]
             );   
             $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
@@ -973,7 +975,7 @@ class GlobalController extends Controller
                 'method' => 'del_inscription',
                 'data' => [ "stu" => $gets["stu"],
                             "id_apo" => Session::get('apoderado')["id"],
-                            "matricula" => getenv("MATRICULAS_PARA")   
+                            "matricula" => getenv("MATRICULAS_PARA")
                         ]
             );
     
