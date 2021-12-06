@@ -49,6 +49,14 @@
         <hr>
         <form action="add_proxy_data" method="GET">
             <div id="formproxy" class="row" style="font-size: 0.9rem">
+                <div class="col-md-12">
+                    <span class="text-danger" style="font-size: large;">
+                        Los datos solicitados deben ser relacionados al Rut: <span class="badge badge-warning">{{substr($rut,0,-1)}}</span> , dado que este pertenece al apoderado de los alumnos ingresados.
+                        <br>
+                        En caso de que dicho rut no sea del apoderado, debe contactarse con el establecimiento.
+                    </span>
+                    <hr>
+                </div>
                 <div class="form-group col-md-6" style="display: none">
                     <label for="rutparent">Rut <span class="text-danger">(Importante)</span></label>
                     <input id="rutparent" class="form-control" autocomplete="off" name="rut" value="{{$rut}}" type="text" oninput="checkRut(this)" minlength="1" maxlength="11">

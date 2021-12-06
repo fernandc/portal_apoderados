@@ -371,12 +371,14 @@
             @elseif($parent == "f")
             <input id="parent_type" class="form-control is-invalid" value="f" name="parent_type" hidden="">
             @elseif($parent == "p")
-            <div class="form-group col-md-3">
-                <label>Parentezco</label>
+            <div class="form-group col-md-6">
+                <label>Parentezco con el Alumno</label>
+                <br>
+                <span class="text-secondary">Ej: Madre, Padre, Hermana, Hermano, Abuela, Abuelo, Tía, Tío...</span>
                 <input id="kinship" class="form-control" value="{{$student_data["parent_type"]}}" name="kinship" type="text" minlength="3" required="" >
             </div>
             <div class="form-group col-md-6">
-                <label class="text-primary">Declara que el apoderado vive con el estudiante</label>
+                <label>Declaro que yo: <span  class="text-primary">{{Session::get('apoderado')["names"]}} {{Session::get('apoderado')["last_p"]}} {{Session::get('apoderado')["last_m"]}}</span> soy el Apoderado y vivo con el Estudiante</label>
                 <input class="form-control" value="Al guardar usted acepta este término" readonly="" type="text" required="" >
             </div>
             @endif
