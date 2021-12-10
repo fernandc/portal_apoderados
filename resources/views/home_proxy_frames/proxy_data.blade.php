@@ -43,6 +43,9 @@
     <li class="nav-item">
         <a class="nav-link " id="change-pass-tab" data-toggle="tab" href="#change-pass" role="tab" aria-controls="change-pass" aria-selected="false">Cambiar contraseña</a>
     </li>
+    <li class="nav-item">
+        <a class="nav-link " id="change-proxy-tab" data-toggle="tab" href="#change-proxy" role="tab" aria-controls="change-proxy" aria-selected="false">Cambiar Alumnos de Apoderado</a>
+    </li>
 </ul>
 <div class="tab-content" id="myTabContent">
     <div class="tab-pane fade show active" id="profile-info" role="tabpanel" aria-labelledby="profile-info-tab">
@@ -379,6 +382,196 @@
                         showConfirmButton: false
                     })
                 }
+            });
+        </script>
+    </div>
+    <div class="tab-pane fade " id="change-proxy" role="tabpanel" aria-labelledby="change-proxy-tab">
+        <hr>
+        <div id="stepcp1" class="row cpitem">
+            <div class="col-md-12" >
+                <span style="font-size: larger;">
+                    Estimado Apoderado, esta sección es para cambiar de apoderado a uno o más estudiantes. Para su solicitud debe completar las siguientes secciones:
+                    <br><br>
+                    - Formulario del nuevo apoderado.
+                    <br>
+                    - Seleccionar el/los alumno(s) a traspasar al nuevo apoderado.
+                    <br>
+                    - Redactar el motivo de la solicitud.
+                    <br><br>
+                    Para continuar presione el botón continuar
+                </span>
+            </div>
+            <div class="col-md-12">
+                <hr>
+                <button type="button" class="btn btn-primary btn-wizzard float-right" data="2">Continuar</button>
+            </div>
+        </div>
+        <div id="stepcp2" class="row cpitem" style="display: none;">
+            <div class="col-md-12">
+                <h5>Formulario del nuevo apoderado</h5>
+            </div>
+            <div class="form-group col-md-3">
+                <label>Rut <span class="text-danger">(Requerido)</span></label>
+                <input id="newaporut" type="text" class="form-control wizard-form" placeholder="XX.XXX.XXX-X" minlength="8" required="">
+            </div>
+            <div class="form-group col-md-3">
+                <label>Nombres <span class="text-danger">(Requerido)</span></label>
+                <input id="newaponombre" type="text" class="form-control wizard-form" placeholder="Nombres" minlength="2" required="">
+            </div>
+            <div class="form-group col-md-3">
+                <label >Apellido Paterno <span class="text-danger">(Requerido)</span></label>
+                <input id="newapoapellidop" type="text" class="form-control wizard-form" placeholder="Apellido paterno" minlength="2" required="">
+            </div>
+            <div class="form-group col-md-3">
+                <label >Apellido Materno <span class="text-danger">(Requerido)</span></label>
+                <input id="newapoapellidom" type="text" class="form-control wizard-form" placeholder="Apellido materno" minlength="2" required="">
+            </div>
+            <div class="form-group col-md-4">
+                <label>Teléfono Casa <span class="text-danger">(Importante)</span></label>
+                <input id="newapotelcasa" type="text" class="form-control wizard-form" minlength="2" >
+            </div>
+            <div class="form-group col-md-4">
+                <label>Celular <span class="text-danger">(Requerido)</span></label>
+                <input id="newapotelcel" type="text" class="form-control wizard-form" minlength="2" required="">
+            </div>
+            <div class="form-group col-md-4">
+                <label>Email <span class="text-danger">(Requerido)</span></label>
+                <input id="newapoemail" type="email" class="form-control wizard-form" minlength="2" required="">
+            </div>
+            <div class="col-md-12">
+                <hr>
+                <button type="button" class="btn btn-secondary btn-wizzard float-left" data="1">Cancelar</button>
+                <button id="btntostep3" type="button" class="btn btn-primary btn-wizzard float-right" data="3" disabled="">Continuar</button>
+            </div>
+        </div>
+        <div id="stepcp3" class="row cpitem" style="display: none;">
+            <div class="col-md-12">
+                <h5>Seleccione los Alumnos que pasarán a ser del nuevo apoderado</h5>
+            </div>
+            <div class="col-md-12">
+                @foreach($matriculas as $row)
+                <div class="form-check">
+                    <input class="form-check-input stuchk" type="checkbox" value="{{$row["dni_stu"]}} - {{$row["nombre_stu"]}} - {{$row["curso"]}}" id="checkbox{{$row["id_stu"]}}">
+                    <label class="form-check-label" for="checkbox{{$row["id_stu"]}}">
+                        {{$row["nombre_stu"]}} - {{$row["curso"]}}
+                    </label>
+                </div>
+                @endforeach
+            </div>
+            <div class="col-md-12">
+                <hr>
+                <h5>Indique cual es el Motivo del cambio de Apoderado</h5>
+                <textarea id="argument" class="form-control wizard-form" id="validationTextarea" placeholder="Motivo del cambio de apoderado" required></textarea>
+            </div>
+            <div class="col-md-12">
+                <hr>
+                <button type="button" class="btn btn-secondary btn-wizzard float-left" data="2">Volver</button>
+                <button id="btntostep4" type="button" class="btn btn-primary btn-wizzard float-right" data="4" disabled="">Continuar</button>
+            </div>
+        </div>
+        <div id="stepcp4" class="row cpitem" style="display: none;">
+            <div class="col-md-12">
+                <h5>Esta solicitudo será enviada con la siguiente informacion:</h5>
+                <hr>
+                <h5 id="messagetoshow"></h5>
+                <hr>
+                <h5>Al precionar "Enviar y Finalizar Solicitud" la institución deberá contactarse con usted y con el nuevo apoderado para validar este cambio.</h5>
+            </div>
+            <div class="col-md-12">
+                <hr>
+                <button type="button" class="btn btn-secondary btn-wizzard float-left" data="3">Volver</button>
+                <button id="btnEnviarSolicitud" type="button" class="btn btn-success float-right" >Enviar y Finalizar Solicitud</button>
+            </div>
+        </div>
+        <script>
+            var newRut = "";
+            var newNombre = "";
+            var newApellidoP = "";
+            var newApellidoM = "";
+            var newTelCasa = "";
+            var newTelCel = "";
+            var newEmail = "";
+            var alumnos =  "";
+            var messagetoshow = "";
+            var argument = "";
+            $(".btn-wizzard").click(function(){
+                var toshow = $(this).attr("data"); 
+                $(".cpitem").hide();
+                $("#stepcp"+toshow).show();
+            });
+            function ValidateEmail(email){
+                var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+                return mailformat.test(email);
+            }
+            $(".wizard-form").on("keyup change", function() {
+                newRut = $("#newaporut").val();
+                newNombre = $("#newaponombre").val();
+                newApellidoP = $("#newapoapellidop").val();
+                newApellidoM = $("#newapoapellidom").val();
+                newTelCasa = $("#newapotelcasa").val();
+                newTelCel = $("#newapotelcel").val();
+                newEmail = $("#newapoemail").val();
+                if(newNombre.trim() != "" && newApellidoP.trim() != "" && newApellidoM.trim() != "" && newTelCel.trim() != "" && newEmail.trim() != "" && newRut.trim() != ""){
+                    if(ValidateEmail(newEmail)){
+                        $("#btntostep3").prop("disabled",false);
+                    }else{
+                        $("#btntostep3").prop("disabled",true);
+                    }
+                }else{
+                    $("#btntostep3").prop("disabled",true);
+                }
+            });
+            $(".stuchk , .wizard-form").on("keyup change",function(){
+                alumnos =  "";
+                argument = $("#argument").val();
+                $('input:checkbox.stuchk').each(function () {
+                    var sThisVal = (this.checked ? $(this).val() : "");
+                    if(sThisVal != ""){
+                        alumnos = alumnos + "<b style=\"color: blue\">" + sThisVal+"</b><br>";
+                    }
+                });
+                if(alumnos != "" && argument.trim().length > 10){
+                    $("#btntostep4").prop("disabled",false);
+                    messagetoshow = "Apoderado <b style=\"color: blue\">{{Session::get('apoderado')["names"]}} {{Session::get('apoderado')["last_p"]}} {{Session::get('apoderado')["last_m"]}} </b> " +
+                    "de rut <b style=\"color: blue\">{{$rut}}</b>, con correo <b style=\"color: blue\">{{Session::get('apoderado')["email"]}}</b>, solicita el cambio de apoderado de " +
+                    "El/Los Alumno(s): <br> " + alumnos + 
+                    "Tendrán como nuevo apoderado a <b style=\"color: blue\"> " + newNombre + " " + newApellidoP + " " + newApellidoM + " </b> con el rut de <b style=\"color: blue\">" + newRut + "</b>, <br>" +
+                    "su correo de contacto es: <b style=\"color: blue\">" + newEmail + "</b> <br>" +
+                    "y su teléfono celular es: <b style=\"color: blue\">" + newTelCel + "</b>. <br>" +
+                    "El motivo del cambio de apoderado es: <br> <span style=\"color: indianred;\">" + argument + "</span>";
+                    $("#messagetoshow").html(messagetoshow);
+                }else{
+                    $("#btntostep4").prop("disabled",true);
+                }
+            });
+            $("#btnEnviarSolicitud").click(function(){
+                $.ajax({
+                    type: "POST",
+                    url: "change_proxy",
+                    data: {
+                        '_token': "{{csrf_token()}}",
+                        'body' : messagetoshow
+                    },
+                    beforeSend: function(){
+                        Swal.fire({
+                            html: '<h5>Enviando Solicitud...</h5>',
+                            showConfirmButton:false
+                        });
+                    },
+                    success: function(data)
+                    {
+                        if(data == "OK"){
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Solicitud Enviada'
+                            });
+                            location.reload();
+                        }
+                    },
+                    error: function(data2){
+                        Swal.fire('Error! CX285012', '', 'error')
+                    }
+                });
             });
         </script>
     </div>

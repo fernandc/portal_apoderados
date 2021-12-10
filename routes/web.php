@@ -37,6 +37,8 @@ Route::post('/auth_admin', [GlobalController::class, 'auth_admin']);
 
 Route::post('/vaccine_info', [GlobalController::class, 'vaccineInfo']);
 
+Route::post('/change_proxy', [GlobalController::class, 'change_proxy']);
+
 Route::get('/admin_home', [GlobalController::class, 'admin_home'] );
 
 Route::get('/check_edit_forms', [GlobalController::class, 'check_edit_forms'] );

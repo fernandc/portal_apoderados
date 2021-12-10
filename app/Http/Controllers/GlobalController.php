@@ -1098,4 +1098,34 @@ class GlobalController extends Controller
         return $response;
     }
 
+    public function change_proxy(Request $request){
+        Log::debug("Instanciado");
+        if(session::has('apoderado')){
+            $gets = $request->input();
+            $arr= array(
+                'institution' => getenv("APP_NAME"),
+                'public_key' => getenv("APP_PUBLIC_KEY"),
+                'method' => 'simple_send_mail',
+                'data' => ["subject" => "Solicitud de cambio de Apoderado",
+                        "body" => $gets["body"], 
+                        "addressees" => [
+                            [
+                                "email" => "fernando.dc.dex@gmail.com"
+                            ],
+                            [
+                                "email" => "roxana.cerpa@saintcharlescollege.cl"
+                            ],
+                            [
+                                "email" => "directora.scc@saintcharlescollege.cl"
+                            ]
+                        ]
+                ]
+            );
+            Log::debug($arr);
+            $response = Http::withBody(json_encode($arr), 'application/json')->post("https://cloupping.com/api-ins");
+            Log::debug($response);
+            return "OK";
+        }
+    }
+
 }
