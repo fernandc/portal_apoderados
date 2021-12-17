@@ -339,15 +339,15 @@ class GlobalController extends Controller
                             return view('mail_send');
                         }
                         elseif($response == "FAILED"){
-                            return back()->with('message','Error inesperado. Vuelva a intentarlo, si el error persiste envíe un correo a servicio@saintcharlescollege.cl');
+                            return back()->with('message','Error inesperado. Vuelva a intentarlo, si el error persiste envíe un correo a roxana.cerpa@saintcharlescollege.cl');
                         }
                     }
                     elseif($responseContact == "DUPLICATED"){
-                        return back()->with('message','El correo ya está siendo utilizado, en caso de que ud desconozca que se haya registrado, envíe un correo a servicio@saintcharlescollege.cl');
+                        return back()->with('message','El correo ya está siendo utilizado, en caso de que ud desconozca que se haya registrado, envíe un correo a roxana.cerpa@saintcharlescollege.cl');
                     }
                     else{
                         if($responseContact== "FAILED"){
-                            return back()->with('message','Error inesperado. Vuelva a intentarlo, si el error persiste envíe un correo a servicio@saintcharlescollege.cl');
+                            return back()->with('message','Error inesperado. Vuelva a intentarlo, si el error persiste envíe un correo a roxana.cerpa@saintcharlescollege.cl');
                         }
                     }
                 }
@@ -1099,7 +1099,6 @@ class GlobalController extends Controller
     }
 
     public function change_proxy(Request $request){
-        Log::debug("Instanciado");
         if(session::has('apoderado')){
             $gets = $request->input();
             $arr= array(
@@ -1121,9 +1120,7 @@ class GlobalController extends Controller
                         ]
                 ]
             );
-            Log::debug($arr);
             $response = Http::withBody(json_encode($arr), 'application/json')->post("https://cloupping.com/api-ins");
-            Log::debug($response);
             return "OK";
         }
     }
