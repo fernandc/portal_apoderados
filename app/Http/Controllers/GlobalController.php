@@ -992,8 +992,8 @@ class GlobalController extends Controller
         $rut = Session::get('apoderado')["dni"];
         $newid = urlencode(Hash::make($id));
         $message = "www.scc.cloupping.com/api-apoderado?method=confirmation_account&id=".$newid;
-        Mail::to(session::get('apoderado')["email"])->send(new activationMail($message));
-        return view('mail_sended');   
+        Mail::to(Session::get('apoderado')["email"])->send(new activationMail($message));
+        return view('mail_sended');
     }
     public function sendDetailsInscription(Request $request){
         if(session::has('apoderado')){
