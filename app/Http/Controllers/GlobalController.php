@@ -39,7 +39,6 @@ class GlobalController extends Controller
             }
             else{
                 if($data[0]["date_login"] == NULL){
-                    
                     session::put(['apoderado'=> $data[0]]);
                     return redirect('/new_password');
                 }
@@ -988,6 +987,7 @@ class GlobalController extends Controller
         }
     }
     public function confirmation_account(){
+        Log::debug(Session::get('apoderado'));
         $id = Session::get('apoderado')["id"];
         $rut = Session::get('apoderado')["dni"];
         $newid = urlencode(Hash::make($id));
