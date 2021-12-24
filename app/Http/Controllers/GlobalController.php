@@ -1097,6 +1097,21 @@ class GlobalController extends Controller
         // dd(gettype($response));
         return $response;
     }
+    // Gestor de archivos
+    public function uploadFile(){
+        return null;
+    }
+    public function downloadFile(){
+        return null;
+    }
+    public function deleteFile(){
+        return null;
+    }
+    public function getFiles(){
+        return null;
+    }
+        
+    //Gestor de Archivos 
 
     public function change_proxy(Request $request){
         if(session::has('apoderado')){

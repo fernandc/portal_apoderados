@@ -98,3 +98,7 @@ Route:: get('/sendInscription', [GlobalController::class, 'sendDetailsInscriptio
 
 Route:: get('/storage/{path}', [GlobalController::class, 'getImage']);
 
+Route::get('/gestor', function(){
+    return view('/data_manager/data_manager');
+});
+

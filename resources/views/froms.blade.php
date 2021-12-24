@@ -783,19 +783,19 @@ if($vaccines_opt != null ){
                 </label>
                 <hr>
                 <div class="text-center">
-                @if($file_path_vaccines != "" || $file_path_vaccines!=null)
-                    @if(pathinfo($file_path_vaccines)['extension'] != 'pdf')
-                        <img id="output" style="height: 300px" src="storage/{{$file_path_vaccines}}"/>
+                    @if($file_path_vaccines != "" || $file_path_vaccines!=null)
+                        @if(pathinfo($file_path_vaccines)['extension'] != 'pdf')
+                            <img id="output" style="height: 300px" src="storage/{{$file_path_vaccines}}"/>
+                        @else
+                            <img id="output" style="height: 300px" style="display:none"/>
+                            <div id=pdfInfo>
+                                <i class="fas fa-file-pdf fa-3x text-danger" style=""></i>
+                                <p>Archivo pdf cargado.</p>
+                            </div>
+                        @endif
                     @else
-                        <img id="output" style="height: 300px" style="display:none"/>
-                        <div id=pdfInfo>
-                            <i class="fas fa-file-pdf fa-3x text-danger" style=""></i>
-                            <p>Archivo pdf cargado.</p>
-                        </div>
+                        <img id="output" style="height: 200px"/>
                     @endif
-                @else
-                    <img id="output" style="height: 200px"/>
-                @endif
                 </div>
                 <br>
                 <script>
