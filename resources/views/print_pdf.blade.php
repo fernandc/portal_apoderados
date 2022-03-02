@@ -15,7 +15,7 @@
     <body style="padding-top: 90px; width: 18.7cm; heigth: 25cm;">
         <header style=" padding: 10px 0; margin-bottom: 30px; position: fixed;">
           <div class="float-left" style="width: 80px; heigth:80px; ">
-              <img src="https://scc.cloupping.com/public/scc_logo.png" alt="" class="img-fluid">
+              <img src="https://statsup.online/public/scc_logo.png" alt="" class="img-fluid">
           </div>
           <div class="d-flex">
               <p class="text-secondary" style="font-size:30px; font-weight:bold;">&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;FICHA DE MATRÍCULA {{getenv("MATRICULAS_PARA")}} </p>

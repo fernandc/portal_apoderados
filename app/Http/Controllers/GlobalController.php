@@ -29,9 +29,9 @@ class GlobalController extends Controller
             'public_key' => getenv("APP_PUBLIC_KEY"),
             'method' => 'auth_proxy',
             'data' => ['dni' => $dni, 'passwd' => $gets['passwd']]);
-        $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+        $response = Http::withBody(json_encode($arr), 'application/json')->post(getenv("ENDPOINT_API")."/api-apoderado");
         $status = $response->status();
-
+        
         if($status == 200){
             $data= json_decode($response->body(),true);
             if($data==NULL){
@@ -55,7 +55,7 @@ class GlobalController extends Controller
                             'method' => 'home_proxy',
                             'data' => ['dni' => $data[0]["dni"], 'matricula' => getenv("MATRICULAS_PARA")]
                         );
-                        $responseMatricula = Http::withBody(json_encode($arrMatricula), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+                        $responseMatricula = Http::withBody(json_encode($arrMatricula), 'application/json')->post(getenv("ENDPOINT_API")."/api-apoderado");
                         $matriculas = json_decode($responseMatricula->body(),true);
                         return redirect('/home');
                     }
@@ -74,7 +74,7 @@ class GlobalController extends Controller
                 'method' => 'home_proxy',
                 'data' => ['dni' => $dni, 'matricula' => getenv("MATRICULAS_PARA")]
             );
-            $responseMatricula = Http::withBody(json_encode($arrMatricula), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+            $responseMatricula = Http::withBody(json_encode($arrMatricula), 'application/json')->post(getenv("ENDPOINT_API")."/api-apoderado");
             $matriculas = json_decode($responseMatricula->body(),true);
             $arrProxy = array(
                 'institution' => getenv("APP_NAME"),
@@ -82,7 +82,7 @@ class GlobalController extends Controller
                 'method' => 'get_data_proxy',
                 'data' => ['dni' => $dni]
             );
-            $responseProxy = Http::withBody(json_encode($arrProxy), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+            $responseProxy = Http::withBody(json_encode($arrProxy), 'application/json')->post(getenv("ENDPOINT_API")."/api-apoderado");
             $dataProxy = json_decode($responseProxy->body(),true);
             $target = array(
                 'institution' => getenv("APP_NAME"),
@@ -90,7 +90,7 @@ class GlobalController extends Controller
                 'method' => 'get_home_circle',
                 'data' => ['id_apo' => session::get('apoderado')["id"],]
             );
-            $responseTarget =  Http::withBody(json_encode($target), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+            $responseTarget =  Http::withBody(json_encode($target), 'application/json')->post(getenv("ENDPOINT_API")."/api-apoderado");
             $dataHomeCircle = json_decode($responseTarget->body(),true);
             $news = $this->listar_noticias();
             $correos = $this->listar_ultimos_correos(session::get('apoderado')['email']);
@@ -112,7 +112,7 @@ class GlobalController extends Controller
             'method' => 'lista_mails_recibidos_apoderados',
             'data' => ["email" => $email]
         );
-        $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+        $response = Http::withBody(json_encode($arr), 'application/json')->post(getenv("ENDPOINT_API")."/api-apoderado");
         $data = json_decode($response->body(), true);
         return $data;
     }
@@ -122,7 +122,7 @@ class GlobalController extends Controller
             'public_key' => getenv("APP_PUBLIC_KEY"),
             'method' => 'list_news'
         );
-        $response = Http::withBody(json_encode($arr), 'application/json')->post("https://cloupping.com/api-ins");
+        $response = Http::withBody(json_encode($arr), 'application/json')->post(getenv("ENDPOINT_API")."/api-ins");
         $data = json_decode($response->body(), true);
         return $data;       
     }
@@ -134,7 +134,7 @@ class GlobalController extends Controller
             'method' => 'passAdmin',
             'data' => ["passAdmin" => $gets["passAdmin"]]
         );
-        $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+        $response = Http::withBody(json_encode($arr), 'application/json')->post(getenv("ENDPOINT_API")."/api-apoderado");
         $emails = json_decode($response->body(),true);
         if($response!= "FAILED"){ 
             session::put(['admin' => "admin"]);
@@ -152,7 +152,7 @@ class GlobalController extends Controller
                 'method' => 'emails_apoderados',
                 'data' => []
             );
-            $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+            $response = Http::withBody(json_encode($arr), 'application/json')->post(getenv("ENDPOINT_API")."/api-apoderado");
             $emails = json_decode($response->body(),true);
 
             $state = $this->verificate_state_forms();
@@ -178,9 +178,10 @@ class GlobalController extends Controller
                 'public_key' => getenv("APP_PUBLIC_KEY"),
                 'method' => 'get_proxy_data_change_enabled',                
             );
-            $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+            $response = Http::withBody(json_encode($arr), 'application/json')->post(getenv("ENDPOINT_API")."/api-apoderado");
             // $response = true;
             // dd($response);
+           
             return $response->json()[0]['val'];
         }else{
             return redirect('logout');
@@ -203,7 +204,7 @@ class GlobalController extends Controller
                 'method' => 'proxy_data_change_enabled',
                 'data' => [ "enabled" => $data]
             );
-            $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+            $response = Http::withBody(json_encode($arr), 'application/json')->post(getenv("ENDPOINT_API")."/api-apoderado");
             // $response = false;
             //dd($response);
             // return $arr;
@@ -229,7 +230,7 @@ class GlobalController extends Controller
                 'method' => 'inscription_students_change_enabled',
                 'data' => [ "enabled" => $data]
             );
-            $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+            $response = Http::withBody(json_encode($arr), 'application/json')->post(getenv("ENDPOINT_API")."/api-apoderado");
             return $response->status(); 
         }
         else{
@@ -244,7 +245,7 @@ class GlobalController extends Controller
                 'public_key' => getenv("APP_PUBLIC_KEY"),
                 'method' => 'get_inscription_students_change_enabled',                
             );
-            $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+            $response = Http::withBody(json_encode($arr), 'application/json')->post(getenv("ENDPOINT_API")."/api-apoderado");
             // dd($response);
             return $response->json()[0]['val'];
         }
@@ -269,7 +270,7 @@ class GlobalController extends Controller
                 'data' => [ "enabled" => $data]
             );
             // dd($arr);
-            $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+            $response = Http::withBody(json_encode($arr), 'application/json')->post(getenv("ENDPOINT_API")."/api-apoderado");
             return $response->status(); 
         }
         else{
@@ -284,7 +285,7 @@ class GlobalController extends Controller
                 'public_key' => getenv("APP_PUBLIC_KEY"),
                 'method' => 'get_student_forms_change_enabled',                
             );
-            $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+            $response = Http::withBody(json_encode($arr), 'application/json')->post(getenv("ENDPOINT_API")."/api-apoderado");
             // dd($response);
             return $response->json()[0]['val'];
         }
@@ -325,7 +326,7 @@ class GlobalController extends Controller
                     $sesData["last_p"] = $request->last_p;
                     $sesData["last_m"] = $request->last_m;
                     session::put(['apoderado'=>$sesData]);
-                    $responseContact = Http::withBody(json_encode($arrContact), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+                    $responseContact = Http::withBody(json_encode($arrContact), 'application/json')->post(getenv("ENDPOINT_API")."/api-apoderado");
                     if($responseContact == "DONE" ){
                         $arr = array(
                             'institution' => getenv("APP_NAME"),
@@ -333,7 +334,7 @@ class GlobalController extends Controller
                             'method' => 'change_pass',
                             'data' => ["dni" => $dni, "passwd" => $request->passwd]
                         );
-                        $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+                        $response = Http::withBody(json_encode($arr), 'application/json')->post(getenv("ENDPOINT_API")."/api-apoderado");
                         if($response == "DONE"){
                             return view('mail_send');
                         }
@@ -370,7 +371,7 @@ class GlobalController extends Controller
             'method' => 'forget_pass',
             'data' => ["dni" => $dni]
         );
-        $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+        $response = Http::withBody(json_encode($arr), 'application/json')->post(getenv("ENDPOINT_API")."/api-apoderado");
         $data = json_decode($response->body(), true);
         if(isset($data[2])){
             if($data[2] == "DONE"){
@@ -411,7 +412,7 @@ class GlobalController extends Controller
                 'method' => 'changeOldPass',
                 'data' => ["id" => $id, "password" => $psw, "oldPassword" => $oldPsw]
             );
-            $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+            $response = Http::withBody(json_encode($arr), 'application/json')->post(getenv("ENDPOINT_API")."/api-apoderado");
             $data = json_decode($response->body(), true);
             return $response;
         }else{
@@ -424,7 +425,7 @@ class GlobalController extends Controller
             'public_key' => getenv("APP_PUBLIC_KEY"),
             'method' => 'catch_id',
         );
-        $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+        $response = Http::withBody(json_encode($arr), 'application/json')->post(getenv("ENDPOINT_API")."/api-apoderado");
         $data = json_decode($response->body(), true);
         return $data;
     }
@@ -438,7 +439,7 @@ class GlobalController extends Controller
             'method' => 'updPass',
             'data' => ["id" => $id, "password" => $psw]
         );
-        $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+        $response = Http::withBody(json_encode($arr), 'application/json')->post(getenv("ENDPOINT_API")."/api-apoderado");
         $data = json_decode($response->body(), true);
         return $response;
     }
@@ -451,7 +452,7 @@ class GlobalController extends Controller
                 'method' => 'activate_mail_user',
                 'data' => ["id_user" => $gets["id"]]
             );
-            $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+            $response = Http::withBody(json_encode($arr), 'application/json')->post(getenv("ENDPOINT_API")."/api-apoderado");
         }
     }
     public function add_new_user(Request $request){
@@ -466,7 +467,7 @@ class GlobalController extends Controller
                 'method' => 'first_pass',
                 'data' => ["dni" => $rut]
             );
-            $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+            $response = Http::withBody(json_encode($arr), 'application/json')->post(getenv("ENDPOINT_API")."/api-apoderado");
             $data = json_decode($response->body(), true);
             $emails = $data[0];
             //dd($data[1]);
@@ -490,7 +491,7 @@ class GlobalController extends Controller
                 'method' => 'disable_user',
                 'data' => ["id_user" => $gets["id_user"], "method" => $gets["method"]]
             );
-            $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+            $response = Http::withBody(json_encode($arr), 'application/json')->post(getenv("ENDPOINT_API")."/api-apoderado");
             return back()->with('message', 'Estado modificado');
         }
         else{
@@ -508,7 +509,7 @@ class GlobalController extends Controller
                             "id_apo" => $gets["id_apo"]
                         ]
             );
-            $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+            $response = Http::withBody(json_encode($arr), 'application/json')->post(getenv("ENDPOINT_API")."/api-apoderado");
             $data = json_decode($response->body(), true);
             
             $pdfName = getenv("MATRICULAS_PARA") . " Matrícula ". $data["student"]["last_f"]." ".$data["student"]["last_m"]." ".$data["student"]["names"].".pdf";
@@ -528,7 +529,7 @@ class GlobalController extends Controller
             'data' => ["id" => $gets["id"]]
         );
 
-        $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+        $response = Http::withBody(json_encode($arr), 'application/json')->post(getenv("ENDPOINT_API")."/api-apoderado");
         return $response;
     }
     public function modal_data(Request $request){
@@ -544,7 +545,7 @@ class GlobalController extends Controller
                     'data' => ["stu" => $gets["stu"], "data" => $gets["data"], "id_apo" => $gets["id_apo"], "matricula" => getenv("MATRICULAS_PARA")]
                 );
                 
-                $response= Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+                $response= Http::withBody(json_encode($arr), 'application/json')->post(getenv("ENDPOINT_API")."/api-apoderado");
         
                 $data= json_decode($response->body(),true);
                 //dd($data);
@@ -557,7 +558,7 @@ class GlobalController extends Controller
                     'data' => ["stu" => $gets["stu"], "data" => $gets["data"], "id_apo" => $gets["id_apo"], "matricula" => getenv("MATRICULAS_PARA")]
                 );
                 
-                $response= Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+                $response= Http::withBody(json_encode($arr), 'application/json')->post(getenv("ENDPOINT_API")."/api-apoderado");
         
                 $data= json_decode($response->body(),true);
                 return view("/froms")->with("form",$data[0])->with("id_stu",$data[1])->with("background",$data[2])->with("stateStudentForms",$stateStudentForms);
@@ -569,7 +570,7 @@ class GlobalController extends Controller
                     'data' => ["stu" => $gets["stu"], "data" => $gets["data"], "id_apo" => $gets["id_apo"], "matricula" => getenv("MATRICULAS_PARA"), "parent" => $gets["parent"]]
                 );
                 
-                $response= Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+                $response= Http::withBody(json_encode($arr), 'application/json')->post(getenv("ENDPOINT_API")."/api-apoderado");
         
                 $data= json_decode($response->body(),true);
                 return view("/froms")->with("form",$data[0])->with("parent",$data[1])->with("id_stu",$data[2])->with("parent_data",$data[3])->with("c_apo",$data[4])->with("student_data",$data[5])->with("stateStudentForms",$stateStudentForms);
@@ -581,7 +582,7 @@ class GlobalController extends Controller
                     'data' => ["stu" => $gets["stu"], "data" => $gets["data"],"id_apo" => $gets["id_apo"], "matricula" => getenv("MATRICULAS_PARA")]
                 );
                 // dd($arr);
-                $response= Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+                $response= Http::withBody(json_encode($arr), 'application/json')->post(getenv("ENDPOINT_API")."/api-apoderado");
                 $data= json_decode($response->body(),true);
                 // dd($data);
                 $date = $data[2]["update_data"];
@@ -600,7 +601,7 @@ class GlobalController extends Controller
                     'data' => ["stu" => $gets["stu"], "data" => $gets["data"], "id_apo" => $gets["id_apo"], "matricula" => getenv("MATRICULAS_PARA")]
                 );
                 
-                $response= Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+                $response= Http::withBody(json_encode($arr), 'application/json')->post(getenv("ENDPOINT_API")."/api-apoderado");
         
                 $data= json_decode($response->body(),true);
                 
@@ -632,7 +633,7 @@ class GlobalController extends Controller
                            "id_apo" => Session::get('apoderado')["id"]
                            ]
             );
-            $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+            $response = Http::withBody(json_encode($arr), 'application/json')->post(getenv("ENDPOINT_API")."/api-apoderado");
             $message = json_decode($response->body(), true);
             return redirect('/home?active=matricula');
         }
@@ -717,7 +718,7 @@ class GlobalController extends Controller
                             
             );
            
-            $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+            $response = Http::withBody(json_encode($arr), 'application/json')->post(getenv("ENDPOINT_API")."/api-apoderado");
             return redirect("home?active=matricula")->with('message',$response);
         }
         else{
@@ -752,7 +753,7 @@ class GlobalController extends Controller
                             "matricula" => getenv("MATRICULAS_PARA")
                         ]
             );
-            $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+            $response = Http::withBody(json_encode($arr), 'application/json')->post(getenv("ENDPOINT_API")."/api-apoderado");
             $message = json_decode($response->body(),true);
             return redirect("home?active=matricula")->with('message',$message);
         }
@@ -807,7 +808,7 @@ class GlobalController extends Controller
                     ]
                 );
                 
-                $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+                $response = Http::withBody(json_encode($arr), 'application/json')->post(getenv("ENDPOINT_API")."/api-apoderado");
                 $data = json_decode($response->body(),true);
             }else{
                 $arr = array(
@@ -824,7 +825,7 @@ class GlobalController extends Controller
                         "work_phone" => $gets["work_phone"],
                     ]
                 );
-                $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+                $response = Http::withBody(json_encode($arr), 'application/json')->post(getenv("ENDPOINT_API")."/api-apoderado");
                 $data = json_decode($response->body(),true);
             }
             return redirect('/home?active=info');
@@ -850,7 +851,7 @@ class GlobalController extends Controller
                                 "id_apo" => Session::get('apoderado')["id"],
                                 "matricula" => getenv("MATRICULAS_PARA") ]
                 );
-                $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+                $response = Http::withBody(json_encode($arr), 'application/json')->post(getenv("ENDPOINT_API")."/api-apoderado");
                 $data = json_decode($response->body(),true);
                 if($response == "DONE"){
                     return redirect("home?active=matricula");
@@ -912,7 +913,7 @@ class GlobalController extends Controller
                     ]
                 );
                 
-                $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+                $response = Http::withBody(json_encode($arr), 'application/json')->post(getenv("ENDPOINT_API")."/api-apoderado");
                 $data = json_decode($response->body(),true);
                 return redirect("home?active=matricula");
             }
@@ -936,7 +937,7 @@ class GlobalController extends Controller
                         "matricula" => getenv("MATRICULAS_PARA")
                     ]
         );
-        $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+        $response = Http::withBody(json_encode($arr), 'application/json')->post(getenv("ENDPOINT_API")."/api-apoderado");
         if($response == "DONE"){
             return redirect("home?active=matricula");
         } 
@@ -958,7 +959,7 @@ class GlobalController extends Controller
                             "matricula" => getenv("MATRICULAS_PARA")
                         ]
             );   
-            $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+            $response = Http::withBody(json_encode($arr), 'application/json')->post(getenv("ENDPOINT_API")."/api-apoderado");
             $data3 = json_decode($response->body(),true);
         }
         else{
@@ -978,7 +979,7 @@ class GlobalController extends Controller
                         ]
             );
     
-            $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+            $response = Http::withBody(json_encode($arr), 'application/json')->post(getenv("ENDPOINT_API")."/api-apoderado");
             $message = $response;
             return $message;
         }
@@ -991,7 +992,7 @@ class GlobalController extends Controller
         $id = Session::get('apoderado')["id"];
         $rut = Session::get('apoderado')["dni"];
         $newid = urlencode(Hash::make($id));
-        $message = "www.scc.cloupping.com/api-apoderado?method=confirmation_account&id=".$newid;
+        $message = getenv("ENDPOINT_API")."/api-apoderado?method=confirmation_account&id=".$newid;
         Mail::to(Session::get('apoderado')["email"])->send(new activationMail($message));
         return view('mail_sended');
     }
@@ -1005,7 +1006,7 @@ class GlobalController extends Controller
                 'data' => ['id' => $gets["student"],
                         'id_apo' => Session::get('apoderado')["id"]
             ]);
-            $response2 = Http::withBody(json_encode($arr2),'application/json')->post("https://scc.cloupping.com/api-apoderado");
+            $response2 = Http::withBody(json_encode($arr2),'application/json')->post(getenv("ENDPOINT_API")."/api-apoderado");
             $data2 = json_decode($response2->body(),true);
     
             $arr = array(
@@ -1016,7 +1017,7 @@ class GlobalController extends Controller
                             'id_apo' => Session::get('apoderado')["id"]
                 ]
             );
-            $response = Http::withBody(json_encode($arr),'application/json')->post("https://scc.cloupping.com/api-apoderado");
+            $response = Http::withBody(json_encode($arr),'application/json')->post(getenv("ENDPOINT_API")."/api-apoderado");
             $data = json_decode($response->body(),true);
             $pdf = \PDF::loadView('print_details_inscription', compact('data'));
             $name = getenv("MATRICULAS_PARA") . " Matrícula ". $data["student"]["last_f"]." ".$data["student"]["last_m"]." ".$data["student"]["names"].".pdf";
@@ -1076,7 +1077,7 @@ class GlobalController extends Controller
                         "id_apo" => Session::get('apoderado')["id"],
                         "matricula" => getenv("MATRICULAS_PARA")]
             );
-            $response = Http::withBody(json_encode($arr), 'application/json')->post("https://scc.cloupping.com/api-apoderado");
+            $response = Http::withBody(json_encode($arr), 'application/json')->post(getenv("ENDPOINT_API")."/api-apoderado");
             return redirect('home?active=matricula');
         }
         else{
@@ -1097,21 +1098,7 @@ class GlobalController extends Controller
         // dd(gettype($response));
         return $response;
     }
-    // Gestor de archivos
-    public function uploadFile(){
-        return null;
-    }
-    public function downloadFile(){
-        return null;
-    }
-    public function deleteFile(){
-        return null;
-    }
-    public function getFiles(){
-        return null;
-    }
-        
-    //Gestor de Archivos 
+   
 
     public function change_proxy(Request $request){
         if(session::has('apoderado')){
@@ -1135,7 +1122,7 @@ class GlobalController extends Controller
                         ]
                 ]
             );
-            $response = Http::withBody(json_encode($arr), 'application/json')->post("https://cloupping.com/api-ins");
+            $response = Http::withBody(json_encode($arr), 'application/json')->post(getenv("ENDPOINT_API")."/api-ins");
             return "OK";
         }
     }
