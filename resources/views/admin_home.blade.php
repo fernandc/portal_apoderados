@@ -11,6 +11,7 @@ Saint Charles Formularios
         var flag = 0;  
         var flag2 = 0;  
         var flag3 = 0;  
+        var flag4 = 0;
     </script>
 @endsection
 
@@ -58,6 +59,7 @@ Saint Charles Formularios
                 </div>
             </div>
             <hr>
+
             <input type="checkbox" id="switch_proceso_matri" checked data-toggle="toggle" data-on="Activado" data-off="Desactivado" data-onstyle="success" data-offstyle="danger"><b>  Activar/Desactivar proceso de inscripción de alumnos (matrículas).</b>
             @if(isset($stateProcess))
                 @if($stateProcess == true)
@@ -96,6 +98,20 @@ Saint Charles Formularios
                     </script>
                 @endif
             @endif
+            <hr>
+            <input type="checkbox" id="switch_alumno_regular" checked data-toggle="toggle" data-on="Activado" data-off="Desactivado" data-onstyle="success" data-offstyle="danger" ><b>  Activar/Desactivar descarga de certificado de alumno regular.</b>
+            @if(isset($stateAlumnoRegular))
+                @if($stateAlumnoRegular == true)
+                    <script>
+                        $('#switch_alumno_regular').bootstrapToggle('on');
+                    </script>
+                @else
+                    <script>
+                        $('#switch_alumno_regular').bootstrapToggle('off');
+                    </script>
+                @endif
+            @endif
+            
             <script>
                 $('#switchEdit').change(function() {
                     var state = document.getElementById('switchEdit').checked;
@@ -247,7 +263,57 @@ Saint Charles Formularios
                     }else{
                         flag3 = 0;
                     }   
-                });          
+                });
+                $('#switch_alumno_regular').change(function(){
+                    var stateAlumnoRegular = document.getElementById('switch_alumno_regular').checked;
+                    if (flag4 == 0) {
+                        Swal.fire({
+                        title: 'Estás seguro de realizar este cambio? ',                        
+                        icon: 'warning',
+                        showCancelButton: true,
+                        allowOutsideClick: false,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Si, cambiar!'
+                        }).then((result) => {
+                            // console.log("ResultEDIT: " + result.isConfirmed);
+                            if (result.isConfirmed) {
+                                $.ajax({
+                                    type: "GET",
+                                    url: "check_alumno_regular",
+                                    data: {stateAlumnoRegular},                        
+                                    success: function(data)
+                                    {
+                                        console.log(data);
+                                        if(data != 200){
+                                            Swal.fire(
+                                                'Error!',
+                                                'Se ha producido un error, intente nuevamente y si el error persiste contáctese con soporte.',
+                                                'error'
+                                            )     
+                                        }
+                                    }
+                                });
+                                Swal.fire(
+                                'Cambiado!',
+                                'Se ha activado/desactivado la edición de los formularios',
+                                'success'
+                                )
+                                                         
+                            }else if(result.isConfirmed == false){
+                                
+                                flag4++;
+                                if( stateAlumnoRegular == true ){
+                                    $('#switch_alumno_regular').bootstrapToggle('off');
+                                }else{
+                                    $('#switch_alumno_regular').bootstrapToggle('on');
+                                }
+                            }
+                        })
+                    } else {
+                        flag4 =0;
+                    }
+                });        
             </script>
             <hr>
             @if ( session('message') )

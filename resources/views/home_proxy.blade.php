@@ -55,12 +55,15 @@ Saint Charles Formularios
                 $actPassC = "";
                 $circle_data = "";
                 $circle_dataC = "";
+                $cert = "";
+                $certC = "";
                 if (isset($_GET["active"])) {
                     $active = $_GET["active"];
                     if($active == "home"){$home = "active"; $homeC = "show active";}
                     elseif ($active == "info") {$prof = "active"; $profC = "show active";}
                     elseif ($active == "circle") {$circle_data = "active"; $circle_dataC = "show active";}
                     elseif ($active == "matricula") {$matr = "active"; $matrC = "show active";}
+                    elseif ($active == "certificados") {$cert = "active"; $certC = "show active";}
                     else {
                         $home = "active";
                         $prof = "";
@@ -100,6 +103,11 @@ Saint Charles Formularios
                         @endif 
                     </script>
                 </li>
+                @if (isset($stateAlumnoRegular) && $stateAlumnoRegular == true)
+                    <li class="nav-item">
+                        <a class="nav-link {{$cert}}" id="certificados-tab"  data-toggle="tab" href="#certificados" role="tab" aria-controls="certificados" aria-selected="false">Certificados</a>
+                    </li>
+                @endif
             </ul>
             <hr>
             <div class="tab-content" id="myTabContent">
@@ -177,6 +185,11 @@ Saint Charles Formularios
                 <div class="tab-pane fade {{$matrC}}" id="matriculas" role="tabpanel" aria-labelledby="matriculas-tab">
                     @include('home_proxy_frames.matriculas')
                 </div>
+                @if (isset($stateAlumnoRegular) && $stateAlumnoRegular == true)
+                    <div class="tab-pane fade {{$certC}}" id="certificados" role="tabpanel" aria-labelledby="certificados-tab">
+                        @include('home_proxy_frames.certificates')
+                    </div>                    
+                @endif
             </div>
             <!--END-->
         </div>

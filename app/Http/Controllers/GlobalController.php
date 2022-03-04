@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Crypt;
 
 
 class GlobalController extends Controller
@@ -98,12 +99,19 @@ class GlobalController extends Controller
             $formsStatus = $formsStatus == 'enabled' ? true : false;
             $stateProcess = $this->verificate_matri_process();
             $stateProcess = $stateProcess == 'enabled' ? true : false;
-
-            return view('home_proxy',compact('matriculas','dataProxy','dataHomeCircle','news','correos','formsStatus','stateProcess'));     
+            $stateAlumnoRegular = $this->verificate_alumno_regular();
+            $stateAlumnoRegular = $stateAlumnoRegular == 'enabled' ? true : false;
+            $cont = 0;
+            foreach($matriculas as $matricula){
+                $matriculas[$cont]["crypt"] =  Crypt::encryptString($matricula["id_zmail"]."-".$matricula["id_stu"]."-".$matricula["para_periodo"]);
+                $cont++;
+            }
+            return view('home_proxy',compact('matriculas','dataProxy','dataHomeCircle','news','correos','formsStatus','stateProcess','stateAlumnoRegular'));     
         }
         else{
             return redirect('logout');
         }
+        
     }
     public function listar_ultimos_correos($email){
         $arr = array(
@@ -161,10 +169,12 @@ class GlobalController extends Controller
             $stateProcess = $stateProcess == 'enabled' ? true : false;
             $stateStudentForms = $this->verificate_student_forms();
             $stateStudentForms = $stateStudentForms == 'enabled' ? true : false;
+            $stateAlumnoRegular = $this->verificate_alumno_regular();
+            $stateAlumnoRegular = $stateAlumnoRegular == 'enabled' ? true : false;
             // dd($state);
             // dd($stateProcess);
             if($response != "FAILED"){
-                return view('admin_home',compact('emails'))->with('state', $state)->with('stateProcess',$stateProcess)->with('stateStudentForms',$stateStudentForms);
+                return view('admin_home',compact('emails'))->with('state', $state)->with('stateProcess',$stateProcess)->with('stateStudentForms',$stateStudentForms)->with('stateAlumnoRegular',$stateAlumnoRegular);
             }
         }
         else{
@@ -293,6 +303,45 @@ class GlobalController extends Controller
             return redirect('logout');
         }
     }
+
+    public function check_alumno_regular(Request $request){
+        if (Session::has('admin')) {
+            $gets = $request->input();
+            $data = $gets["stateAlumnoRegular"];
+            if($data == 'false'){
+                $data = false;
+            }else if ($data == 'true'){
+                $data = true;
+            }
+            $arr = array(
+                'institution' => getenv("APP_NAME"),
+                'public_key' => getenv("APP_PUBLIC_KEY"),
+                'method' => 'cert_regular_student_change_enabled',
+                'data' => [ "enabled" => $data]
+            );
+            // dd($arr);
+            $response = Http::withBody(json_encode($arr), 'application/json')->post(getenv("ENDPOINT_API")."/api-apoderado");
+            return $response->status(); 
+        } else {
+            return redirect('logout');
+        }        
+    }
+    public function verificate_alumno_regular(){
+        if(Session::has('admin') || Session::has('apoderado')){           
+            $arr = array(
+                'institution' => getenv("APP_NAME"),
+                'public_key' => getenv("APP_PUBLIC_KEY"),
+                'method' => 'get_cert_regular_student_change_enabled',                
+            );
+            $response = Http::withBody(json_encode($arr), 'application/json')->post(getenv("ENDPOINT_API")."/api-apoderado");
+            // dd($response);
+            return $response->json()[0]['val'];
+        }
+        else{
+            return redirect('logout');
+        }
+    }
+
     public function change_password(Request $request){
         if(Session::has('apoderado')){
             $oldPassword=Session::get('apoderado')["passwd"];
@@ -1126,5 +1175,7 @@ class GlobalController extends Controller
             return "OK";
         }
     }
+
+
 
 }

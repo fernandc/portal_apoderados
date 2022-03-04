@@ -53,6 +53,10 @@ Route::get('/check_student_forms', [GlobalController::class, 'check_student_form
 
 Route::get('/verificate_student_forms', [GlobalController::class, 'verificate_student_forms'] );
 
+Route::get('/check_alumno_regular', [GlobalController::class, 'check_alumno_regular'] );
+
+Route::get('/verificate_alumno_regular', [GlobalController::class, 'verificate_alumno_regular'] );
+
 Route::get('/confirmation', function(){
     return view('confirmation');
 });
