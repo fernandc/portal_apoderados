@@ -230,9 +230,6 @@
                   <tr>
                     <th colspan="2">Forma de traslado al colegio (vuelta): {{$data["misc"]["meth_back"]}}</th>
                   </tr>
-                  <tr>
-                    <th colspan="2">Persona autorizada a retirarlo: {{$data["misc"]["auth_quit"]}}</th>
-                  </tr>
                 </table>
             </div>
             @endif

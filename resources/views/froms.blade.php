@@ -671,15 +671,15 @@ if ($misc != null){
                     <div class="row">
                         <div class="col-md-4">
                             <label for="nameAQ{{$i}}">Nombre completo</label>
-                            <input type="text" class="form-control" id="nameAQ{{$i}}" value="{{$auth_quit[$i]["name"]}}" placeholder="Nombre completo">
+                            <input type="text" class="form-control" id="nameAQ{{$i}}" value="{{isset($auth_quit[$i]["name"]) ? $auth_quit[$i]["name"] : ""}}" placeholder="Nombre completo">
                         </div>
                         <div class="col-md-4">
                             <label for="dniAQ{{$i}}">RUT</label>
-                            <input type="text" class="form-control" id="dniAQ{{$i}}" placeholder="RUT">
+                            <input type="text" class="form-control" id="dniAQ{{$i}}" value="{{isset($auth_quit[$i]["dni"]) ? $auth_quit[$i]["dni"] : ""}}" placeholder="RUT">
                         </div>
                         <div class="col-md-4">
                             <label for="parentAQ{{$i}}">Parentezco</label>
-                            <input type="text" class="form-control" id="parentAQ{{$i}}" placeholder="Parentezco">
+                            <input type="text" class="form-control" id="parentAQ{{$i}}" value="{{isset($auth_quit[$i]["parent"]) ? $auth_quit[$i]["parent"] : ""}}" placeholder="Parentezco">
                         </div>
                     </div>
                 @endfor
