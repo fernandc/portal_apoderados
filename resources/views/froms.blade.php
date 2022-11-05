@@ -638,7 +638,7 @@ if ($misc != null){
     $time_from_to = $misc["time_from_to"];
     $meth_go = $misc["meth_go"];
     $meth_back = $misc["meth_back"];
-    $auth_quit = $misc["auth_quit"];
+    $auth_quit = json_decode($misc["auth_quit"], true);
 }
 ?>
 <div class="modal-header" id="test">
@@ -665,7 +665,24 @@ if ($misc != null){
             </div>
             <div class="form-group col-md-12">
                 <label>¿Quién está autorizado para retirar al alumno?</label>
-                <input id="auth_quit" class="form-control" name="auth_quit" value="{{$auth_quit}}" type="text" required="" >
+                @for ($i = 0; $i < 4; $i++)
+                    <br>
+                    {{$i+1}}.
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="nameAQ{{$i}}">Nombre completo</label>
+                            <input type="text" class="form-control" id="nameAQ{{$i}}" value="{{$auth_quit[$i]["name"]}}" placeholder="Nombre completo">
+                        </div>
+                        <div class="col-md-4">
+                            <label for="dniAQ{{$i}}">RUT</label>
+                            <input type="text" class="form-control" id="dniAQ{{$i}}" placeholder="RUT">
+                        </div>
+                        <div class="col-md-4">
+                            <label for="parentAQ{{$i}}">Parentezco</label>
+                            <input type="text" class="form-control" id="parentAQ{{$i}}" placeholder="Parentezco">
+                        </div>
+                    </div>
+                @endfor
             </div>
         </div>
     </div>
@@ -678,13 +695,15 @@ if ($misc != null){
                 Swal.fire({
                     icon: 'info',
                     title: 'Cargando...',
+                    showCancelButton: false,
+                    showConfirmButton: false
                 });
                 $("#cbutton_form{{$id_stu}}").remove;
                 var idstu = $("#idstu").val()
                 var time_from_to = $("#time_from_to").val();
                 var meth_go = $("#meth_go").val();
                 var meth_back = $("#meth_back").val();
-                var auth_quit = $("#auth_quit").val();
+                
                 var full_names = $("input[name=full_name]").map(function(){
                     return $(this).val();
                 }).get().join(",");
@@ -704,6 +723,17 @@ if ($misc != null){
                 var occupations = $("input[name=occupation]").map(function(){
                     return $(this).val();
                 }).get().join(",");
+                var auth_quit = '[';
+                for (let index = 0; index < 4; index++) {
+                    auth_quit = auth_quit + '{';
+                    auth_quit = auth_quit + '"name":"' + $("#nameAQ"+index).val() + '",';
+                    auth_quit = auth_quit + '"dni":"' +  $("#dniAQ"+index).val() + '",';
+                    auth_quit = auth_quit + '"parent":"' +  $("#parentAQ"+index).val() + '"}';
+                    if(index < 3){
+                        auth_quit = auth_quit + ',';
+                    }
+                }
+                auth_quit = auth_quit + ']';
                 var url = "aditional_info";
                 $.ajax({
                    type: "GET",
@@ -720,8 +750,8 @@ if ($misc != null){
                             icon: 'success',
                             title: 'Datos Guardados',
                             text: 'Los datos fueron guardados correctamente'
-                        }); 
-                       location.reload();
+                        });
+                        window.location.href = "home?active=matricula";
                    }
                  });
             });
