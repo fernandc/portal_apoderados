@@ -55,6 +55,8 @@ Route::get('/verificate_student_forms', [GlobalController::class, 'verificate_st
 
 Route::get('/check_alumno_regular', [GlobalController::class, 'check_alumno_regular'] );
 
+Route::get('/check_alumno_regular_anio_anterior', [GlobalController::class, 'check_alumno_regular_anio_anterior']);
+
 Route::get('/verificate_alumno_regular', [GlobalController::class, 'verificate_alumno_regular'] );
 
 Route::get('/confirmation', function(){

@@ -103,7 +103,12 @@ class GlobalController extends Controller
             $stateAlumnoRegular = $stateAlumnoRegular == 'enabled' ? true : false;
             $cont = 0;
             foreach($matriculas as $matricula){
-                $matriculas[$cont]["crypt"] =  Crypt::encryptString($matricula["id_zmail"]."-".$matricula["id_stu"]."-".$matricula["para_periodo"]);
+                $anio = $matricula["para_periodo"];
+                $stateAlumnoRegularAnioAnterior = $this->verificate_alumno_regular_anio_anterior() == 'enabled' ? true : false;
+                if($stateAlumnoRegularAnioAnterior == true){
+                    $anio--;
+                }
+                $matriculas[$cont]["crypt"] =  Crypt::encryptString($matricula["id_zmail"]."-".$matricula["id_stu"]."-".$anio);
                 $cont++;
             }
             return view('home_proxy',compact('matriculas','dataProxy','dataHomeCircle','news','correos','formsStatus','stateProcess','stateAlumnoRegular'));     
@@ -162,19 +167,22 @@ class GlobalController extends Controller
             );
             $response = Http::withBody(json_encode($arr), 'application/json')->post(getenv("ENDPOINT_API")."/api-apoderado");
             $emails = json_decode($response->body(),true);
-
             $state = $this->verificate_state_forms();
             $state = $state == 'enabled' ? true : false;
             $stateProcess = $this->verificate_matri_process();
             $stateProcess = $stateProcess == 'enabled' ? true : false;
+            //dd($stateProcess);
             $stateStudentForms = $this->verificate_student_forms();
             $stateStudentForms = $stateStudentForms == 'enabled' ? true : false;
             $stateAlumnoRegular = $this->verificate_alumno_regular();
             $stateAlumnoRegular = $stateAlumnoRegular == 'enabled' ? true : false;
+            $stateAlumnoRegularAnioAnterior = $this->verificate_alumno_regular_anio_anterior();
+            $stateAlumnoRegularAnioAnterior = $stateAlumnoRegularAnioAnterior == 'enabled' ? true : false;
+            //dd($stateAlumnoRegularAnioAnterior);
             // dd($state);
             // dd($stateProcess);
             if($response != "FAILED"){
-                return view('admin_home',compact('emails'))->with('state', $state)->with('stateProcess',$stateProcess)->with('stateStudentForms',$stateStudentForms)->with('stateAlumnoRegular',$stateAlumnoRegular);
+                return view('admin_home',compact('emails'))->with('state', $state)->with('stateProcess',$stateProcess)->with('stateStudentForms',$stateStudentForms)->with('stateAlumnoRegular',$stateAlumnoRegular)->with('stateAlumnoRegularAnioAnterior',$stateAlumnoRegularAnioAnterior);
             }
         }
         else{
@@ -326,6 +334,30 @@ class GlobalController extends Controller
             return redirect('logout');
         }        
     }
+
+    public function check_alumno_regular_anio_anterior(Request $request){
+        if (Session::has('admin')) {
+            $gets = $request->input();
+            $data = $gets["stateAlumnoRegularAnioAnterior"];
+            if($data == 'false'){
+                $data = false;
+            }else if ($data == 'true'){
+                $data = true;
+            }
+            $arr = array(
+                'institution' => getenv("APP_NAME"),
+                'public_key' => getenv("APP_PUBLIC_KEY"),
+                'method' => 'cert_previus_year_change_enabled',
+                'data' => [ "enabled" => $data]
+            );
+            // dd($arr);
+            $response = Http::withBody(json_encode($arr), 'application/json')->post(getenv("ENDPOINT_API")."/api-apoderado");
+            return $response->status(); 
+        } else {
+            return redirect('logout');
+        }        
+    }
+
     public function verificate_alumno_regular(){
         if(Session::has('admin') || Session::has('apoderado')){           
             $arr = array(
@@ -335,6 +367,21 @@ class GlobalController extends Controller
             );
             $response = Http::withBody(json_encode($arr), 'application/json')->post(getenv("ENDPOINT_API")."/api-apoderado");
             // dd($response);
+            return $response->json()[0]['val'];
+        }
+        else{
+            return redirect('logout');
+        }
+    }
+    public function verificate_alumno_regular_anio_anterior(){
+        if(Session::has('admin') || Session::has('apoderado')){           
+            $arr = array(
+                'institution' => getenv("APP_NAME"),
+                'public_key' => getenv("APP_PUBLIC_KEY"),
+                'method' => 'get_cert_previus_year_change_enabled',                
+            );
+            $response = Http::withBody(json_encode($arr), 'application/json')->post(getenv("ENDPOINT_API")."/api-apoderado");
+            //dd($response->json());
             return $response->json()[0]['val'];
         }
         else{
