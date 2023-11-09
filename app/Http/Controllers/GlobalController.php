@@ -1045,7 +1045,7 @@ class GlobalController extends Controller
                 'institution' => getenv("APP_NAME"),
                 'public_key' => getenv("APP_PUBLIC_KEY"),
                 'method' => 'home_circle',
-                'data' => [ "kinship" => $gets["parentezco"],
+                'data' => [ "kinship" => $gets["parentesco"],
                             "full_names" => $gets["inName"],
                             "same_ins" => $gets["sameIns"],
                             "years_olds" => $gets["edad"],

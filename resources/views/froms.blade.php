@@ -372,7 +372,7 @@
             <input id="parent_type" class="form-control is-invalid" value="f" name="parent_type" hidden="">
             @elseif($parent == "p")
             <div class="form-group col-md-6">
-                <label>Parentezco con el Alumno</label>
+                <label>Parentesco con el Alumno</label>
                 <br>
                 <span class="text-secondary">Ej: Madre, Padre, Hermana, Hermano, Abuela, Abuelo, Tía, Tío...</span>
                 <input id="kinship" class="form-control" value="{{$student_data["parent_type"]}}" name="kinship" type="text" minlength="3" required="" >
@@ -665,21 +665,23 @@ if ($misc != null){
             </div>
             <div class="form-group col-md-12">
                 <label>¿Quién está autorizado para retirar al alumno?</label>
+                <br>
+                <span class="text-secondary">(Debe haber almenos una persona distinta al apoderado)</span>
                 @for ($i = 0; $i < 4; $i++)
                     <br>
                     {{$i+1}}.
                     <div class="row">
                         <div class="col-md-4">
                             <label for="nameAQ{{$i}}">Nombre completo</label>
-                            <input type="text" class="form-control" id="nameAQ{{$i}}" value="{{isset($auth_quit[$i]["name"]) ? $auth_quit[$i]["name"] : ""}}" placeholder="Nombre completo">
+                            <input type="text" class="form-control" id="nameAQ{{$i}}" value="{{isset($auth_quit[$i]["name"]) ? $auth_quit[$i]["name"] : ""}}" placeholder="Nombre completo" {{$i == 0 ? 'required=""' : ''}}>
                         </div>
                         <div class="col-md-4">
                             <label for="dniAQ{{$i}}">RUT</label>
-                            <input type="text" class="form-control" id="dniAQ{{$i}}" value="{{isset($auth_quit[$i]["dni"]) ? $auth_quit[$i]["dni"] : ""}}" placeholder="RUT">
+                            <input type="text" class="form-control" id="dniAQ{{$i}}" value="{{isset($auth_quit[$i]["dni"]) ? $auth_quit[$i]["dni"] : ""}}" placeholder="RUT" {{$i == 0 ? 'required=""' : ''}}>
                         </div>
                         <div class="col-md-4">
-                            <label for="parentAQ{{$i}}">Parentezco</label>
-                            <input type="text" class="form-control" id="parentAQ{{$i}}" value="{{isset($auth_quit[$i]["parent"]) ? $auth_quit[$i]["parent"] : ""}}" placeholder="Parentezco">
+                            <label for="parentAQ{{$i}}">Parentesco</label>
+                            <input type="text" class="form-control" id="parentAQ{{$i}}" value="{{isset($auth_quit[$i]["parent"]) ? $auth_quit[$i]["parent"] : ""}}" placeholder="Parentesco" {{$i == 0 ? 'required=""' : ''}}>
                         </div>
                     </div>
                 @endfor

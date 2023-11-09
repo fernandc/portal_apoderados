@@ -271,8 +271,7 @@
                     @else
                         <span class="text-secondary" >Información adicional importante</span>
                     @endif
-
-                    @if($row["misc"] == 0)
+                    @if($row["misc"] == 0 || $row["auth_quit"] == 0)
                     <span id="lastone{{$row["id_stu"]}}" class="badge badge-warning">Pendiente</span> 
                     @else
                     <span class="badge badge-success">Completada</span>
